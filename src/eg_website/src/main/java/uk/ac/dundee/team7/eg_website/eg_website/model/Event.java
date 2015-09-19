@@ -1,5 +1,7 @@
-package uk.ac.dundee.team7.eg_website.model;
+package uk.ac.dundee.team7.eg_website.eg_website.model;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+import java.util.ArrayList;
 import uk.ac.dundee.team7.eg_website.Store.*;
 
 public class Event {
@@ -28,7 +30,7 @@ public class Event {
 	 * @param eventPointType
 	 * @param eventValue
 	 */
-	public Bool addEvent(String eventPath, String eventTitle, String event, DateTime startTime, String imageURL, String eventPointType, Int eventValue) {
+	public Bool addEvent(String eventPath, String eventTitle, String event, DateTime startTime, String imageURL, String eventPointType, int eventValue) {
 		// TODO - implement Event.addEvent
 		throw new UnsupportedOperationException();
 	}
@@ -46,7 +48,7 @@ public class Event {
 	 * 
 	 * @param eventID
 	 */
-	public Bool deleteEvent(Int eventID) {
+	public Bool deleteEvent(int eventID) {
 		// TODO - implement Event.deleteEvent
 		throw new UnsupportedOperationException();
 	}
@@ -56,7 +58,7 @@ public class Event {
 	 * @param userId
 	 * @param eventId
 	 */
-	public Bool signUp(Int userId, Int eventId) {
+	public Bool signUp(int userId, int eventId) {
 		// TODO - implement Event.signUp
 		throw new UnsupportedOperationException();
 	}

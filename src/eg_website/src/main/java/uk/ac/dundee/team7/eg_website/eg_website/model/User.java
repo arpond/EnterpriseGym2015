@@ -1,4 +1,4 @@
-package uk.ac.dundee.team7.eg_website.model;
+package uk.ac.dundee.team7.eg_website.eg_website.model;
 
 import uk.ac.dundee.team7.eg_website.Store.*;
 
@@ -18,7 +18,7 @@ public class User {
 	 * 
 	 * @param UserID
 	 */
-	public UserProfile fetchUserProfile(Int UserID) {
+	public UserProfile fetchUserProfile(int UserID) {
 		// TODO - implement User.fetchUserProfile
 		throw new UnsupportedOperationException();
 	}
@@ -29,7 +29,7 @@ public class User {
 	 * @param password
 	 * @param email
 	 */
-	public Bool registerUser(String username, String password, Stringl email) {
+	public Boolean registerUser(String username, String password, String email) {
 		// TODO - implement User.registerUser
 		throw new UnsupportedOperationException();
 	}
@@ -39,7 +39,7 @@ public class User {
 	 * @param up
 	 * @param ud
 	 */
-	public Bool updateProfile(UserProfile up, UserDetails ud) {
+	public Boolean updateProfile(UserProfile up, UserDetails ud) {
 		// TODO - implement User.updateProfile
 		throw new UnsupportedOperationException();
 	}
@@ -48,7 +48,7 @@ public class User {
 	 * 
 	 * @param username
 	 */
-	public Bool checkUsernameExists(String username) {
+	public Boolean checkUsernameExists(String username) {
 		// TODO - implement User.checkUsernameExists
 		throw new UnsupportedOperationException();
 	}
@@ -57,7 +57,7 @@ public class User {
 	 * 
 	 * @param email
 	 */
-	public Bool checkEmailExists(String email) {
+	public Boolean checkEmailExists(String email) {
 		// TODO - implement User.checkEmailExists
 		throw new UnsupportedOperationException();
 	}
@@ -66,7 +66,7 @@ public class User {
 	 * 
 	 * @param userId
 	 */
-	public Bool resubscribe(Int userId) {
+	public Boolean resubscribe(int userId) {
 		// TODO - implement User.resubscribe
 		throw new UnsupportedOperationException();
 	}
@@ -76,7 +76,7 @@ public class User {
 	 * @param userId
 	 * @param password
 	 */
-	public String resetPassword(Int userId, String password) {
+	public String resetPassword(int userId, String password) {
 		// TODO - implement User.resetPassword
 		throw new UnsupportedOperationException();
 	}

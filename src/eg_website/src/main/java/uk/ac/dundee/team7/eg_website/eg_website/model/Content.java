@@ -1,4 +1,4 @@
-package uk.ac.dundee.team7.eg_website.model;
+package uk.ac.dundee.team7.eg_website.eg_website.model;
 
 import uk.ac.dundee.team7.eg_website.Store.*;
 
@@ -19,7 +19,7 @@ public class Content {
 	 * @param content
 	 * @param contentTitle
 	 */
-	public Bool addContent(String contentPath, String content, String contentTitle) {
+	public Boolean addContent(String contentPath, String content, String contentTitle) {
 		// TODO - implement Content.addContent
 		throw new UnsupportedOperationException();
 	}
@@ -28,7 +28,7 @@ public class Content {
 	 * 
 	 * @param content
 	 */
-	public Bool updateContent(ContentStore content) {
+	public Boolean updateContent(ContentStore content) {
 		// TODO - implement Content.updateContent
 		throw new UnsupportedOperationException();
 	}
@@ -37,7 +37,7 @@ public class Content {
 	 * 
 	 * @param contentID
 	 */
-	public Bool deleteContent(Int contentID) {
+	public Boolean deleteContent(int contentID) {
 		// TODO - implement Content.deleteContent
 		throw new UnsupportedOperationException();
 	}

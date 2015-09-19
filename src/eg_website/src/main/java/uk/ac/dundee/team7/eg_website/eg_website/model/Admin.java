@@ -1,5 +1,6 @@
-package uk.ac.dundee.team7.eg_website.model;
+package uk.ac.dundee.team7.eg_website.eg_website.model;
 
+import java.util.ArrayList;
 import uk.ac.dundee.team7.eg_website.Store.*;
 
 public class Admin {
@@ -9,7 +10,7 @@ public class Admin {
 	 * @param username
 	 * @param emai
 	 */
-	public Bool addUser(String username, Stringl emai) {
+	public Boolean addUser(String username, String email) {
 		// TODO - implement Admin.addUser
 		throw new UnsupportedOperationException();
 	}
@@ -20,7 +21,7 @@ public class Admin {
 	 * @param pointType
 	 * @param points
 	 */
-	public Bool updateUser(Int userId, Int pointType, Int points) {
+	public Boolean updateUser(int userId, int pointType, int points) {
 		// TODO - implement Admin.updateUser
 		throw new UnsupportedOperationException();
 	}
@@ -30,7 +31,7 @@ public class Admin {
 	 * @param userId
 	 * @param groupId
 	 */
-	public Bool updateGroup(Int userId, Int groupId) {
+	public Boolean updateGroup(int userId, int groupId) {
 		// TODO - implement Admin.updateGroup
 		throw new UnsupportedOperationException();
 	}
@@ -56,7 +57,7 @@ public class Admin {
 	 * @param status
 	 * @param email
 	 */
-	public ArrayList<UserStore> searchUser(String firstName, String lastName, String mobile, String contactNumber, String yearOfStudy, String matricNumber, Bool youngES_FLAG, String country, String institution, String degree, String college, String status, String email) {
+	public ArrayList<UserStore> searchUser(String firstName, String lastName, String mobile, String contactNumber, String yearOfStudy, String matricNumber, Boolean youngES_FLAG, String country, String institution, String degree, String college, String status, String email) {
 		// TODO - implement Admin.searchUser
 		throw new UnsupportedOperationException();
 	}
@@ -65,7 +66,7 @@ public class Admin {
 	 * 
 	 * @param groupTitle
 	 */
-	public Bool addGroup(String groupTitle) {
+	public Boolean addGroup(String groupTitle) {
 		// TODO - implement Admin.addGroup
 		throw new UnsupportedOperationException();
 	}
@@ -74,7 +75,7 @@ public class Admin {
 	 * 
 	 * @param categoryName
 	 */
-	public Bool addCategory(String categoryName) {
+	public Boolean addCategory(String categoryName) {
 		// TODO - implement Admin.addCategory
 		throw new UnsupportedOperationException();
 	}

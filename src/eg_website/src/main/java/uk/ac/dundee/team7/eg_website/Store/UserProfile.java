@@ -8,7 +8,7 @@ public class UserProfile {
 	private String contactNumber;
 	private String yearOfStudy;
 	private String matricNumber;
-	private Bool youngES_FLAG;
+	private Boolean youngES_FLAG;
 	private String country;
 	private String institution;
 	private String status;

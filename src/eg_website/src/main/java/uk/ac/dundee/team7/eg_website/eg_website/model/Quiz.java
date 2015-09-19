@@ -1,5 +1,6 @@
-package uk.ac.dundee.team7.eg_website.model;
+package uk.ac.dundee.team7.eg_website.eg_website.model;
 
+import java.util.ArrayList;
 import uk.ac.dundee.team7.eg_website.Store.*;
 
 public class Quiz {
@@ -8,7 +9,7 @@ public class Quiz {
 	 * 
 	 * @param quizID
 	 */
-	public QuizStore fetchQuiz(Int quizID) {
+	public QuizStore fetchQuiz(int quizID) {
 		// TODO - implement Quiz.fetchQuiz
 		throw new UnsupportedOperationException();
 	}
@@ -18,7 +19,7 @@ public class Quiz {
 	 * @param userID
 	 * @param groupID
 	 */
-	public ArrayList<QuizStore> fetchQuizes(Int userID, Int groupID) {
+	public ArrayList<QuizStore> fetchQuizes(int userID, int groupID) {
 		// TODO - implement Quiz.fetchQuizes
 		throw new UnsupportedOperationException();
 	}
@@ -28,7 +29,7 @@ public class Quiz {
 	 * @param quiz
 	 * @param attempt
 	 */
-	public Bool addQuizAttempt(QuizStore quiz, QuizStore attempt) {
+	public Boolean addQuizAttempt(QuizStore quiz, QuizStore attempt) {
 		// TODO - implement Quiz.addQuizAttempt
 		throw new UnsupportedOperationException();
 	}
@@ -38,7 +39,7 @@ public class Quiz {
 	 * @param quiz
 	 * @param attempt
 	 */
-	public Bool updateQuizAttempt(QuizStore quiz, QuizStore attempt) {
+	public Boolean updateQuizAttempt(QuizStore quiz, QuizStore attempt) {
 		// TODO - implement Quiz.updateQuizAttempt
 		throw new UnsupportedOperationException();
 	}
