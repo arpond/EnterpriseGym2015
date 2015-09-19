@@ -1,6 +1,7 @@
 package uk.ac.dundee.team7.eg_website.eg_website.model;
 
 import java.util.ArrayList;
+import org.joda.time.DateTime;
 import uk.ac.dundee.team7.eg_website.Store.*;
 
 public class News {

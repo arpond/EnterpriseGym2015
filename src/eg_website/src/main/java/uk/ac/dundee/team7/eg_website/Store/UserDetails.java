@@ -1,6 +1,6 @@
 package uk.ac.dundee.team7.eg_website.Store;
 
-import java.util.Dictionary;
+import java.util.HashMap;
 
 public class UserDetails {
 
@@ -8,7 +8,7 @@ public class UserDetails {
 	private String username;
 	private String email;
 	private int authID;
-	private Dictionary<String, int> points;
+	private HashMap points;
 	private int groupID;
 
 }
