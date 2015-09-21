@@ -67,12 +67,12 @@ public class Login extends HttpServlet{
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Login servlet";
     }// </editor-fold>
     
     @Override
     public void destroy()
     {
-        cluster.close();
+        
     }
 }
