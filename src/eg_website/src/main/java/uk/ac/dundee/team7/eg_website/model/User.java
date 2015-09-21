@@ -10,11 +10,6 @@ import uk.ac.dundee.team7.eg_website.Store.*;
 
 public class User {
 
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    String url = "jdbc:mysql://46.101.32.81:3306/eg_database";
-    String user = "root";
-    String password = "teameight";
-
     /**
      *
      * @param Username
@@ -31,7 +26,12 @@ public class User {
         
         ResultSet rs = null;
         
-        cs = conn.prepareCall("select * from eg_users,eg_users_has_eg_pointTypes,eg_pointTypes where username =? and password =? and eg_users.userID = eg_users_has_eg_pointTypes.eg_users_userID and eg_pointTypes.typeId = eg_users_has_eg_pointTypes.eg_pointTypes_typeId; ");
+        cs = conn.prepareCall("select * from eg_users,"
+                + "eg_users_has_eg_pointTypes,"
+                + "eg_pointTypes where username =?"
+                + "and password =? "
+                + "and eg_users.userID = eg_users_has_eg_pointTypes.eg_users_userID"
+                + " and eg_pointTypes.typeId = eg_users_has_eg_pointTypes.eg_pointTypes_typeId; ");
         cs.setString(1, Username);
         cs.setString(2, UsrPassword);
         cs.execute();

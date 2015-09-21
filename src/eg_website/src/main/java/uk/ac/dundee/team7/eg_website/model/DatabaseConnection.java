@@ -13,10 +13,6 @@ import java.sql.DriverManager;
  */
 public class DatabaseConnection {
     
-     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    String url = "jdbc:mysql://46.101.32.81:3306/eg_database";
-    String user = "root";
-    String password = "teameight";
     
     public java.sql.Connection connectToDB() {
     java.sql.Connection con = null;
