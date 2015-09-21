@@ -31,12 +31,12 @@ public class Login extends HttpServlet{
         
         if (username.equals(""))
         {
-            //Error.error("You must enter a username", request, response);
+            //Message.error("You must enter a username", request, response);
             return;
         }
         else if (password.equals(""))
         {
-            //Error.error("You must enter a password", request, response);
+            //Message.error("You must enter a password", request, response);
             return;
         }
         
@@ -53,7 +53,7 @@ public class Login extends HttpServlet{
         }
         else
         {
-            //Error.error("Your username or passowrd is invalid", request, response);
+            //Message.error("Your username or passowrd is invalid", request, response);
             return;
         }
           
