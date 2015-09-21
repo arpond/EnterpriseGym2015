@@ -1,7 +1,7 @@
 <%-- 
     Document   : login.jsp
     Created on : Sep 28, 2014, 12:04:14 PM
-    Author     : Administrator
+    Author     : Kat & Will
 --%>
 
 <%@page import="uk.ac.dundee.team7.eg_website.Store.UserDetails"%>
