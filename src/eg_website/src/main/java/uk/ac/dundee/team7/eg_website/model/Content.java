@@ -1,4 +1,4 @@
-package uk.ac.dundee.team7.eg_website.eg_website.model;
+package uk.ac.dundee.team7.eg_website.model;
 
 import uk.ac.dundee.team7.eg_website.Store.*;
 
