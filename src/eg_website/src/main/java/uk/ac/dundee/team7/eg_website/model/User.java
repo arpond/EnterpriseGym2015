@@ -148,18 +148,46 @@ public class User {
 	 * 
 	 * @param username
 	 */
-	public Boolean checkUsernameExists(String username) {
-		// TODO - implement User.checkUsernameExists
-		throw new UnsupportedOperationException();
+	public Boolean checkUsernameExists(String Username) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+		
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        CallableStatement cs = conn.prepareCall("select * from eg_users where username = ?;");        
+        ResultSet rs = null;
+        
+        
+        cs.setString(1, Username);
+        cs.execute();
+        rs = cs.getResultSet();
+        rs.first();
+        if(rs.getString("username")==null)
+            return false;
+        
+        return true;
 	}
 
 	/**
 	 * 
 	 * @param email
 	 */
-	public Boolean checkEmailExists(String email) {
-		// TODO - implement User.checkEmailExists
-		throw new UnsupportedOperationException();
+	public Boolean checkEmailExists(String email) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        CallableStatement cs = conn.prepareCall("select * from eg_users where email = ?;");        
+        ResultSet rs = null;
+        
+        
+        cs.setString(1, email);
+        cs.execute();
+        rs = cs.getResultSet();
+        rs.first();
+        if(rs.getString("email")==null)
+            return false;
+        
+        return true;
 	}
 
 	/**
