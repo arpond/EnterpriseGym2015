@@ -11,7 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!--Needs Changing-->    <meta http-equiv="refresh" content="5; url=http://localhost:8080/Instagrim-arp/" />
+    <!--Needs Changing-->    <meta http-equiv="refresh" content="5; url=http://localhost:8080/eg_website/" />
         <title>Message</title>
     </head>
     <body>
