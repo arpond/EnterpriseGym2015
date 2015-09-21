@@ -4,6 +4,7 @@
     Author     : Administrator
 --%>
 
+<%@page import="uk.ac.dundee.team7.eg_website.Store.UserDetails"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -24,16 +25,15 @@
                     <li><a class="menu_links" href="/Instagrim/upload.jsp">Upload</a></li>
                         <%
 
-                            LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-                            if (lg != null) {
-                                String UserName = lg.getUsername();
-                                if (lg.getlogedin()) {
+                            UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
+                            if (ud != null) {
+                                String UserName = ud.getUsername();
                         %>
-                    <li><a class="menu_links" href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
+                    <li><a class="menu_links" href="/Instagrim/Images/<%=ud.getUsername()%>">Your Images</a></li>
                     <li><a class="menu_links" href="/Instagrim/logout.jsp">Logout</a></li>
                     <li><a class="menu_links" href="/Instagrim/editprofile.jsp">Edit Profile</a></li>
                     <li><a class="menu_links" href="/Instagrim/search.jsp">Search Profile</a></li>
-                        <%}
+                        <%
                         } else {
                         %>
                     <li><a class="menu_links" href="/Instagrim/register.jsp">Register</a></li>
