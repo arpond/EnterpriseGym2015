@@ -31,7 +31,7 @@ public class User {
                 + "eg_pointTypes where username =?"
                 + "and password =? "
                 + "and eg_users.userID = eg_users_has_eg_pointTypes.eg_users_userID"
-                + " and eg_pointTypes.typeId = eg_users_has_eg_pointTypes.eg_pointTypes_typeId; ");
+                + "and eg_pointTypes.typeId = eg_users_has_eg_pointTypes.eg_pointTypes_typeId; ");
         cs.setString(1, Username);
         cs.setString(2, UsrPassword);
         cs.execute();
@@ -58,9 +58,52 @@ public class User {
 	 * 
 	 * @param UserID
 	 */
-	public UserProfile fetchUserProfile(int UserID) {
-		// TODO - implement User.fetchUserProfile
-		throw new UnsupportedOperationException();
+	public UserProfile fetchUserProfile(int UserID) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+	
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        UserProfile usrProfile = new UserProfile();
+        CallableStatement cs = null;
+         HashMap map = new HashMap();
+        
+        ResultSet rs = null;
+        
+        cs = conn.prepareCall("{call userProfile(?)}");
+        cs.setInt(1, UserID);
+       
+        cs.execute();
+        rs = cs.getResultSet();
+        
+            
+        if(rs != null){
+            while (rs.next())
+            {
+                map.put(rs.getString("typeName"), rs.getInt("numberOfPoints"));
+            }
+            rs.first();
+            usrProfile.setFirstName(rs.getString("firstname"));
+            usrProfile.setLastName(rs.getString("lastname"));
+            usrProfile.setMobile(rs.getString("mobile"));
+            usrProfile.setContactNumber(rs.getString("contactNumber"));
+            if(rs.getString("youngES_FLAG") == "1"){
+            usrProfile.setYoungES_FLAG(Boolean.TRUE);
+            }else{
+            usrProfile.setYoungES_FLAG(Boolean.FALSE);
+
+            }
+            usrProfile.setYearOfStudy(rs.getString("yearOfStudy"));
+            usrProfile.setMatricNumber(rs.getString("matricNumber"));
+            usrProfile.setCollege(rs.getString("collegeName"));
+            usrProfile.setCountry(rs.getString("countryName"));
+            usrProfile.setInstitution(rs.getString("institutionName"));
+            usrProfile.setStatus(rs.getString("statusName"));
+            usrProfile.setDegree(rs.getString("degreeName"));
+        }
+        conn.close();
+        
+        
+        return usrProfile;
 	}
 
 	/**
@@ -70,8 +113,8 @@ public class User {
 	 * @param email
 	 */
 	public Boolean registerUser(String username, String password, String email) {
-		// TODO - implement User.registerUser
-		throw new UnsupportedOperationException();
+        return null;
+		
 	}
 
 	/**
