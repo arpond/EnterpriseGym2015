@@ -68,8 +68,30 @@ public class Content {
 	 * @param content
 	 */
 	public Boolean updateContent(ContentStore content) {
-		// TODO - implement Content.updateContent
-		throw new UnsupportedOperationException();
+
+            try
+            {
+                Class.forName("com.mysql.jdbc.Driver").newInstance();
+                DatabaseConnection dbc = new DatabaseConnection();
+                java.sql.Connection conn = dbc.connectToDB();
+                String contentString = content.getContent();
+                String contentPath = content.getContentPath();
+                String contentTitle = content.getContentTitle();
+                int contentID = content.getContentID();
+                
+                CallableStatement cs = conn.prepareCall("update eg_content set content=?, contentPath=?, contentTitle=? where contentID =? ");
+                ContentStore contents = new ContentStore();
+                cs.setString(1, contentString);
+                cs.setString(2, contentPath);
+                cs.setString(3, contentTitle);
+                cs.setInt(4, contentID);
+                cs.execute();
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            return true;
 	}
 
 	/**
