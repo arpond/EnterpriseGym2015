@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import uk.ac.dundee.team7.eg_website.Store.*;
 
+
 public class User {
 
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
@@ -22,9 +23,10 @@ public class User {
     public UserDetails isValidLogin(String Username, String UsrPassword) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 
         Class.forName("com.mysql.jdbc.Driver").newInstance();
-        java.sql.Connection conn = DriverManager.getConnection(url, user, password);
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
         CallableStatement cs = null;
-        UserDetails details = null;
+        UserDetails details = new UserDetails();
         HashMap map = new HashMap();
         
         ResultSet rs = null;
@@ -34,19 +36,22 @@ public class User {
         cs.setString(2, UsrPassword);
         cs.execute();
         rs = cs.getResultSet();
-        conn.close();
         
             
-        if(rs.next()){
-        map.put(rs.getString("typeName"), rs.getInt("numberOfPoints"));
+        if(rs != null){
+            while (rs.next())
+            {
+                map.put(rs.getString("typeName"), rs.getInt("numberOfPoints"));
+            }
+            rs.first();
+            details.setEmail(rs.getString("email"));
+            details.setAuthID(rs.getInt("eg_auth_authID"));
+            details.setGroupID(rs.getInt("eg_groups_groupID"));
+            details.setUserID(rs.getInt("userID"));
+            details.setUsername(rs.getString("username"));
+            details.setPoints(map);
         }
-        details.setEmail(rs.getString("email"));
-        details.setAuthID(rs.getInt("eg_auth_authID"));
-        details.setGroupID(rs.getInt("eg_groups_groupID"));
-        details.setUserID(rs.getInt("userID"));
-        details.setUsername(rs.getString("username"));
-        details.setPoints(map);
-
+        conn.close();
         return details;
     }
 	/**
