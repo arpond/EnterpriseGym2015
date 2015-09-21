@@ -134,17 +134,11 @@ public class UserTest {
     /**
      * Test of resetPassword method, of class User.
      */
-//    @Test
-//    public void testResetPassword() {
-//        System.out.println("resetPassword");
-//        int userId = 0;
-//        String password = "";
-//        User instance = new User();
-//        String expResult = "";
-//        String result = instance.resetPassword(userId, password);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    @Test
+    public void testResetPassword() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        User bob= new User();
+        bob.resetPassword(2, "gorosmash");
+        org.junit.Assert.assertEquals("roger", "roger");
+    }
     
 }

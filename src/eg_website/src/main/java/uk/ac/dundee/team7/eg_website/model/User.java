@@ -204,9 +204,19 @@ public class User {
 	 * @param userId
 	 * @param password
 	 */
-	public String resetPassword(int userId, String password) {
-		// TODO - implement User.resetPassword
-		throw new UnsupportedOperationException();
+	public String resetPassword(int userId, String password) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+		
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        CallableStatement cs = conn.prepareCall("update eg_users set password=? where userID = ?;");        
+        
+        
+        
+        cs.setString(1, password);
+        cs.setInt(2, userId);
+        cs.execute();       
+        return "";
 	}
 
 }
