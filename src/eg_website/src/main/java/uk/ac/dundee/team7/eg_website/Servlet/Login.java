@@ -49,7 +49,7 @@ public class Login extends HttpServlet{
         }
         catch (Exception e)
         {
-            Message.message("There was a database error", request, response);
+            Message.message("There was a database error" + e.toString(), request, response);
             return;
         }
         HttpSession session=request.getSession();
