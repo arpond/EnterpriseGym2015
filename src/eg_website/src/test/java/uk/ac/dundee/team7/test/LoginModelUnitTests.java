@@ -21,9 +21,9 @@ import uk.ac.dundee.team7.eg_website.model.User;
  *
  * @author Acer
  */
-public class LoginValidationTest {
+public class LoginModelUnitTests {
     
-    public LoginValidationTest() {
+    public LoginModelUnitTests() {
     }
     
     @BeforeClass
@@ -52,5 +52,12 @@ public class LoginValidationTest {
       UserDetails testDetails = new UserDetails(1,"andy","email",1,points,1);
       
       org.junit.Assert.assertEquals(bobsDetails.getUsername(), testDetails.getUsername());
+     }
+     
+     @Test
+     public void IsUsernameInUse() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException
+     {
+         User bob= new User();
+         org.junit.Assert.assertEquals(Boolean.TRUE, bob.checkUsernameExists("andy"));
      }
 }
