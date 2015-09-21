@@ -43,8 +43,24 @@ public class Content {
 	 * @param contentTitle
 	 */
 	public Boolean addContent(String contentPath, String content, String contentTitle) {
-		// TODO - implement Content.addContent
-		throw new UnsupportedOperationException();
+            try 
+            {
+                Class.forName("com.mysql.jdbc.Driver").newInstance();
+                DatabaseConnection dbc = new DatabaseConnection();
+                java.sql.Connection conn = dbc.connectToDB();
+
+                CallableStatement cs = conn.prepareCall("insert into eg_content (content, contentPath, contentTitle) VALUES (?,?,?) ");
+                ContentStore contents = new ContentStore();
+                cs.setString(1, content);
+                cs.setString(2, contentPath);
+                cs.setString(3, contentTitle);
+                cs.execute();
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            return true;
 	}
 
 	/**
