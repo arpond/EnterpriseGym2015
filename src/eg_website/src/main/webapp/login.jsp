@@ -48,15 +48,15 @@
 
                     <article>
                         <h3>Login</h3>
-                        <form method="POST"  action="Login">
-                            <ul>
-                                <li>User Name <input type="text" name="username"></li>
-                                <li>Password <input type="password" name="password"></li>
-                            </ul>
-                            <br/>
-                            <input type="submit" value="Login"> 
+                        <form method="POST"  action="Login" id="login">
+                            <div class="left">
+                                <ul>
+                                    <li><label class="input">User Name</label> <input type="text" name="username"></li>
+                                    <li><label class="input">Password</label> <input type="password" name="password"></li>
+                                </ul>
+                            </div>
+                            <div class="right"><input type="submit" value="Login" class="button" id="loginButton"></div>
                         </form>
-
                     </article> 
 
 
