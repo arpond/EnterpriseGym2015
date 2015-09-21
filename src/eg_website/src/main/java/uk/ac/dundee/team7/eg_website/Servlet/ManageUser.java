@@ -1,4 +1,4 @@
-package uk.ac.dundee.team7.eg_website.Servlet.AdminServlet;
+package uk.ac.dundee.team7.eg_website.Servlet;
 
 public class ManageUser {
 
