@@ -13,19 +13,19 @@
             <div id="main_wrapper">
                 <section id="main_section">
 
-						<article>
-							<h3>Register</h3>
-							<form method="POST"  action="Login">
+                        <article>
+                        <h3>Register</h3>
+                        <form method="POST"  action="Register">
                             <ul>
-                               <br>First Name <input type="text" name="fname"></br>
-                               <br>Surname<input type="text" name="sname"></br>	
                                <br>User Name <input type="text" name="username"></br>
                                <br>Password <input type="password" name="password"></br>
+                               <br>Password <input type="password" name="verification"></br>
+                               <br>email <input type="text" name="email"></br>
                             </ul>
                             <br/>
-                            <input type="submit" value="Login"> 
+                            <input type="submit" value="Register"> 
                         </form>
-						</article> 
+                        </article> 
                     </section>    
             </div> 
          
