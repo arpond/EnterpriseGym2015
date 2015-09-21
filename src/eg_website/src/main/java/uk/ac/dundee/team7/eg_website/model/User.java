@@ -26,12 +26,7 @@ public class User {
         
         ResultSet rs = null;
         
-        cs = conn.prepareCall("select * from eg_users,"
-                + "eg_users_has_eg_pointTypes,"
-                + "eg_pointTypes where username =?"
-                + "and password =? "
-                + "and eg_users.userID = eg_users_has_eg_pointTypes.eg_users_userID"
-                + "and eg_pointTypes.typeId = eg_users_has_eg_pointTypes.eg_pointTypes_typeId; ");
+        cs = conn.prepareCall("{call isValidLogin(?,?)}");
         cs.setString(1, Username);
         cs.setString(2, UsrPassword);
         cs.execute();
@@ -112,9 +107,31 @@ public class User {
 	 * @param password
 	 * @param email
 	 */
-	public Boolean registerUser(String username, String password, String email) {
-        return null;
-		
+	public Boolean registerUser(String username, String password, String email) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        
+       Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        UserProfile usrProfile = new UserProfile();
+        CallableStatement cs = null;
+         HashMap map = new HashMap();
+        
+        ResultSet rs = null;
+        try{
+        cs = conn.prepareCall("{call registerUser(?,?,?)}");
+        cs.setString(1, username);
+        cs.setString(2, password);
+        cs.setString(3, email);
+       
+        cs.execute();
+        rs = cs.getResultSet();
+        
+        }catch(SQLException se){
+            conn.close();
+              return false;
+             }
+        conn.close();
+        return true;
 	}
 
 	/**
