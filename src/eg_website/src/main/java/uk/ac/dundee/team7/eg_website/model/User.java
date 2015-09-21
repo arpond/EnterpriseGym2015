@@ -39,16 +39,16 @@ public class User {
         conn.close();
         
             
-        if(rs.next()){
-        map.put(rs.getString("typeName"), rs.getInt("numberOfPoints"));
+        if(rs != null && rs.next()){
+            map.put(rs.getString("typeName"), rs.getInt("numberOfPoints"));
+            details.setEmail(rs.getString("email"));
+            details.setAuthID(rs.getInt("eg_auth_authID"));
+            details.setGroupID(rs.getInt("eg_groups_groupID"));
+            details.setUserID(rs.getInt("userID"));
+            details.setUsername(rs.getString("username"));
+            details.setPoints(map);
         }
-        details.setEmail(rs.getString("email"));
-        details.setAuthID(rs.getInt("eg_auth_authID"));
-        details.setGroupID(rs.getInt("eg_groups_groupID"));
-        details.setUserID(rs.getInt("userID"));
-        details.setUsername(rs.getString("username"));
-        details.setPoints(map);
-
+        
         return details;
     }
 	/**
