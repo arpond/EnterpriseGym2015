@@ -4,7 +4,7 @@
     Author     : Andrew
 --%>
 
-<%@page import="uk.ac.dundee.computing.arp.instagrim.stores.LoggedIn"%>
+<%@page import="uk.ac.dundee.team7.eg_website.Store.UserDetails"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -21,18 +21,17 @@
                 <ul id="mainmenu" class="center">
                         <%
 
-                    LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-                    if (lg != null) {
-                        String UserName = lg.getUsername();
-                        if (lg.getlogedin()) {
+                    UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
+                            if (ud != null) {
+                                String UserName = ud.getUsername();
                         %>
                     <li><a href="/Instagrim-arp/Images/">Latest Images</a></li>
                     <li><a href="/Instagrim-arp/upload.jsp">Upload</a></li>
-                    <li><a href="/Instagrim-arp/Images/<%=lg.getUsername()%>">Your Images</a></li>
-                    <li><a href="/Instagrim-arp/Profile/View/<%=lg.getUsername()%>">View Profile</a></li>
-                    <li><a href="/Instagrim-arp/Profile/Edit/<%=lg.getUsername()%>">Edit Profile</a></li>
+                    <li><a href="/Instagrim-arp/Images/<%=ud.getUsername()%>">Your Images</a></li>
+                    <li><a href="/Instagrim-arp/Profile/View/<%=ud.getUsername()%>">View Profile</a></li>
+                    <li><a href="/Instagrim-arp/Profile/Edit/<%=ud.getUsername()%>">Edit Profile</a></li>
                     <li><a href="/Instagrim-arp/Logout">Logout</a></li>
-                    <%  }
+                    <% 
                     }else{
                     %>
                     <li><a href="/Instagrim-arp/Images/">Latest Images</a></li>
