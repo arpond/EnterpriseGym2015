@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import uk.ac.dundee.team7.eg_website.Store.*;
 
+
 public class User {
 
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
@@ -22,7 +23,8 @@ public class User {
     public UserDetails isValidLogin(String Username, String UsrPassword) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 
         Class.forName("com.mysql.jdbc.Driver").newInstance();
-        java.sql.Connection conn = DriverManager.getConnection(url, user, password);
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
         CallableStatement cs = null;
         UserDetails details = null;
         HashMap map = new HashMap();
