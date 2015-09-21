@@ -80,7 +80,6 @@ public class Content {
                 int contentID = content.getContentID();
                 
                 CallableStatement cs = conn.prepareCall("update eg_content set content=?, contentPath=?, contentTitle=? where contentID =? ");
-                ContentStore contents = new ContentStore();
                 cs.setString(1, contentString);
                 cs.setString(2, contentPath);
                 cs.setString(3, contentTitle);
@@ -99,8 +98,22 @@ public class Content {
 	 * @param contentID
 	 */
 	public Boolean deleteContent(int contentID) {
-		// TODO - implement Content.deleteContent
-		throw new UnsupportedOperationException();
+
+            try 
+            {
+                Class.forName("com.mysql.jdbc.Driver").newInstance();
+                DatabaseConnection dbc = new DatabaseConnection();
+                java.sql.Connection conn = dbc.connectToDB();
+                
+                CallableStatement cs = conn.prepareCall("delete eg_content where contentID =? ");
+                cs.setInt(1, contentID);
+                cs.execute();
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            return true;
 	}
 
 }
