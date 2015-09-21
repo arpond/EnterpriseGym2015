@@ -29,6 +29,11 @@ public class UserProfile {
         this.college = college;
         this.degree = degree;
     }
+    
+    public UserProfile(){
+     
+        
+    }
 
     public String getFirstName() {
         return firstName;
