@@ -1,4 +1,4 @@
-package uk.ac.dundee.team7.eg_website.Servlet.UserServlet;
+package uk.ac.dundee.team7.eg_website.Servlet;
 
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import uk.ac.dundee.team7.eg_website.Servlet.Message;
 import uk.ac.dundee.team7.eg_website.Store.UserDetails;
 import uk.ac.dundee.team7.eg_website.model.User;
 
@@ -31,17 +32,26 @@ public class Login extends HttpServlet{
         
         if (username.equals(""))
         {
-            //Message.error("You must enter a username", request, response);
+            Message.message("You must enter a username", request, response);
             return;
         }
         else if (password.equals(""))
         {
-            //Message.error("You must enter a password", request, response);
+            Message.message("You must enter a password", request, response);
             return;
         }
         
         User user = new User();
-        UserDetails userDetails = user.isValidLogin(username, password);
+        UserDetails userDetails;
+        try
+        {
+            userDetails = user.isValidLogin(username, password);
+        }
+        catch (Exception e)
+        {
+            Message.message("There was a database error", request, response);
+            return;
+        }
         HttpSession session=request.getSession();
         
         if (userDetails.getUserID() != 0)
@@ -53,8 +63,7 @@ public class Login extends HttpServlet{
         }
         else
         {
-            //Message.error("Your username or passowrd is invalid", request, response);
-            return;
+            Message.message("Your username or passowrd is invalid", request, response);
         }
           
     }

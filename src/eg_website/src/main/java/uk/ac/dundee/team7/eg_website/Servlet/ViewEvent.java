@@ -1,4 +1,4 @@
-package uk.ac.dundee.team7.eg_website.Servlet.UserServlet;
+package uk.ac.dundee.team7.eg_website.Servlet;
 
 public class ViewEvent {
 
