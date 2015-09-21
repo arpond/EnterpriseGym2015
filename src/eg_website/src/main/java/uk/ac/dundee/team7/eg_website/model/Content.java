@@ -1,5 +1,9 @@
 package uk.ac.dundee.team7.eg_website.model;
 
+import java.sql.CallableStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
 import uk.ac.dundee.team7.eg_website.Store.*;
 
 public class Content {
@@ -8,9 +12,28 @@ public class Content {
 	 * 
 	 * @param contentPath
 	 */
-	public ContentStore fetchContent(String contentPath) {
-		// TODO - implement Content.fetchContent
-		throw new UnsupportedOperationException();
+	public ContentStore fetchContent(String contentPath) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException{
+	
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            DatabaseConnection dbc = new DatabaseConnection();
+            java.sql.Connection conn = dbc.connectToDB();
+            
+            CallableStatement cs = conn.prepareCall("select * from eg_content where contentPath = ?");
+            ContentStore contents = new ContentStore();
+            cs.setString(1, contentPath);
+            cs.execute();
+
+            ResultSet rs = cs.getResultSet();
+
+            if(rs != null && rs.next()){
+               
+                contents.setContent(rs.getString("content"));
+                contents.setContentID(rs.getInt("contentID"));
+                contents.setContentTitle(rs.getString("contentTitle"));
+                contents.setContentPath(rs.getString("contentPath"));
+            }
+            conn.close();
+            return contents;
 	}
 
 	/**

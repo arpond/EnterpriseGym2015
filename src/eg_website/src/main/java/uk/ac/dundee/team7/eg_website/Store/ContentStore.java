@@ -14,6 +14,11 @@ public class ContentStore {
         this.contentTitle = contentTitle;
     }
 
+    public ContentStore()
+    {
+        contentID = 0;
+    }
+    
     public int getContentID() {
         return contentID;
     }
