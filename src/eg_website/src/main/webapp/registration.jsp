@@ -1,17 +1,34 @@
-<%-- 
-    Document   : registration
-    Created on : 21-Sep-2015, 11:39:23
-    Author     : williamneal
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Register</title>
+        <link rel="stylesheet" type="text/css" href="Styles.css" />
+
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <div id="big_wrapper">
+           
+         
+            <div id="main_wrapper">
+                <section id="main_section">
+
+						<article>
+							<h3>Register</h3>
+							<form method="POST"  action="Login">
+                            <ul>
+                               <br>First Name <input type="text" name="fname"></br>
+                               <br>Surname<input type="text" name="sname"></br>	
+                               <br>User Name <input type="text" name="username"></br>
+                               <br>Password <input type="password" name="password"></br>
+                            </ul>
+                            <br/>
+                            <input type="submit" value="Login"> 
+                        </form>
+						</article> 
+                    </section>    
+            </div> 
+         
+        </div>
     </body>
 </html>
