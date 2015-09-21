@@ -20,6 +20,10 @@ public class UserDetails {
         this.groupID = groupID;
     }
 
+    public UserDetails() {
+        userID = 0;
+    }
+
     public int getUserID() {
         return userID;
     }

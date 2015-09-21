@@ -26,7 +26,7 @@ public class User {
         DatabaseConnection dbc = new DatabaseConnection();
         java.sql.Connection conn = dbc.connectToDB();
         CallableStatement cs = null;
-        UserDetails details = null;
+        UserDetails details = new UserDetails();
         HashMap map = new HashMap();
         
         ResultSet rs = null;
@@ -36,11 +36,14 @@ public class User {
         cs.setString(2, UsrPassword);
         cs.execute();
         rs = cs.getResultSet();
-        conn.close();
         
             
-        if(rs != null && rs.next()){
-            map.put(rs.getString("typeName"), rs.getInt("numberOfPoints"));
+        if(rs != null){
+            while (rs.next())
+            {
+                map.put(rs.getString("typeName"), rs.getInt("numberOfPoints"));
+            }
+            rs.first();
             details.setEmail(rs.getString("email"));
             details.setAuthID(rs.getInt("eg_auth_authID"));
             details.setGroupID(rs.getInt("eg_groups_groupID"));
@@ -48,7 +51,7 @@ public class User {
             details.setUsername(rs.getString("username"));
             details.setPoints(map);
         }
-        
+        conn.close();
         return details;
     }
 	/**
