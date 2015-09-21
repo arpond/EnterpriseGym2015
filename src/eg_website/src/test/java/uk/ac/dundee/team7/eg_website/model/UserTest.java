@@ -119,17 +119,11 @@ public class UserTest {
     /**
      * Test of resubscribe method, of class User.
      */
-//    @Test
-//    public void testResubscribe() {
-//        System.out.println("resubscribe");
-//        int userId = 0;
-//        User instance = new User();
-//        Boolean expResult = null;
-//        Boolean result = instance.resubscribe(userId);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    @Test
+    public void testResubscribe() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+        User bob = new User();
+        bob.resubscribe(0);
+    }
 
     /**
      * Test of resetPassword method, of class User.

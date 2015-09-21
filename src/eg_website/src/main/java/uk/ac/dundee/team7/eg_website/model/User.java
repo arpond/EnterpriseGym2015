@@ -194,9 +194,16 @@ public class User {
 	 * 
 	 * @param userId
 	 */
-	public Boolean resubscribe(int userId) {
-		// TODO - implement User.resubscribe
-		throw new UnsupportedOperationException();
+	public Boolean resubscribe(int userId) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+	
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        CallableStatement cs = conn.prepareCall("{call Subscribe(?)}");       
+        
+        cs.setInt(1, userId);
+        cs.execute();       
+        return true;
 	}
 
 	/**
@@ -209,9 +216,7 @@ public class User {
         Class.forName("com.mysql.jdbc.Driver").newInstance();
         DatabaseConnection dbc = new DatabaseConnection();
         java.sql.Connection conn = dbc.connectToDB();
-        CallableStatement cs = conn.prepareCall("update eg_users set password=? where userID = ?;");        
-        
-        
+        CallableStatement cs = conn.prepareCall("update eg_users set password=? where userID = ?;");    
         
         cs.setString(1, password);
         cs.setInt(2, userId);
