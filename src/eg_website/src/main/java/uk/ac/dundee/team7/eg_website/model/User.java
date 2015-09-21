@@ -26,12 +26,7 @@ public class User {
         
         ResultSet rs = null;
         
-        cs = conn.prepareCall("select * from eg_users,"
-                + "eg_users_has_eg_pointTypes,"
-                + "eg_pointTypes where username =?"
-                + "and password =? "
-                + "and eg_users.userID = eg_users_has_eg_pointTypes.eg_users_userID"
-                + "and eg_pointTypes.typeId = eg_users_has_eg_pointTypes.eg_pointTypes_typeId; ");
+        cs = conn.prepareCall("{call isValidLogin(?,?)}");
         cs.setString(1, Username);
         cs.setString(2, UsrPassword);
         cs.execute();
@@ -154,9 +149,23 @@ public class User {
 	 * 
 	 * @param email
 	 */
-	public Boolean checkEmailExists(String email) {
-		// TODO - implement User.checkEmailExists
-		throw new UnsupportedOperationException();
+	public Boolean checkEmailExists(String email) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        CallableStatement cs = conn.prepareCall("select * from eg_users where email = ?;");        
+        ResultSet rs = null;
+        
+        
+        cs.setString(1, email);
+        cs.execute();
+        rs = cs.getResultSet();
+        rs.first();
+        if(rs.getString("email")==null)
+            return false;
+        
+        return true;
 	}
 
 	/**
