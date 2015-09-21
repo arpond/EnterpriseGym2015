@@ -6,14 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import uk.ac.dundee.team7.eg_website.Store.*;
-import uk.ac.dundee.team7.eg_website.model.DatabaseConn;
 
 public class User {
 
-   // static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-   // String url = "jdbc:mysql://46.101.32.81:3306/eg_database";
-   // String user = "root";
-    //String password = "teameight";
+    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    String url = "jdbc:mysql://46.101.32.81:3306/eg_database";
+    String user = "root";
+    String password = "teameight";
 
     /**
      *
@@ -22,21 +21,20 @@ public class User {
      */
     public UserDetails isValidLogin(String Username, String UsrPassword) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 
-        DatabaseConn dbc = new DatabaseConn();
-        java.sql.Connection con = dbc.connectToDB();
-        
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        java.sql.Connection conn = DriverManager.getConnection(url, user, password);
         CallableStatement cs = null;
         UserDetails details = null;
         HashMap map = new HashMap();
         
         ResultSet rs = null;
         
-        cs = con.prepareCall("select * from eg_users,eg_users_has_eg_pointTypes,eg_pointTypes where username =? and password =? and eg_users.userID = eg_users_has_eg_pointTypes.eg_users_userID and eg_pointTypes.typeId = eg_users_has_eg_pointTypes.eg_pointTypes_typeId; ");
+        cs = conn.prepareCall("select * from eg_users,eg_users_has_eg_pointTypes,eg_pointTypes where username =? and password =? and eg_users.userID = eg_users_has_eg_pointTypes.eg_users_userID and eg_pointTypes.typeId = eg_users_has_eg_pointTypes.eg_pointTypes_typeId; ");
         cs.setString(1, Username);
         cs.setString(2, UsrPassword);
         cs.execute();
         rs = cs.getResultSet();
-        con.close();
+        conn.close();
         
             
         if(rs.next()){
