@@ -58,6 +58,7 @@ public class Content {
             }
             catch (Exception e)
             {
+                System.out.println(e.toString());
                 return false;
             }
             return true;
@@ -88,6 +89,7 @@ public class Content {
             }
             catch (Exception e)
             {
+                System.out.println(e.toString());
                 return false;
             }
             return true;
@@ -105,12 +107,13 @@ public class Content {
                 DatabaseConnection dbc = new DatabaseConnection();
                 java.sql.Connection conn = dbc.connectToDB();
                 
-                CallableStatement cs = conn.prepareCall("delete eg_content where contentID =? ");
+                CallableStatement cs = conn.prepareCall("delete from eg_content where contentID =? ");
                 cs.setInt(1, contentID);
                 cs.execute();
             }
             catch (Exception e)
             {
+                System.out.println(e.toString());
                 return false;
             }
             return true;
