@@ -24,7 +24,7 @@ public class EventStore {
     
     
     public EventStore(){
-        
+        eventID = 0;
     }
     public int getEventID() {
         return eventID;
