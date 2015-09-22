@@ -48,10 +48,10 @@ public class Profile extends HttpServlet{
             switch (command) {
                 case 1:
                     // Maybe allow viewing of others profiles?
-                    viewProfile(request, response);
+                    manageProfile("/displayProfile.jsp",request, response);
                     break;
                 case 2:
-                    editProfile(request, response);
+                    manageProfile("/editProfile.jsp",request, response);
                     break;
                 default:
                     Message.message("There was an error proccessing your request. ", request, response);
@@ -60,9 +60,9 @@ public class Profile extends HttpServlet{
             Message.message("There was an error proccessing your request. ", request, response);
         }
     }
-
+    
    
-    private void viewProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    private void manageProfile(String dispatchPath,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         HttpSession session = request.getSession();
         UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
         
@@ -79,28 +79,7 @@ public class Profile extends HttpServlet{
         }
         
         request.setAttribute("profile", up);
-        RequestDispatcher view = request.getRequestDispatcher("/displayProfile.jsp");
-        view.include(request, response);
-    }
-
-    private void editProfile( HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
-        
-        User user = new User();
-        UserProfile up;
-        try
-        {
-            up = user.fetchUserProfile(ud.getUserID());
-        }
-        catch (Exception e)
-        {
-            Message.message("There was an error proccessing your request. "+ e.toString(), request, response);
-            return;
-        }
-        
-        request.setAttribute("profile", up);
-        RequestDispatcher view = request.getRequestDispatcher("/editProfile.jsp");
+        RequestDispatcher view = request.getRequestDispatcher(dispatchPath);
         view.include(request, response);
     }
 
