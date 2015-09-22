@@ -10,13 +10,15 @@
 <html>
     
     <%  ContentStore cs = (ContentStore) request.getAttribute("content");
-        String contentInfo = cs.getContent();%>
+        String contentInfo = cs.getContent();
+        String contentTitle = cs.getContentTitle();%>
  
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title></title>
     </head>
     <body>
+        <h1><%=contentTitle%></h1>
         <%
           out.println(contentInfo);
         %>
