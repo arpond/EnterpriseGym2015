@@ -1,7 +1,16 @@
 package uk.ac.dundee.team7.eg_website.model;
 
+import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
+import java.sql.CallableStatement;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import uk.ac.dundee.team7.eg_website.Store.*;
 
 public class News {
@@ -18,6 +27,7 @@ public class News {
 	public ArrayList<NewsStore> fetchNews() {
 		// TODO - implement News.fetchNews
 		throw new UnsupportedOperationException();
+                //fetch news need to be ordered by date
 	}
 
 	/**
@@ -29,9 +39,26 @@ public class News {
 	 * @param imageURL
 	 * @param category
 	 */
-	public Boolean addNews(String newsPath, String newsTitle, String news, DateTime displayTime, String imageURL, String category) {
-		// TODO - implement News.addNews
-		throw new UnsupportedOperationException();
+	public Boolean addNews(int userID, String newsPath, String newsTitle, String news, DateTime displayTime, String imageURL, int category) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+		
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        CallableStatement cs = null;
+        
+        
+        cs = conn.prepareCall("{call addNews(?,?,?,?,?,?,?)}");
+        cs.setTimestamp(1, new Timestamp(displayTime.getMillis()));
+        cs.setString(2, imageURL);
+        cs.setString(3, news);
+        //convert category to categoryID here?
+        int categoryID = 1;
+        cs.setInt(4, categoryID);
+        cs.setString(5, newsPath);        
+        cs.setInt(6, userID);
+        cs.setString(7, newsTitle);
+        cs.execute();
+        return true;
 	}
 
 	/**
