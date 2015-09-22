@@ -6,6 +6,7 @@
 
 package uk.ac.dundee.team7.eg_website.model;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -105,15 +106,9 @@ public class NewsTest {
      * Test of deleteNews method, of class News.
      */
     @Test
-    public void testDeleteNews() {
-        System.out.println("deleteNews");
-        int newsID = 0;
-        News instance = new News();
-        Boolean expResult = null;
-        Boolean result = instance.deleteNews(newsID);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testDeleteNews() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+        News news = new News();
+        news.deleteNews(10);
     }
     
 }

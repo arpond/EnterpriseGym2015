@@ -39,7 +39,7 @@ public class News {
 	 * @param imageURL
 	 * @param category
 	 */
-	public Boolean addNews(int userID, String newsPath, String newsTitle, String news, DateTime displayTime, String imageURL, int category) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+	public Boolean addNews(int userID, String newsPath, String newsTitle, String news, DateTime displayTime, String imageURL, int categoryID) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
 		
         Class.forName("com.mysql.jdbc.Driver").newInstance();
         DatabaseConnection dbc = new DatabaseConnection();
@@ -51,8 +51,6 @@ public class News {
         cs.setTimestamp(1, new Timestamp(displayTime.getMillis()));
         cs.setString(2, imageURL);
         cs.setString(3, news);
-        //convert category to categoryID here?
-        int categoryID = 1;
         cs.setInt(4, categoryID);
         cs.setString(5, newsPath);        
         cs.setInt(6, userID);
@@ -74,9 +72,18 @@ public class News {
 	 * 
 	 * @param newsID
 	 */
-	public Boolean deleteNews(int newsID) {
-		// TODO - implement News.deleteNews
-		throw new UnsupportedOperationException();
+	public Boolean deleteNews(int newsID) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+	
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        CallableStatement cs = null;
+        
+        
+        cs = conn.prepareCall("Delete from eg_news where newsID=?");
+        cs.setInt(1,newsID);
+        cs.execute();
+        return true;
 	}
 
 }
