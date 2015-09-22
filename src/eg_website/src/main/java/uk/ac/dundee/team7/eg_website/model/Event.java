@@ -52,10 +52,42 @@ public class Event {
         conn.close();
         return evStore;
         }
-	public ArrayList<EventStore> fetchEvents() {
-		// TODO - implement Event.fetchEvents
-		throw new UnsupportedOperationException();
-	}
+	public ArrayList<EventStore> fetchEvents() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+	Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        CallableStatement cs = null;
+        EventStore evStore = new EventStore();
+        ArrayList<EventStore> evStoreList = new ArrayList<EventStore>();
+        ContentStore conStore = new ContentStore();
+
+        ResultSet rs = null;
+        try{
+        cs = conn.prepareCall("{call getEvents()}");
+        cs.execute();
+        rs = cs.getResultSet();
+        
+        if(rs != null && rs.next()){
+        conStore.setContent(rs.getString("content"));
+        conStore.setContentPath(rs.getString("contentPath"));
+        conStore.setContentTitle(rs.getString("contentTitle"));
+        evStore.setContent(conStore);
+        evStore.setEventImage(rs.getString("eventImage"));
+        evStore.setEventPointType(rs.getString("typeName"));
+        evStore.setEventStartTime(new DateTime(rs.getTimestamp("eventStartTime").getTime()));
+        evStore.setEventValue(rs.getInt("eventPoints"));
+        evStore.setPostedTime(new DateTime(rs.getTimestamp("posted").getTime()));
+        evStore.setEventID(rs.getInt("eventID"));
+        
+        evStoreList.add(evStore);
+        }
+        } catch (SQLException se) {
+            conn.close();
+            return evStoreList;
+        }
+        conn.close();
+        return evStoreList;
+        }
 
 	/**
 	 * 
