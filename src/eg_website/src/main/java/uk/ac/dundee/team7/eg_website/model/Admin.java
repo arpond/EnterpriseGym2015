@@ -1,5 +1,7 @@
 package uk.ac.dundee.team7.eg_website.model;
 
+import java.sql.CallableStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import uk.ac.dundee.team7.eg_website.Store.*;
 
@@ -66,18 +68,44 @@ public class Admin {
 	 * 
 	 * @param groupTitle
 	 */
-	public Boolean addGroup(String groupTitle) {
-		// TODO - implement Admin.addGroup
-		throw new UnsupportedOperationException();
+	public Boolean addGroup(String groupTitle) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+		Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        
+        CallableStatement cs = null;
+        try{
+            cs = conn.prepareCall("{call addGroup(?)}");
+            cs.setString(1, groupTitle);
+            cs.execute();
+            conn.close();
+            return true;
+        }catch (SQLException se) {
+            conn.close();
+            return false;
+        }
 	}
 
 	/**
 	 * 
 	 * @param categoryName
 	 */
-	public Boolean addCategory(String categoryName) {
-		// TODO - implement Admin.addCategory
-		throw new UnsupportedOperationException();
+	public Boolean addCategory(String categoryName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        
+        CallableStatement cs = null;
+        try{
+            cs = conn.prepareCall("{call addCategory(?)}");
+            cs.setString(1, categoryName);
+            cs.execute();
+            conn.close();
+            return true;
+        }catch (SQLException se) {
+            conn.close();
+            return false;
+        }
 	}
 
 }
