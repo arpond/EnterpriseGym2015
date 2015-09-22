@@ -21,7 +21,11 @@ public class EventStore {
         this.eventPointType = eventPointType;
         this.content = content;
     }
-
+    
+    
+    public EventStore(){
+        
+    }
     public int getEventID() {
         return eventID;
     }

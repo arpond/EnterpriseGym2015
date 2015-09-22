@@ -1,7 +1,13 @@
 package uk.ac.dundee.team7.eg_website.model;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import java.sql.CallableStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
+import oracle.net.aso.i;
 import org.joda.time.DateTime;
 import uk.ac.dundee.team7.eg_website.Store.*;
 
@@ -11,11 +17,41 @@ public class Event {
 	 * 
 	 * @param eventPath
 	 */
-	public EventStore fetchEvent(String eventPath) {
-		// TODO - implement Event.fetchEvent
-		throw new UnsupportedOperationException();
-	}
+	public EventStore fetchEvent(String eventPath) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+        
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        CallableStatement cs = null;
+        EventStore evStore = new EventStore();
+        ContentStore conStore = new ContentStore();
+        
 
+        ResultSet rs = null;
+        try{
+        cs = conn.prepareCall("{call getEventOne(?)}");
+	cs.setString(1, eventPath);
+        cs.execute();
+        rs = cs.getResultSet();
+       
+        conStore.setContent(rs.getString("content"));
+        conStore.setContentPath(rs.getString("contentPath"));
+        conStore.setContentTitle(rs.getString("contentTitle"));
+        evStore.setContent(conStore);
+        evStore.setEventImage(rs.getString("eventImage"));
+        evStore.setEventPointType(rs.getString("typeName"));
+        evStore.setEventStartTime(new DateTime(rs.getTimestamp("eventStartTime").getTime()));
+        evStore.setEventValue(rs.getInt("eventPoints"));
+        evStore.setPostedTime(new DateTime(rs.getTimestamp("posted").getTime()));
+        evStore.setEventID(rs.getInt("eventID"));
+        
+        } catch (SQLException se) {
+            conn.close();
+            return evStore;
+        }
+        conn.close();
+        return evStore;
+        }
 	public ArrayList<EventStore> fetchEvents() {
 		// TODO - implement Event.fetchEvents
 		throw new UnsupportedOperationException();
