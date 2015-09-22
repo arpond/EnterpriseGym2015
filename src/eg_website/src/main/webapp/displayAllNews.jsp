@@ -20,16 +20,21 @@
             ArrayList<NewsStore> alNews = new ArrayList();
             Iterator i1 =  alNews.iterator();
             
-            if(i1.hasNext() == true){
-            System.out.println("Size of AL: " + alNews.size());
-            System.out.println(/*news headline*/);
-            //etc                                   
-            i1.next();
+            while (i1.hasNext())
+            {
+                NewsStore ns = (NewsStore) i1.next();
+                %>
+    <div class="newsItem">
+        <h2><%=ns.getContent().getContentTitle()%></h2>
+        <div class="newsContent">
+            <img src=<%=ns.getNewsImage()%> ></img>
+            <p><%=ns.getContent().getContent()%></p>
+            <p class="posted"><%=ns.getPostedTime().toString()%></p>
+            <p class="category"><%=ns.getCategoryName()%></p>
+        </div>
+    </div>
+                <%                            
             }
-            else{
-                System.out.println(i1);
-            }
-            
         }
         %>
     </head>
