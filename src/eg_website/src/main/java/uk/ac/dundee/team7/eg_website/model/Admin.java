@@ -52,9 +52,30 @@ public class Admin {
      * @param userId
      * @param groupId
      */
-    public Boolean updateGroup(int userId, int groupId) {
-        // TODO - implement Admin.updateGroup
-        throw new UnsupportedOperationException();
+    public Boolean updateGroup(int userId, int groupId) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        
+       
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+
+        CallableStatement cs = null;
+        try {
+            cs = conn.prepareCall("{call updateUserGroup(?,?)}");
+            cs.setInt(1, userId);
+            cs.setInt(2, groupId);
+            
+            cs.execute();
+            conn.close();
+            return true;
+        } catch (SQLException se) {
+            conn.close();
+            return false;
+        }
+
+        
+        
+        
     }
 
     public ArrayList<UserStore> fetchUsers() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
