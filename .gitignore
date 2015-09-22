@@ -35,3 +35,4 @@ nbdist/
 nbactions.xml
 nb-configuration.xml
 .nb-gradle/
+/src/eg_website/target/
