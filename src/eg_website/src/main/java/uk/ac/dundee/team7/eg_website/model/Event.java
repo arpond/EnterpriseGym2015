@@ -127,9 +127,23 @@ public class Event {
 	 * @param userId
 	 * @param eventId
 	 */
-	public Bool signUp(int userId, int eventId) {
-		// TODO - implement Event.signUp
-		throw new UnsupportedOperationException();
+	public boolean signUp(int userId, int eventId) throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
+	Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        CallableStatement cs = null;
+        try{
+        cs = conn.prepareCall("{call userSignUpToEvent(?,?)}");
+	cs.setInt(1, userId);
+        cs.setInt(2, eventId);
+        cs.execute();
+        conn.close();
+        return true;
+        } catch (SQLException se) {
+            conn.close();
+            return false;
+        }
+        
 	}
 
 }
