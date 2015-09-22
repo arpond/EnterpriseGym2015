@@ -44,6 +44,7 @@ public class News {
         Date date = new Date(posted.getTime());
         DateTime dateNow = new DateTime(date);
         NewsStore ns = new NewsStore(rs.getInt("newsID"),dateNow,now,rs.getString("newsImage"),rs.getString("contentTitle"),contentstore);
+        conn.close();
         return ns;
 	}
 
@@ -73,6 +74,7 @@ public class News {
             NewsStore newsToAdd = new NewsStore(rs.getInt("newsID"),postedtime,displaytime,rs.getString("newsImage"),rs.getString("categoryName"),contentstore);
             newsList.add(newsToAdd);
         }
+        conn.close();
         return newsList;
 	}
 
@@ -102,6 +104,7 @@ public class News {
         cs.setInt(6, userID);
         cs.setString(7, newsTitle);
         cs.execute();
+        conn.close();
         return true;
 	}
 
@@ -126,6 +129,7 @@ public class News {
         cs.setString(5,news.getCategoryName());
         cs.setString(6,contentstore.getContentTitle());
         cs.execute();
+        conn.close();
         return true;
 	}
 
@@ -144,6 +148,7 @@ public class News {
         cs = conn.prepareCall("Delete from eg_news where newsID=?");
         cs.setInt(1,newsID);
         cs.execute();
+        conn.close();
         return true;
 	}
 
