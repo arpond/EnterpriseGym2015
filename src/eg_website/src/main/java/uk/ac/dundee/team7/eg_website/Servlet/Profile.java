@@ -61,6 +61,61 @@ public class Profile extends HttpServlet{
         }
     }
     
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String firstname = request.getParameter("firstname");
+        String lastname = request.getParameter("lastname");
+        String mobile = request.getParameter("mobile");
+        String contactNumber = request.getParameter("contactNumber");
+        String yearOfStudy = request.getParameter("yearOfStudy");
+        String matricNumber = request.getParameter("matricNumber");
+        Boolean youngES_FLAG = Boolean.parseBoolean(request.getParameter("youngES_FLAG"));
+        String country = request.getParameter("country");
+        String institution = request.getParameter("institution");
+        String status = request.getParameter("status");
+        String college = request.getParameter("college");
+        String degree = request.getParameter("degree");
+        String email = request.getParameter("email");
+        String username = request.getParameter("username");
+        
+        HttpSession session = request.getSession();
+        UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
+        int userID = ud.getUserID();
+        
+        ud.setUsername(username);
+        ud.setEmail(email);
+
+        UserProfile up = new UserProfile();
+        up.setFirstName(firstname);
+        up.setLastName(lastname);
+        up.setMobile(mobile);
+        up.setContactNumber(contactNumber);
+        up.setYearOfStudy(yearOfStudy);
+        up.setMatricNumber(matricNumber);
+        up.setYoungES_FLAG(youngES_FLAG);
+        up.setCountry(country);
+        up.setInstitution(institution);
+        up.setStatus(status);
+        up.setCollege(college);
+        up.setDegree(degree);
+        
+        User user = new User();
+        try
+        {
+            user.updateProfile(up, ud);
+        }
+        catch (Exception e)
+        {
+            Message.message("There was an error proccessing your request. "+ e.toString(), request, response);
+            return;
+        }      
+        
+        request.setAttribute("profile", up);
+        RequestDispatcher view = request.getRequestDispatcher("/displayProfile.jsp");
+        view.include(request, response);
+    }
+    
    
     private void manageProfile(String dispatchPath,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         HttpSession session = request.getSession();
