@@ -14,9 +14,24 @@ public class Admin {
      * @param username
      * @param emai
      */
-    public Boolean addUser(String username, String email) {
-        // TODO - implement Admin.addUser
-        throw new UnsupportedOperationException();
+    public Boolean addUser(String username, String email) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+       Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+
+        CallableStatement cs = null;
+        try {
+            cs = conn.prepareCall("{call addUserAdmin(?,?)}");
+            cs.setString(1, username);
+            cs.setString(2, email);
+            
+            cs.execute();
+            conn.close();
+            return true;
+        } catch (SQLException se) {
+            conn.close();
+            return false;
+        }
     }
 
     /**
