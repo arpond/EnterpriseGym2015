@@ -37,8 +37,15 @@ public class ContentTest {
         String contentTitle = "Test HTML";
         Content instance = new Content();
         Boolean expResult = true;
-        Boolean result = instance.addContent(contentPath, content, contentTitle);
-        assertEquals(expResult, result);
+        try
+        {
+            Boolean result = instance.addContent(contentPath, content, contentTitle);
+            assertEquals(expResult, result);
+        }
+        catch (Exception e)
+        {
+            fail("Failed with exception\n" + e.toString());
+        }
     }
     
     @After
@@ -84,11 +91,12 @@ public class ContentTest {
         String contentTitle = "Test HTML";
         Content instance = new Content();
         Boolean expResult = true;
-        Boolean result = instance.addContent(contentPath, content, contentTitle);
-        assertEquals(expResult, result);
-        ContentStore cs;
+        
         try
         {
+            Boolean result = instance.addContent(contentPath, content, contentTitle);
+            assertEquals(expResult, result);
+            ContentStore cs;
             cs = instance.fetchContent(contentPath);
             assertEquals(content, cs.getContent());
             assertEquals(contentPath, cs.getContentPath());
