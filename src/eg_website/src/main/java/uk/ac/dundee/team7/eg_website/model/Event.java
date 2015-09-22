@@ -51,6 +51,8 @@ public class Event {
         }
         conn.close();
         return evStore;
+        
+        
         }
 	public ArrayList<EventStore> fetchEvents() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
 	Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -99,9 +101,35 @@ public class Event {
 	 * @param eventPointType
 	 * @param eventValue
 	 */
-	public Bool addEvent(String eventPath, String eventTitle, String event, DateTime startTime, String imageURL, String eventPointType, int eventValue) {
-		// TODO - implement Event.addEvent
-		throw new UnsupportedOperationException();
+	public boolean addEvent(String eventPath, String eventTitle, String event, DateTime startTime, String imageURL, int eventPointTypeID, int eventValue, int UserID) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+	
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        CallableStatement cs = null;
+        DateTime dateTime1 = new DateTime(startTime);
+      
+        
+        
+        ResultSet rs = null;
+        try{
+        cs = conn.prepareCall("{call addEvent(?,?,?,?,?,?,?,?)}");
+        cs.setTimestamp(1, new Timestamp(dateTime1.getMillis()));
+        cs.setString(2, imageURL);
+        cs.setString(3, event);
+        cs.setInt(4, eventValue);
+        cs.setString(5, eventPath);
+        cs.setInt(6, UserID);
+        cs.setInt(7, eventPointTypeID);
+        cs.setString(8, eventTitle);
+        cs.execute();
+        conn.close();
+        return true;
+        }catch(SQLException se){
+            conn.close();
+            return false;
+        }
+        
 	}
 
 	/**
