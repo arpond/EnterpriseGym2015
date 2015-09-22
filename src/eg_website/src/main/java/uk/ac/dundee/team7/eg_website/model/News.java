@@ -2,6 +2,8 @@ package uk.ac.dundee.team7.eg_website.model;
 
 import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import java.sql.CallableStatement;
+import java.sql.Date;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -19,9 +21,30 @@ public class News {
 	 * 
 	 * @param newsPath
 	 */
-	public NewsStore fetchNews(String newsPath) {
-		// TODO - implement News.fetchNews
-		throw new UnsupportedOperationException();
+	public NewsStore fetchNews(String newsPath) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+	
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        CallableStatement cs = null;        
+        
+        cs = conn.prepareCall("{call getNewsOne(?)}");
+        cs.setString(1, newsPath);
+        cs.execute();
+        ResultSet rs = cs.getResultSet();
+        DateTime now = new DateTime();
+        ContentStore contentstore = new ContentStore();
+        rs.first();
+        contentstore.setContent(rs.getString("content"));
+        contentstore.setContentID(rs.getInt("contentID"));
+        contentstore.setContentPath("contentPath");
+        contentstore.setContentTitle("contentTitle");
+        
+        Timestamp posted = rs.getTimestamp("posted");
+        Date date = new Date(posted.getTime());
+        DateTime dateNow = new DateTime(date);
+        NewsStore ns = new NewsStore(rs.getInt("newsID"),dateNow,now,rs.getString("newsImage"),rs.getString("contentTitle"),contentstore);
+        return ns;
 	}
 
 	public ArrayList<NewsStore> fetchNews() {
@@ -44,14 +67,14 @@ public class News {
         Class.forName("com.mysql.jdbc.Driver").newInstance();
         DatabaseConnection dbc = new DatabaseConnection();
         java.sql.Connection conn = dbc.connectToDB();
-        CallableStatement cs = null;
-        
+        CallableStatement cs = null;        
         
         cs = conn.prepareCall("{call addNews(?,?,?,?,?,?,?)}");
         cs.setTimestamp(1, new Timestamp(displayTime.getMillis()));
         cs.setString(2, imageURL);
         cs.setString(3, news);
         cs.setInt(4, categoryID);
+        //newsPath must be unique
         cs.setString(5, newsPath);        
         cs.setInt(6, userID);
         cs.setString(7, newsTitle);

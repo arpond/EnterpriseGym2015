@@ -49,15 +49,9 @@ public class NewsTest {
      * Test of fetchNews method, of class News.
      */
     @Test
-    public void testFetchNews_String() {
-        System.out.println("fetchNews");
-        String newsPath = "";
-        News instance = new News();
-        NewsStore expResult = null;
-        NewsStore result = instance.fetchNews(newsPath);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testFetchNews_String() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+        News news = new News();
+        NewsStore bob = news.fetchNews("dsadas");
     }
 
     /**
