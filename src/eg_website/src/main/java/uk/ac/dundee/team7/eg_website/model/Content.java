@@ -43,11 +43,13 @@ public class Content {
 	 * @param contentTitle
 	 */
 	public Boolean addContent(String contentPath, String content, String contentTitle) {
+            java.sql.Connection conn = null;
+            
             try 
             {
                 Class.forName("com.mysql.jdbc.Driver").newInstance();
                 DatabaseConnection dbc = new DatabaseConnection();
-                java.sql.Connection conn = dbc.connectToDB();
+                conn = dbc.connectToDB();
 
                 CallableStatement cs = conn.prepareCall("insert into eg_content (content, contentPath, contentTitle) VALUES (?,?,?) ");
                 ContentStore contents = new ContentStore();
@@ -55,6 +57,7 @@ public class Content {
                 cs.setString(2, contentPath);
                 cs.setString(3, contentTitle);
                 cs.execute();
+                conn.close();
             }
             catch (Exception e)
             {
@@ -86,6 +89,7 @@ public class Content {
                 cs.setString(3, contentTitle);
                 cs.setInt(4, contentID);
                 cs.execute();
+                conn.close();
             }
             catch (Exception e)
             {
@@ -110,6 +114,7 @@ public class Content {
                 CallableStatement cs = conn.prepareCall("delete from eg_content where contentID =? ");
                 cs.setInt(1, contentID);
                 cs.execute();
+                conn.close();
             }
             catch (Exception e)
             {
