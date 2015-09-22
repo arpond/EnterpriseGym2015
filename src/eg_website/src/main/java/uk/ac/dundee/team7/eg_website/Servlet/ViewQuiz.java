@@ -237,7 +237,7 @@ public class ViewQuiz extends HttpServlet {
         AnswerStore as;
         try
         {
-            qm.answerQuestion(quizID, ud.getUserID(), attemptNumber, answerText);
+            qm.answerQuestion(quizID, ud.getUserID(), questionID, attemptNumber, answerText);
             qs = qm.FetchQuestion(quizID, questionNumber + 1);
             as = qm.FetchAnswer(quizID, ud.getUserID(), qs.getQuestionID(), attemptNumber);
         }
