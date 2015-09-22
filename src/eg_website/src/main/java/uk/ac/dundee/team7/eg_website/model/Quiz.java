@@ -88,10 +88,11 @@ public class Quiz {
      * Function to answer a question and insert the details into the database
      * @param quizID
      * @param userID
+     * @param questionID
      * @param attemptNumber
      * @param answerText 
      */
-    public void answerQuestion(int quizID, int userID, int attemptNumber, String answerText) {
+    public void answerQuestion(int quizID, int userID, int questionID, int attemptNumber, String answerText) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
