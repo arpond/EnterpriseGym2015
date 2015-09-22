@@ -52,8 +52,16 @@ public class Register extends HttpServlet {
         }
         
         User user = new User();
+        Boolean result = false;
         
-        Boolean result = user.registerUser(username, password, email);
+        try
+        {
+            result = user.registerUser(username, password, email);
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.toString());
+        }
         
         if (result)
         {
