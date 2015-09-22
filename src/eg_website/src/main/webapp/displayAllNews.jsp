@@ -15,25 +15,22 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>All News</title>
         <%
-            NewsStore ns = (NewsStore) request.getAttribute("news");
+            //Get arraylist here
             
             ArrayList<NewsStore> alNews = new ArrayList();
-                        
-            alNews.add(ns);
-            
-            System.out.println("Size of AL: " + alNews.size());
-            
             Iterator i1 =  alNews.iterator();
             
-            if(i1.hasNext() == true){               
-                System.out.println(i1);
-                i1.next();
+            if(i1.hasNext() == true){
+            System.out.println("Size of AL: " + alNews.size());
+            System.out.println(/*news headline*/);
+            //etc                                   
+            i1.next();
             }
             else{
                 System.out.println(i1);
             }
             
-            
+        }
         %>
     </head>
     <body>
