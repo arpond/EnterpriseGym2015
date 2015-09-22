@@ -97,7 +97,7 @@ public class News {
         cs.setString(2, imageURL);
         cs.setString(3, news);
         cs.setInt(4, categoryID);
-        //newsPath must be unique
+        //TODO newsPath must be unique
         cs.setString(5, newsPath);        
         cs.setInt(6, userID);
         cs.setString(7, newsTitle);
@@ -109,9 +109,24 @@ public class News {
 	 * 
 	 * @param news
 	 */
-	public Boolean updateContent(NewsStore news) {
-		// TODO - implement News.updateContent
-		throw new UnsupportedOperationException();
+	public Boolean updateContent(NewsStore news) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+       
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        CallableStatement cs = null;        
+        
+        cs = conn.prepareCall("{call updateNews(?,?,?,?,?,?,?,?)}");
+        cs.setInt(1, news.getNewsID());
+        DateTime now = new DateTime();
+        cs.setTimestamp(2, new Timestamp(now.getMillis()));
+        cs.setString(3,news.getNewsImage());
+        ContentStore contentstore = news.getContent();
+        cs.setString(4,contentstore.getContent());
+        cs.setString(5,news.getCategoryName());
+        cs.setString(6,contentstore.getContentTitle());
+        cs.execute();
+        return true;
 	}
 
 	/**

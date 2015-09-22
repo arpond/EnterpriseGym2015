@@ -59,13 +59,7 @@ public class NewsTest {
      */
     @Test
     public void testFetchNews_0args() {
-        System.out.println("fetchNews");
-        News instance = new News();
-        ArrayList<NewsStore> expResult = null;
-        ArrayList<NewsStore> result = instance.fetchNews();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -86,14 +80,7 @@ public class NewsTest {
      */
     @Test
     public void testUpdateContent() {
-        System.out.println("updateContent");
-        NewsStore news = null;
-        News instance = new News();
-        Boolean expResult = null;
-        Boolean result = instance.updateContent(news);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        News news = new News();
     }
 
     /**
