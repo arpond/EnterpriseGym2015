@@ -29,7 +29,7 @@ public class ViewEvent {
 
         String[] args = Utils.SplitRequestPath(request);
         // Args less than 2 means display all news
-        if (args.length < 2)
+        if (args.length <= 2)
         {
             DisplayAllEvents(request, response);
         }
