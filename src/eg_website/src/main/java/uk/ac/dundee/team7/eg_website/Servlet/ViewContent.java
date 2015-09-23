@@ -12,7 +12,10 @@ import uk.ac.dundee.team7.eg_website.lib.Utils;
 import uk.ac.dundee.team7.eg_website.model.Content;
 
 
-@WebServlet(name = "Content", urlPatterns = {"/Content"})
+@WebServlet(urlPatterns = {
+    "/Content",
+    "/Content/*",
+})
 public class ViewContent extends HttpServlet{
 
 	@Override
@@ -23,7 +26,7 @@ public class ViewContent extends HttpServlet{
             StringBuilder sb = new StringBuilder();    
             for (int i = 1; i < args.length; i++)
             {
-                sb.append(args[i]);
+                sb.append("/" + args[i]);
             }
             
             String path = sb.toString();

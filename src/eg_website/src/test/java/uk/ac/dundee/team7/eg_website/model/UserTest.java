@@ -119,11 +119,11 @@ public class UserTest {
     /**
      * Test of resubscribe method, of class User.
      */
-//    @Test
-//    public void testResubscribe() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-//        User bob = new User();
-//        bob.resubscribe(0);
-//    }
+    /*@Test
+    public void testResubscribe() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+        User bob = new User();
+        bob.resubscribe(0);
+    }*/
 
     /**
      * Test of resetPassword method, of class User.
