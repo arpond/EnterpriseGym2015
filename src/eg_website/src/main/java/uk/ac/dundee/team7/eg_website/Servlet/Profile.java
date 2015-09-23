@@ -1,6 +1,7 @@
 package uk.ac.dundee.team7.eg_website.Servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,10 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import uk.ac.dundee.team7.eg_website.Store.CountryStore;
+import uk.ac.dundee.team7.eg_website.Store.InstitutionStore;
+import uk.ac.dundee.team7.eg_website.Store.StatusStore;
 import uk.ac.dundee.team7.eg_website.Store.UserDetails;
 import uk.ac.dundee.team7.eg_website.Store.UserProfile;
-import uk.ac.dundee.team7.eg_website.Store.UserStore;
 import uk.ac.dundee.team7.eg_website.lib.Utils;
+import uk.ac.dundee.team7.eg_website.model.DemographicModel;
 import uk.ac.dundee.team7.eg_website.model.User;
 
 @WebServlet(urlPatterns = {
@@ -48,10 +52,10 @@ public class Profile extends HttpServlet{
             switch (command) {
                 case 1:
                     // Maybe allow viewing of others profiles?
-                    manageProfile("/displayProfile.jsp",request, response);
+                    viewProfile(request, response);
                     break;
                 case 2:
-                    manageProfile("/editProfile.jsp",request, response);
+                    updateProfile(request, response);
                     break;
                 default:
                     Message.message("There was an error proccessing your request. ", request, response);
@@ -117,7 +121,7 @@ public class Profile extends HttpServlet{
     }
     
    
-    private void manageProfile(String dispatchPath,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    private void viewProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         HttpSession session = request.getSession();
         UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
         
@@ -134,7 +138,39 @@ public class Profile extends HttpServlet{
         }
         
         request.setAttribute("profile", up);
-        RequestDispatcher view = request.getRequestDispatcher(dispatchPath);
+        RequestDispatcher view = request.getRequestDispatcher("/displayProfile.jsp");
+        view.include(request, response);
+    }
+    
+    private void updateProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        HttpSession session = request.getSession();
+        UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
+        
+        User user = new User();
+        DemographicModel dm = new DemographicModel();
+        UserProfile up;
+        ArrayList<InstitutionStore> is = new ArrayList<InstitutionStore>();
+        ArrayList<CountryStore> cs = new ArrayList<CountryStore>();
+        ArrayList<StatusStore> sts = new ArrayList<StatusStore>();
+        try
+        {
+            up = user.fetchUserProfile(ud.getUserID());
+            is = dm.fetchInstitutions();
+            cs = dm.fetchCountries();
+            sts = dm.fetchStatuses();
+        }
+        catch (Exception e)
+        {
+            Message.message("There was an error proccessing your request. "+ e.toString(), request, response);
+            return;
+        }
+        
+        request.setAttribute("profile", up);
+        request.setAttribute("details", ud);
+        request.setAttribute("countries", cs);
+        request.setAttribute("statuses", sts);
+        request.setAttribute("institutions", is);
+        RequestDispatcher view = request.getRequestDispatcher("/editProfile.jsp");
         view.include(request, response);
     }
 
