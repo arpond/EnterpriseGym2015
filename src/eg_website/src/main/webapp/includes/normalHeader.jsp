@@ -103,7 +103,7 @@
               if (ud != null) 
 	      {
               %>    
-		  <h1><a href="editprofile.jsp">Edit Profile</a> or <a href="Logout">Logout</a> </h1>
+		  <h1><a href="editProfile.jsp">Edit Profile</a> or <a href="Logout">Logout</a> </h1>
                
 		  <%} 
 		  else { %>
