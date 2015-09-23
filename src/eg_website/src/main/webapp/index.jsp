@@ -26,7 +26,7 @@
 
 <body>
 
-   <%@include file="includes/normalHeader.jsp" %>
+   <%@include file="/includes/normalHeader.jsp" %>
    <!-- Header Carousel -->
     <header id="myCarousel" class="carousel slide">
         <!-- Indicators -->
