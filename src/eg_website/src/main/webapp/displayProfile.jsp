@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
     
-    <%  UserProfile userp = (UserProfile) request.getAttribute("content");
+    <%  UserProfile userp = (UserProfile) request.getAttribute("profile");
         String  firstName = userp.getFirstName();
         String  lastName = userp.getLastName();
         String  mobile = userp.getMobile();
@@ -28,8 +28,18 @@
        
     </head>
     <body>
-        <%
-       out.println("First name:" + firstName);
-         %>
+        <h1>Your Profile</h1>
+        <p><%out.println("First name: " + firstName);%></p>
+      <p><%out.println("Last name: " + lastName);%></p>
+      <p><% out.println("Mobile: " + mobile);%></p>
+      <p><% out.println("Contact Number: " + contactNumber);%></p>
+      <p><% out.println("Study Year: " + studyYear);%></p>
+      <p><% out.println("Matriculation Number: " + matricNo);%></p>
+      <p><% out.println("Country: " + country);%></p>
+      <p><% out.println("Institution: " + institution);%></p>
+      <p><% out.println("Status: " + status);%></p>
+      <p><% out.println("College: " + college);%></p>
+      <p><% out.println("Degree: " + degree);%></p>
+       
     </body>
 </html>
