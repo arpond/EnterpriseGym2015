@@ -15,15 +15,15 @@
 
                         <article>
                         <h3>Register</h3>
-                        <form method="POST"  action="Register">
+                        <form method="POST"  action="Register" id="register">
                             <ul>
-                               <br>User Name <input type="text" name="username"></br>
-                               <br>Password <input type="password" name="password"></br>
-                               <br>Password <input type="password" name="verification"></br>
-                               <br>email <input type="text" name="email"></br>
+                                <br><label class="input">User Name </label> <input type="text" name="username"></br>
+                                <br><label class="input">Password</label> <input type="password" name="password"></br>
+                                <br><label class="input">Password</label> <input type="password" name="verification"></br>
+                                <br><label class="input">email</label> <input type="text" name="email"></br>
                             </ul>
                             <br/>
-                            <input type="submit" value="Register"> 
+                            <input type="submit" value="Register" class="button" id="registerButton"> 
                         </form>
                         </article> 
                     </section>    
