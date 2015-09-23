@@ -13,11 +13,18 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/modern-business.css" rel="stylesheet">
+        <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <title>All News</title>
+    </head>
+    <body>
+        <%@include file="/includes/normalHeader.jsp" %>
         <%
             //Get arraylist here
             
             ArrayList<NewsStore> alNews = new ArrayList();
+            alNews = (ArrayList<NewsStore>) request.getAttribute("news");
             Iterator i1 =  alNews.iterator();
             
             while (i1.hasNext())
@@ -35,9 +42,6 @@
     </div>
                 <%                            
             }
-        }
         %>
-    </head>
-    <body>
     </body>
 </html>

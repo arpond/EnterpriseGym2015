@@ -80,7 +80,7 @@ public class ViewNews extends HttpServlet{
         StringBuilder sb = new StringBuilder();    
         for (int i = 1; i < args.length; i++)
         {
-            sb.append(args[i]);
+            sb.append("/" + args[i]);
         }
 
         String path = sb.toString();

@@ -56,7 +56,8 @@ public class News {
         java.sql.Connection conn = dbc.connectToDB();
         CallableStatement cs = null;        
         
-        cs = conn.prepareCall("{call getNews}");
+        cs = conn.prepareCall("{call getNews()}");
+        cs.execute();
         ResultSet rs = cs.getResultSet();
         rs.first();
         ArrayList<NewsStore> newsList = new ArrayList<NewsStore>();        
