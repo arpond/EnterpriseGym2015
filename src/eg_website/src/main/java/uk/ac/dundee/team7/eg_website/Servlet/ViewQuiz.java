@@ -125,7 +125,7 @@ public class ViewQuiz extends HttpServlet {
         }
         catch (Exception e)
         {
-           Message.message("Quuestion could not be found.", request, response);
+           Message.message("Question could not be found.", request, response);
            return;
         }
         

@@ -10,28 +10,22 @@
 
 <!DOCTYPE html>
 <html>
+    <%
+          QuizStore quiz = (QuizStore) request.getAttribute("quiz");
+     %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Quizzes</title>
     </head>
     <body>
-        <h1>Quiz Page</h1>
-        <%
-          QuizStore qs = (QuizStore) request.getAttribute("quiz");
-           int quizID = qs.getQuizId();
-           String quizName = qs.getQuizName();
-           int quizOrder = qs.getQuizOrder();
-           int quizAttemptsAllowed = qs.getQuizAttemptsAllowed();
-           int quizPassRate = qs.getQuizPassRate();
-           int quizPointValue = qs.getQuizPointValue();
-           int pointType = qs.getPointType();
-           
-           ArrayList<QuestionStore> questions = qs.getQuestionsArray();
-           
-           int status = qs.getStatus();
-           int attemptNumber = qs.getAttemptNumber();
-        %>
-        
-        <!-- DISPLAY NEWS ID, ETC HERE -->
+        <h3><%=quiz.getQuizName()%></h3>
+        <p>Points: <%=quiz.getQuizPointValue()%></p>
+        <p>Question: <%=quiz.getQuestionsArray().size()%></p>
+        <p>Attempts allowed: <%=quiz.getQuizAttemptsAllowed()%> </p>
+        <p>Pass Rate: <%=quiz.getQuizPassRate()%>%</p>
+        <form method="POST"  action="Quiz" id="quiz">
+            <input type="hidden" name="mode" value="0" id="updateButton">
+            <div class="right"><input type="submit" value="Start Quiz" class="button" id="quizButton"></div>
+        </form>
     </body>
 </html>
