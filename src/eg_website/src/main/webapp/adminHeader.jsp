@@ -4,6 +4,7 @@
     Author     : Katerina
 --%>
 
+<%@page import="uk.ac.dundee.team7.eg_website.Store.UserDetails"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -121,6 +122,21 @@
             <!-- /.navbar-collapse -->
         </nav>
 
+        
+         <nav
+	      <%
+              UserDetails us = (UserDetails) session.getAttribute("LoggedIn");
+              if (us != null) 
+	      {
+              %>    
+		  <h1><a href="editprofile.jsp">Edit Profile</a> or <a href="logout.jsp">Logout</a> </h1>
+               
+		  <%} 
+		  else { %>
+                 <h1> <a href="login.html">Login</a> or <a href="register.html">Register</a> </h1>
+		      <% }%>
+    </nav>
+	
         <div id="page-wrapper">
         <!-- /#Place page content here! -->
         </div>
