@@ -71,24 +71,39 @@ public class QuizModel {
         return quizzes;
 	}
 
-	/**
-	 * 
-	 * @param quiz
-	 * @param attempt
-     * @param userID
-	 */
-	public Boolean addQuizAttempt(QuizStore attempt, int userID) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
-	//TODO unsure if answers should be stored?
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
-        DatabaseConnection dbc = new DatabaseConnection();
-        java.sql.Connection conn = dbc.connectToDB();
-        CallableStatement cs = null;
-        cs = conn.prepareCall("{call addQuizAttempt(?,?)}");
-        cs.setInt(1,attempt.getQuizId());
-        cs.setInt(2,userID);
-        cs.execute();
-        return true;
-	}
+//	/**
+//	 * 
+//	 * @param quiz
+//	 * @param attempt
+//     * @param userID
+//	 */
+//	public Boolean addQuizAttempt(QuizStore attempt, int userID) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+//	//TODO unsure if answers should be stored?
+//        Class.forName("com.mysql.jdbc.Driver").newInstance();
+//        DatabaseConnection dbc = new DatabaseConnection();
+//        java.sql.Connection conn = dbc.connectToDB();
+//        CallableStatement cs = null;
+//        cs = conn.prepareCall("{call addQuizAttempt(?,?)}");
+//        cs.setInt(1,attempt.getQuizId());
+//        cs.setInt(2,userID);
+//        cs.execute();
+//        ArrayList <QuestionStore> qs = attempt.getQuestionsArray();
+//        int j = 0;
+//	while (qs.size() > j)
+//        {
+//          QuestionStore tempQS = qs.get(j);
+//          ArrayList <AnswerStore> tempAS = tempQS.getAnswerArray();
+//          int p = 0;
+//	while (tempAS.size() > p)
+//        {
+//          AnswerStore as = tempAS.get(p);
+//          
+//        }
+//          
+//         j++;
+//        }
+//        return true;
+//	}
 
 	/**
 	 * 
@@ -135,10 +150,10 @@ public class QuizModel {
      * @param quizID
      * @param userID
      * @param questionID
-     * @param attemptNumber
+     * @param attemptID
      * @return 
      */
-    public AnswerStore FetchAnswer(int quizID, int userID, int questionID, int attemptNumber) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public AnswerStore FetchAnswer(int quizID, int userID, int questionID, int attemptID) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         Class.forName("com.mysql.jdbc.Driver").newInstance();
         DatabaseConnection dbc = new DatabaseConnection();
         java.sql.Connection conn = dbc.connectToDB();
@@ -159,7 +174,7 @@ public class QuizModel {
         cs.setInt(1, quizID);
         cs.setInt(2, userID);
         cs.setInt(3, questionID);
-        cs.setInt(4, attemptNumber);
+        cs.setInt(4, attemptID);
         cs.execute();
         ResultSet rs = cs.getResultSet();
         AnswerStore fetchedAnswer = new AnswerStore(rs.getInt("answerID"),rs.getString("answerText"),false);
@@ -171,9 +186,9 @@ public class QuizModel {
      * Inserts the attempt into the database
      * @param quizID
      * @param userID
-     * @param attemptNumber 
+     * @param attemptID 
      */
-    public void startQuiz(int quizID, int userID, int attemptNumber) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+    public void startQuiz(int quizID, int userID, int attemptID) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         Class.forName("com.mysql.jdbc.Driver").newInstance();
         DatabaseConnection dbc = new DatabaseConnection();
         java.sql.Connection conn = dbc.connectToDB();
@@ -182,7 +197,7 @@ public class QuizModel {
         cs= conn.prepareCall("insert into eg_users_has_quiz (eg_quiz_quizID,eg_users_userID,attemptID) Values(?,?,?)");
         cs.setInt(1,quizID);
         cs.setInt(2,userID);
-        cs.setInt(3,attemptNumber);
+        cs.setInt(3,attemptID);
         cs.execute();
         conn.close();
     }
@@ -214,10 +229,10 @@ public class QuizModel {
      * @param quizID
      * @param userID
      * @param questionID
-     * @param attemptNumber
+     * @param attemptID
      * @param answerText 
      */
-    public void answerQuestion(int quizID, int userID, int questionID, int attemptNumber, String answerText) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+    public void answerQuestion(int quizID, int userID, int questionID, int attemptID, String answerText) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
         Class.forName("com.mysql.jdbc.Driver").newInstance();
         DatabaseConnection dbc = new DatabaseConnection();
         java.sql.Connection conn = dbc.connectToDB();
@@ -225,7 +240,7 @@ public class QuizModel {
         ArrayList<AnswerStore> emptyAS = new ArrayList<AnswerStore>();
         cs= conn.prepareCall("insert into eg_users_has_eg_quiz_has_eg_question (eg_users_has_eg_quiz_eg_users_userID,eg_users_has_eg_quiz_eg_quiz_quizID, eg_users_has_eg_quiz_attemptID ,eg_question_questionID,answerText) values(?,?,?,?,?)");
         cs.setString(1,answerText);
-        cs.setInt(2,attemptNumber);
+        cs.setInt(2,attemptID);
         cs.setInt(3,quizID);
         cs.setInt(4,userID);
         cs.setInt(5,questionID);
