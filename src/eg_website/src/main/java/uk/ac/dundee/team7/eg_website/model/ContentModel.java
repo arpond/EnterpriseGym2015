@@ -33,6 +33,7 @@ public class ContentModel {
                 contents.setContentID(rs.getInt("contentID"));
                 contents.setContentTitle(rs.getString("contentTitle"));
                 contents.setContentPath(rs.getString("contentPath"));
+                contents.setContentSummary(rs.getString("contentSummary"));;
             }
             conn.close();
             return contents;

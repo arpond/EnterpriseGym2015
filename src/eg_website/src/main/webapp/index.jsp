@@ -3,7 +3,8 @@
     Created on : 23-Sep-2015, 10:41:24
     Author     : Katerina
 --%>
-
+<%@page import="uk.ac.dundee.team7.eg_website.Store.EventStore"%>
+<%@page import="java.util.*" %>
 <html lang="en">
 
 <head>
@@ -70,36 +71,24 @@
             <div class="col-lg-12">
                 <h2 class="page-header">Upcoming Events</h2>
             </div>
+            <%
+            ArrayList<EventStore> events = (ArrayList<EventStore>) request.getAttribute("events");
+            
+            for (int i = 0; (i < events.size() && i < 6 ) ; i++)
+            {
+                EventStore es = events.get(i);
+            %>
             <div class="col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="event1.png" alt="">
+                <a href="/eg_website<%=es.getContent().getContentPath()%>">
+                    <img class="img-responsive img-portfolio img-hover" src="<%=es.getEventImage()%>" alt="">
                 </a>
+                <div>
+                    <p><%=es.getContent().getContentSummary()%></p>
+                </div>
             </div>
-            <div class="col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="event2.png" alt="">
-                </a>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="event3.png" alt="">
-                </a>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="event4.png" alt="">
-                </a>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="event5.png" alt="">
-                </a>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="event6.png" alt="">
-                </a>
-            </div>
+            <%
+            }
+            %>
         </div>
         <!-- /.row -->
 
