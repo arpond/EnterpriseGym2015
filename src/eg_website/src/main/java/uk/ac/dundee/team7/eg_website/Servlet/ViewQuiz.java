@@ -125,7 +125,7 @@ public class ViewQuiz extends HttpServlet {
         }
         catch (Exception e)
         {
-           Message.message("Quuestion could not be found.", request, response);
+           Message.message("Question could not be found.", request, response);
            return;
         }
         
@@ -248,7 +248,7 @@ public class ViewQuiz extends HttpServlet {
         }
         
         request.setAttribute("question", qs);
-        request.setAttribute("answer", as);
+        request.setAttribute("answer", as); //This is the answer provided by the user previously.. if it exists.
         RequestDispatcher view = request.getRequestDispatcher("/displayQuestion.jsp");
         view.include(request, response);
     }
