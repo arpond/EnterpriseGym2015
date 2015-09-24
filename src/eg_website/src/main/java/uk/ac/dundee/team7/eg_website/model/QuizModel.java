@@ -158,8 +158,21 @@ public class QuizModel {
      * @param quizID
      * @param i 
      */
-    public QuestionStore FetchQuestion(int quizID, int questionNumber) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public QuestionStore FetchQuestion(int quizID, int questionNumber) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        CallableStatement cs = null;
+        ArrayList<AnswerStore> emptyAS = new ArrayList<AnswerStore>();
+        cs= conn.prepareCall("select * eg_question,eg_quiz where eg_quiz.quizID=? and eg_quiz.quizID=eg_question.quizID and eg_question.questionNumber=?");
+        cs.setInt(1, quizID);
+        cs.setInt(2,questionNumber);
+        cs.execute();
+        ResultSet rs = cs.getResultSet();
+        QuestionStore fetchedQuestion = new QuestionStore(rs.getInt("questionID"),rs.getInt("questionNumber"),rs.getString("questionText"),rs.getInt("questionType"),rs.getInt("questionValue"),emptyAS);
+        conn.close();
+        return fetchedQuestion;
+        
     }
 
     /**
