@@ -102,7 +102,7 @@ public class ViewEvent extends HttpServlet{
                 System.out.println("--------------------3-----------------------");
 
         request.setAttribute("event", es);
-        RequestDispatcher view = request.getRequestDispatcher("/events.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/displayEvent.jsp");
         view.include(request, response);
     }
 }

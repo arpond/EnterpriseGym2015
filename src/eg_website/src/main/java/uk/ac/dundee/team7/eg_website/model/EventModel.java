@@ -40,6 +40,7 @@ public class EventModel {
           
             conStore.setContentPath(rs.getString("contentPath"));
             conStore.setContentTitle(rs.getString("contentTitle"));
+            conStore.setContentSummary(rs.getString("contentSummary"));
             evStore.setContent(conStore);
             evStore.setEventImage(rs.getString("eventImage"));
             evStore.setEventPointType(rs.getString("typeName"));
@@ -89,7 +90,7 @@ public class EventModel {
             cs = conn.prepareCall("{call getEvents()}");
             cs.execute();
             rs = cs.getResultSet();
-            
+
 
             while (rs.next()) {
                 
@@ -102,36 +103,25 @@ public class EventModel {
                 conStore.setContent(rs.getString("content"));                
                 conStore.setContentPath(rs.getString("contentPath"));
                 conStore.setContentTitle(rs.getString("contentTitle"));
+                conStore.setContentSummary(rs.getString("contentSummary"));
                 //String tempTitle = rs.getString("contentTitle");
                 //conStore.setContentTitle(tempTitle);
                 evStore.setContent(conStore);
                 evStore.setEventImage(rs.getString("eventImage"));
                 evStore.setEventPointType(rs.getString("typeName"));
                 
-            Timestamp eventPosted = rs.getTimestamp("posted");    
-            Timestamp eventStartTime = rs.getTimestamp("eventStartTime");
-            
-            
-            Date date = new Date(eventStartTime.getTime());
-            DateTime eventStartTimeDateTime = new DateTime(date);
-            
-            Date date1 = new Date(eventPosted.getTime());
-            DateTime eventPostedDateTime = new DateTime(date1);
-       
-            
-            evStore.setEventStartTime(eventStartTimeDateTime);
-            evStore.setPostedTime(eventPostedDateTime);
-            
-          
-            evStore.setEventValue(rs.getInt("eventPoints"));
-            evStore.setEventID(rs.getInt("eventID"));
-                
-
+                Timestamp eventPosted = rs.getTimestamp("posted");    
+                Timestamp eventStartTime = rs.getTimestamp("eventStartTime");
+                Date date = new Date(eventStartTime.getTime());
+                DateTime eventStartTimeDateTime = new DateTime(date);
+                Date date1 = new Date(eventPosted.getTime());
+                DateTime eventPostedDateTime = new DateTime(date1);
+                evStore.setEventStartTime(eventStartTimeDateTime);
+                evStore.setPostedTime(eventPostedDateTime);
                 evStore.setEventValue(rs.getInt("eventPoints"));
-               
                 evStore.setEventID(rs.getInt("eventID"));
-
-                
+                evStore.setEventValue(rs.getInt("eventPoints"));
+                evStore.setEventID(rs.getInt("eventID"));
                 evStoreList.add(evStore);
                 System.out.println(evStoreList);
              

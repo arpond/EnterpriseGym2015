@@ -37,15 +37,18 @@
                 
         %>
     <div class="newsItem">
-        <h2><%=es.getContent().getContentTitle()%></h2>
-        <div class="newsContent">
-            <img src=<%=es.getEventImage()%></img>
-            <p><%=es.getContent().getContent()%></p>
-            <p class="posted"><%=es.getPostedTime().toString()%></p>
+        <h2><a href="/eg_website<%=es.getContent().getContentPath()%>"><%=es.getContent().getContentTitle()%></a></h2>
+        <div>
+            <p>Event Type: <%=es.getEventPointType()%> Points: <%=es.getEventValue()%></p>
+        </div>
+        <div class="eventContent">
+            <img src="<%=es.getEventImage()%>"/>
+            <p><%=es.getContent().getContentSummary()%></p>
+            <%--<p class="posted"><%=es.getPostedTime().toString()%></p>
             <p class="Type"><%=es.getEventPointType()%></p>
             <p class="Points Type"><%=es.getEventValue()%></p>
-            <p class="Event Start Time"><%=es.getEventStartTime().toString()%></p>
-            
+            <p class="Event Start Time"><%=es.getEventStartTime().toString()%></p>--%>
+            <a href="/eg_website<%=es.getContent().getContentPath()%>">Read more...</a>
         </div>
     </div>
                 <%                            

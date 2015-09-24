@@ -28,47 +28,26 @@
         <title>Events</title>
     </head>
      <body>
-         <%@include file="/includes/normalHeader.jsp" %>
-         <div>
+        <%@include file="/includes/normalHeader.jsp" %>
+        <h1><%=ev.getContent().getContentTitle()%></h1>
+        <div>
+            <p>Event Type: <%=ev.getEventPointType()%> Points: <%=ev.getEventValue()%></p>
+            <p>Start Time: <%=ev.getEventStartTime()%></p>
+        </div>
         <%
-          out.println("Event ID:" + eventID);
-          
+            if (eventImage != "")
+            {
         %>
-          </div>
-          <div>
-        <%
-        
-          out.println(timePosted);
-         
+        <img src="<%=eventImage%>"/>
+        <%  
+            }
         %>
-          </div>
-          <div>
-        <%
-         
-          out.println(eventValue);
-          
-        %>
-          </div>
         <div>
         <%
-         
-          out.println(eventImage);
-         
-        %>
-          </div>
-        <div>
-        <%
-         
-          out.println(showContent);
-          
-        %>
-          </div>
-        <div>
-        <%
-          
-          out.println(startTime);
+          out.println(ev.getContent().getContent());
         %>
         </div>
+        
         <%@include file="/includes/normalFooter.jsp" %>
     </body>
 </html>
