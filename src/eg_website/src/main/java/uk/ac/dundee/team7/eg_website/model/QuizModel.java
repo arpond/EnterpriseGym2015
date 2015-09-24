@@ -75,15 +75,18 @@ public class QuizModel {
 	 * 
 	 * @param quiz
 	 * @param attempt
+     * @param userID
 	 */
-	public Boolean addQuizAttempt(QuizStore quiz, QuizStore attempt) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+	public Boolean addQuizAttempt(QuizStore quiz, QuizStore attempt, int userID) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
 	
          //TODO need to think about this and implement.
         Class.forName("com.mysql.jdbc.Driver").newInstance();
         DatabaseConnection dbc = new DatabaseConnection();
         java.sql.Connection conn = dbc.connectToDB();
         CallableStatement cs = null;
-        cs = conn.prepareCall("");
+        cs = conn.prepareCall("{call addQuizAttempt(?,?)}");
+        cs.setInt(1,attempt.getQuizId());
+        cs.setInt(2,userID);
         return true;
 	}
 
