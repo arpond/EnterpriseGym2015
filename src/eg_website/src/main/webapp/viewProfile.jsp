@@ -41,7 +41,7 @@
 <div class="col-md-9">
 <h2>Student Profile</h2>                
 				
-<%  UserProfile up = (UserProfile) request.getAttribute("content");
+<%  UserProfile up = (UserProfile) request.getAttribute("profile");
     UserDetails ud = (UserDetails) request.getAttribute("content");
        String fname = up.getFirstName();
        String sname = up.getLastName();
@@ -65,7 +65,7 @@
          out.println( "Year of Study:" + year + " Matric No: " + matric);
          out.println( "Country: " + country + " Institution: " + institution);
          out.println( "College: " + college + " Degree: " + degree);
-         out.println( "Username: " + username + " Email: " + email);
+         out.println( "Username: " + userName + " Email: " + email);
       %>
      </ul>
 </p>
