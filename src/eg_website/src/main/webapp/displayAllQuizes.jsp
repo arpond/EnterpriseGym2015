@@ -15,10 +15,12 @@
           //ArrayList<QuizStore> taken = (ArrayList<QuizStore>) request.getAttribute("quizes");
     %>
     <head>
+        <%@include file="/includes/scripts.jsp" %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Quiz Page</title>
     </head>
     <body>
+        <%@include file="/includes/normalHeader.jsp" %>
         <h1>Quiz Page</h1>
         <% for(int i=0; i<quizes.size(); i++)
            {
@@ -30,5 +32,6 @@
         <%   
            }
         %>
+        <%@include file="/includes/normalFooter.jsp" %>
     </body>
 </html>

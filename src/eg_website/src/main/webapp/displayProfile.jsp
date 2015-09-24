@@ -24,10 +24,12 @@
     %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <%@include file="/includes/scripts.jsp" %>
         <title>Profile</title>
        
     </head>
     <body>
+        <%@include file="/includes/normalHeader.jsp" %>
         <h1>Your Profile</h1>
         <p><%out.println("First name: " + firstName);%></p>
       <p><%out.println("Last name: " + lastName);%></p>
@@ -40,6 +42,6 @@
       <p><% out.println("Status: " + status);%></p>
       <p><% out.println("College: " + college);%></p>
       <p><% out.println("Degree: " + degree);%></p>
-       
+       <%@include file="/includes/normalFooter.jsp" %>
     </body>
 </html>

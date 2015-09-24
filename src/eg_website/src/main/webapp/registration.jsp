@@ -3,10 +3,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Register</title>
-        <link rel="stylesheet" type="text/css" href="Styles.css" />
+        <%@include file="/includes/scripts.jsp" %>
 
     </head>
     <body>
+        <%@include file="/includes/normalHeader.jsp" %>
         <div id="big_wrapper">
            
          
@@ -30,5 +31,6 @@
             </div> 
          
         </div>
+        <%@include file="/includes/normalFooter.jsp" %>
     </body>
 </html>

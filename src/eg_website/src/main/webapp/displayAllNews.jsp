@@ -12,10 +12,9 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <%@include file="/includes/scripts.jsp" %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/modern-business.css" rel="stylesheet">
-        <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
         <title>All News</title>
     </head>
     <body>
@@ -43,5 +42,6 @@
                 <%                            
             }
         %>
+        <%@include file="/includes/normalFooter.jsp" %>
     </body>
 </html>

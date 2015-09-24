@@ -22,11 +22,13 @@
         
     %>
     
-        <head>
+    <head>
+        <%@include file="/includes/scripts.jsp" %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Events</title>
     </head>
      <body>
+         <%@include file="/includes/normalHeader.jsp" %>
          <div>
         <%
           out.println("Event ID:" + eventID);
@@ -67,5 +69,6 @@
           out.println(startTime);
         %>
         </div>
+        <%@include file="/includes/normalFooter.jsp" %>
     </body>
 </html>

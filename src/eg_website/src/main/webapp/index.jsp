@@ -14,14 +14,7 @@
     <meta name="author" content="">
 
     <title>Home</title>
-
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/modern-business.css" rel="stylesheet">
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-
+    <%@include file="/includes/scripts.jsp" %>
 </head>
 
 <body>
@@ -143,25 +136,9 @@
         <hr>
  
  <!-- Call to Action Section -->
-        <div class="well">
-            <div class="row">
-                <div class="col-md-8">
-                   Links to facebook, twitter any other social media.
-                </div>
-                <div class="col-md-4">
-                    <a class="btn btn-lg btn-default btn-block" href="#">Search</a>
-                </div>
-            </div>
-        </div>
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    Team 7 &copy; Enterprise Website 2015
-                </div>
-            </div>
-        </footer>
 
+        <!-- Footer -->
+        <%@include file="/includes/normalFooter.jsp" %>
     </div>
     <!-- /.container -->
 
@@ -177,7 +154,7 @@
         interval: 5000 //changes the speed
     })
     </script>
-
+    
 </body>
 
 </html>

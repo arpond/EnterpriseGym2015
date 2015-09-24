@@ -14,10 +14,12 @@
           QuizStore quiz = (QuizStore) request.getAttribute("quiz");
      %>
     <head>
+        <%@include file="/includes/scripts.jsp" %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Quizzes</title>
     </head>
     <body>
+        <%@include file="/includes/normalHeader.jsp" %>
         <h3><%=quiz.getQuizName()%></h3>
         <p>Points: <%=quiz.getQuizPointValue()%></p>
         <p>Question: <%=quiz.getQuestionsArray().size()%></p>
@@ -27,5 +29,6 @@
             <input type="hidden" name="mode" value="0">
             <div class="right"><input type="submit" value="Start Quiz" class="button" id="quizButton"></div>
         </form>
+        <%@include file="/includes/normalFooter.jsp" %>
     </body>
 </html>

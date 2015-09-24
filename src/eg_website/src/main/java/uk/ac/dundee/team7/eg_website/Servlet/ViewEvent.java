@@ -27,7 +27,6 @@ public class ViewEvent extends HttpServlet{
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
-        System.out.println("--------------------1-----------------------");
         String[] args = Utils.SplitRequestPath(request);
         // Args less than 2 means display all news
         if (args.length <= 2)
