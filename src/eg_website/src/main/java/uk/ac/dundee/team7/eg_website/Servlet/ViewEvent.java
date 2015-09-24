@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import uk.ac.dundee.team7.eg_website.Store.EventStore;
@@ -15,7 +16,7 @@ import uk.ac.dundee.team7.eg_website.model.Event;
     "/Event",
     "/Event/*",
 })
-public class ViewEvent {
+public class ViewEvent extends HttpServlet{
 
     /**
      * Function that handles the get request
@@ -26,7 +27,7 @@ public class ViewEvent {
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
-
+        System.out.println("--------------------1-----------------------");
         String[] args = Utils.SplitRequestPath(request);
         // Args less than 2 means display all news
         if (args.length <= 2)
@@ -53,9 +54,11 @@ public class ViewEvent {
         try
         {
             events = em.fetchEvents();
+     
         }
         catch (Exception e)
         {
+            
             Message.message("Database error. " + e.toString(), request, response);
             return;
         }
@@ -74,11 +77,12 @@ public class ViewEvent {
      */
     private void DisplayEvent(String[] args, HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-        
+                System.out.println("--------------------2-----------------------");
+
         StringBuilder sb = new StringBuilder();    
         for (int i = 1; i < args.length; i++)
         {
-            sb.append(args[i]);
+            sb.append("/"+args[i]);
         }
 
         String path = sb.toString();
@@ -88,14 +92,18 @@ public class ViewEvent {
         try
         {
              es = em.fetchEvent(path);
+              System.out.println(path);
         }
         catch (Exception e)
         {
+             System.out.println("what te f");
             Message.message("Database error. " + e.toString(), request, response);
             return;
         }
+                System.out.println("--------------------3-----------------------");
+
         request.setAttribute("event", es);
-        RequestDispatcher view = request.getRequestDispatcher("/displayEvent.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/events.jsp");
         view.include(request, response);
     }
 }
