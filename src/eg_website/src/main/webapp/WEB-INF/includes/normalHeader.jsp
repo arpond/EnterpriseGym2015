@@ -81,7 +81,7 @@
           if (ud != null) 
           {
           %>    
-              <h1><a href="/Profile/View">View Profile</a> or <a href="/Profile/Edit">Edit Profile</a> or <a href="Logout">Logout</a> </h1>
+              <h1><a href="/eg_website/Profile/View">View Profile</a> or <a href="/eg_website/Profile/Edit">Edit Profile</a> or <a href="Logout">Logout</a> </h1>
 
               <%} 
               else { %>

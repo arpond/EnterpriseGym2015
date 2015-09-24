@@ -18,7 +18,7 @@
         <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
         <article>
             <h3>Login</h3>
-            <form method="POST"  action="Login" id="login">
+            <form method="POST"  action="/eg_website/Login" id="Login">
                 <div class="left">
                     <ul>
                         <li><label class="input">User Name</label> <input type="text" name="username"></li>

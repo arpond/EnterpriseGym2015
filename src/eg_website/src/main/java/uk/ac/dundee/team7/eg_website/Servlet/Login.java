@@ -58,8 +58,7 @@ public class Login extends HttpServlet{
         {
             session.setAttribute("UserDetails", userDetails);
             System.out.println("Session in servlet "+session);
-            RequestDispatcher rd=request.getRequestDispatcher("/");
-            rd.forward(request,response); 
+            Message.message("You are now logged in.", request, response);
         }
         else
         {

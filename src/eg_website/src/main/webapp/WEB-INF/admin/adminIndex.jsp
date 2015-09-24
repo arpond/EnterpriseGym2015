@@ -24,7 +24,7 @@
                         </h1>
                         <ol class="breadcrumb">
                             <li>
-                                <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
+                                <i class="fa fa-dashboard"></i>  <a href="/eg_website/Admin">Dashboard</a>
                             </li>
                             <li class="active">
                                 <i class="fa fa-desktop"></i> Admin Home
@@ -35,7 +35,7 @@
                 <!-- /.row -->
 
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title"><a href="/eg_website/Admin/addContent">Add new content</a></h3>
@@ -46,85 +46,102 @@
                         </div>
                         <div class="panel panel-primary">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><a href="index.html">Manage an event</a></h3>
+                                <h3 class="panel-title"><a href="/eg_website/Admin/manageContent">Manage existing content</a></h3>
                             </div>
                             <div class="panel-body">
-                                Add, edit or delete an event and its content.
+                                Edit existing content
+                            </div>
+                        </div>
+                        <div class="panel panel-green">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><a href="/eg_website/Admin/deleteContent">Delete Content</a></h3>
+                            </div>
+                            <div class="panel-body">
+                                Remove content pages.
                             </div>
                         </div>
                     </div>
-                    <!-- /.col-sm-4 -->
-                    <div class="col-sm-4">
+                    <!-- /.col-sm-3 -->
+                    <div class="col-sm-3">
                         <div class="panel panel-success">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><a href="index.html">View users</a></h3>
+                                <h3 class="panel-title"><a href="/eg_website/Admin/addNews">Add News</a></h3>
                             </div>
                             <div class="panel-body">
-                                Select users and see their details.
+                                Add a new piece of news.
                             </div>
                         </div>
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><a href="index.html">Manage Users</a></h3>
+                                <h3 class="panel-title"><a href="/eg_website/Admin/manageNews">Manage News</a></h3>
                             </div>
                             <div class="panel-body">
-                                Add, Edit & Delete Users
+                                Edit a piece of news
+                            </div>
+                        </div>
+                        <div class="panel panel-yellow">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><a href="/eg_website/Admin/deleteNews">Delete News</a></h3>
+                            </div>
+                            <div class="panel-body">
+                                Delete a piece of News
                             </div>
                         </div>
                     </div>
-                    <!-- /.col-sm-4 -->
-                    <div class="col-sm-4">
+                    <!-- /.col-sm-3 -->
+                    <div class="col-sm-3">
                         <div class="panel panel-warning">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><a href="index.html">Manage Groups</a></h3>
+                                <h3 class="panel-title"><a href="/eg_website/Admin/addEvent">Add event</a></h3>
                             </div>
                             <div class="panel-body">
-                                Add, Edit & Delete Groups
+                                Add a new event
                             </div>
                         </div>
                         <div class="panel panel-danger">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><a href="index.html">Edit or delete a page</a></h3>
+                                <h3 class="panel-title"><a href="/eg_website/Admin/editEvent">Edit an event</a></h3>
                             </div>
                             <div class="panel-body">
-                                Edit or delete a page content.
+                                Edit an existing event.
                             </div>
                         </div>
-                    </div>
-                    <!-- /.col-sm-4 -->
-                    <div class="col-sm-4">
-                        <div class="panel panel-green">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><a href="index.html">Manage points</a></h3>
-                            </div>
-                            <div class="panel-body">
-                                Add, edit or delete points.
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.col-sm-4 -->
-                    <div class="col-sm-4">
-                        <div class="panel panel-yellow">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><a href="index.html">View & sort partipants</a></h3>
-                            </div>
-                            <div class="panel-body">
-                                View partipants by degree, college or country.
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.col-sm-4 -->
-                    <div class="col-sm-4">
                         <div class="panel panel-red">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><a href="index.html">Add new pages</a></h3>
+                                <h3 class="panel-title"><a href="/eg_website/Admin/deleteEvent">Delete Event</a></h3>
                             </div>
                             <div class="panel-body">
-                                Charts on blah blah.
+                                Delete an event.
                             </div>
                         </div>
                     </div>
-                    <!-- /.col-sm-4 -->
+                    <!-- /.col-sm-3 -->
+                    <div class="col-sm-3">
+                        <div class="panel panel-warning">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><a href="/eg_website/Admin/manageUsers">Manage Users</a></h3>
+                            </div>
+                            <div class="panel-body">
+                                Add a new event
+                            </div>
+                        </div>
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><a href="/eg_website/Admin/">Manage Users</a></h3>
+                            </div>
+                            <div class="panel-body">
+                                Edit an existing event.
+                            </div>
+                        </div>
+                        <div class="panel panel-red">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><a href="/eg_website/Admin/manageGroups">Manage Groups</a></h3>
+                            </div>
+                            <div class="panel-body">
+                                Delete an event.
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="page-header">
