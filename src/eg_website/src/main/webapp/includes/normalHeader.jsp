@@ -85,7 +85,7 @@
 
               <%} 
               else { %>
-             <h1> <a href="login.jsp">Login</a> or <a href="registration.jsp">Register</a> </h1>
+             <h1> <a href="/eg_website/login.jsp">Login</a> or <a href="registration.jsp">Register</a> </h1>
                   <% }%>
 </nav>
 	

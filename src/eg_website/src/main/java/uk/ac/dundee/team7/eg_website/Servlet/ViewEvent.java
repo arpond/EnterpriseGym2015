@@ -8,7 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import uk.ac.dundee.team7.eg_website.Store.EventStore;
+import uk.ac.dundee.team7.eg_website.Store.UserDetails;
 import uk.ac.dundee.team7.eg_website.lib.Utils;
 import uk.ac.dundee.team7.eg_website.model.EventModel;
 
@@ -37,6 +39,29 @@ public class ViewEvent extends HttpServlet{
         {
             DisplayEvent(args, request, response);
         }
+    }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        
+        EventModel em = new EventModel();
+        int eventID;
+        HttpSession session = request.getSession();
+        UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
+        
+        
+        try
+        {
+            eventID = Integer.parseInt(request.getParameter("eventID"));
+            em.signUp(ud.getUserID(), eventID);
+        }
+        catch (Exception e)
+        {
+            Message.message("Event could not be found", request, response);
+            return;
+        }
+        Message.message("Thanks for signing up.", request, response);
     }
 
     /**
@@ -76,8 +101,9 @@ public class ViewEvent extends HttpServlet{
      */
     private void DisplayEvent(String[] args, HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-                System.out.println("--------------------2-----------------------");
-
+        HttpSession session = request.getSession();
+        UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
+        
         StringBuilder sb = new StringBuilder();    
         for (int i = 1; i < args.length; i++)
         {
@@ -86,21 +112,22 @@ public class ViewEvent extends HttpServlet{
 
         String path = sb.toString();
 
+        Boolean attending = false;
         EventModel em = new EventModel();
         EventStore es;
         try
         {
              es = em.fetchEvent(path);
+             //attending = em.attending(ud.getUserID(),es.getEventID());
               System.out.println(path);
         }
         catch (Exception e)
         {
-             System.out.println("what te f");
             Message.message("Database error. " + e.toString(), request, response);
             return;
         }
-                System.out.println("--------------------3-----------------------");
 
+        request.setAttribute("attending", attending);
         request.setAttribute("event", es);
         RequestDispatcher view = request.getRequestDispatcher("/displayEvent.jsp");
         view.include(request, response);

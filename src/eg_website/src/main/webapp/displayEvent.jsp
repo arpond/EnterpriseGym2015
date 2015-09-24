@@ -12,6 +12,7 @@
 <html>
     
     <%  EventStore ev = (EventStore) request.getAttribute("event");
+        Boolean attending = (Boolean) request.getAttribute("attending");
         
         int eventID = ev.getEventID();
         DateTime timePosted = ev.getPostedTime();
@@ -47,7 +48,17 @@
           out.println(ev.getContent().getContent());
         %>
         </div>
-        
+        <%
+          if (ud != null && !attending) 
+          {
+        %>
+        <div>
+            <form method="POST"  action="Event">
+                <input type="hidden" name="eventID" value="<%=ev.getEventID()%>">
+                <input type="submit" value="Event" class="button" id="signUpButton">
+            </form>
+        </div>
+        <% } %>
         <%@include file="/includes/normalFooter.jsp" %>
     </body>
 </html>
