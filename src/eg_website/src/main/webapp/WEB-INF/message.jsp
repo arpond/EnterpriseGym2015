@@ -13,10 +13,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!--Needs Changing-->    <meta http-equiv="refresh" content="5; url=http://localhost:8080/eg_website/" />
         <title>Message</title>
-        <%@include file="/includes/scripts.jsp" %>
+        <%@include file="/WEB-INF/includes/scripts.jsp" %>
     </head>
     <body>
-        <%@include file="/includes/normalHeader.jsp" %>
+        <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
         <article>
             <br/>
             <p>
@@ -27,6 +27,6 @@
             </p>
             <p>You will be redirected to the index in 5 seconds... or return to the <!--INDEX LINK HERE-->index</a></p>
         </article>
-        <%@include file="/includes/normalFooter.jsp" %>
+        <%@include file="/WEB-INF/includes/normalFooter.jsp" %>
     </body>
 </html>

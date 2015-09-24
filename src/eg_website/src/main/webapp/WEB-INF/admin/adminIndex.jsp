@@ -5,12 +5,12 @@
 --%>
 <html lang="en">
 <head>
-    <%@include file="/includes/adminScripts.jsp" %>
+    <%@include file="/WEB-INF/includes/adminScripts.jsp" %>
     <title>Admin Home</title>
 </head>
 
 <body>
-    <%@include file="/includes/adminNav.jsp" %>
+    <%@include file="/WEB-INF/includes/adminNav.jsp" %>
     <div id="wrapper">
 
         <div id="page-wrapper">
@@ -38,7 +38,7 @@
                     <div class="col-sm-4">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><a href="addContent.jsp">Add new content</a></h3>
+                                <h3 class="panel-title"><a href="/eg_website/Admin/addContent">Add new content</a></h3>
                             </div>
                             <div class="panel-body">
                                 Add new content page.

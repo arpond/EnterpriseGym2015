@@ -38,7 +38,7 @@ public class Index extends HttpServlet{
             return;
         }
         request.setAttribute("events", events);
-        RequestDispatcher view = request.getRequestDispatcher("/index.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/index.jsp");
         view.include(request, response);
     
     }

@@ -103,7 +103,7 @@ public class ViewQuiz extends HttpServlet {
             return;
         }
         request.setAttribute("quiz", quiz);
-        RequestDispatcher view = request.getRequestDispatcher("/displayQuiz.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/displayQuiz.jsp");
         view.include(request, response);
     }
 
@@ -150,7 +150,7 @@ public class ViewQuiz extends HttpServlet {
         }
         request.setAttribute("question", qs);
         request.setAttribute("answer", as);
-        RequestDispatcher view = request.getRequestDispatcher("/displayQuestion.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/displayQuestion.jsp");
         view.include(request, response);
     }
 
@@ -185,7 +185,7 @@ public class ViewQuiz extends HttpServlet {
         }
         
         request.setAttribute("question", qs);
-        RequestDispatcher view = request.getRequestDispatcher("/displayQuestion.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/displayQuestion.jsp");
         view.include(request, response);
     }
 
@@ -206,7 +206,7 @@ public class ViewQuiz extends HttpServlet {
             return;
         }
         request.setAttribute("quizes", quizes);
-        RequestDispatcher view = request.getRequestDispatcher("/displayAllQuizes.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/displayAllQuizes.jsp");
         view.include(request, response);
     }
 
@@ -249,7 +249,7 @@ public class ViewQuiz extends HttpServlet {
         
         request.setAttribute("question", qs);
         request.setAttribute("answer", as); //This is the answer provided by the user previously.. if it exists.
-        RequestDispatcher view = request.getRequestDispatcher("/displayQuestion.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/displayQuestion.jsp");
         view.include(request, response);
     }
 

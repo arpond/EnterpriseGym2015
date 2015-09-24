@@ -24,11 +24,11 @@
 
    <title>All Events</title>
    
-    <%@include file="/includes/scripts.jsp" %>
+    <%@include file="/WEB-INF/includes/scripts.jsp" %>
     
 </head>
 <body>
-        <%@include file="/includes/normalHeader.jsp" %>
+        <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
   
         <%
           
@@ -62,7 +62,7 @@
             }
         %>
       
-        <%@include file="/includes/normalFooter.jsp" %>
+        <%@include file="/WEB-INF/includes/normalFooter.jsp" %>
     </body>
 
 </html>

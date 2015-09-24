@@ -17,11 +17,11 @@
 
     <title>View Profile</title>
 
-    <%@include file="/includes/scripts.jsp" %>
+    <%@include file="/WEB-INF/includes/scripts.jsp" %>
 </head>
 
 <body>
-    <%@include file="/includes/normalHeader.jsp" %>
+    <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
     <div class="container">
 
         <div class="row">
@@ -72,7 +72,7 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
-    <%@include file="/includes/normalFooter.jsp" %>
+    <%@include file="/WEB-INF/includes/normalFooter.jsp" %>
 </body>
 
 </html>

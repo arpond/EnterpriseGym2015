@@ -81,11 +81,11 @@
           if (ud != null) 
           {
           %>    
-              <h1><a href="Profile/View">View Profile</a> or <a href="Profile/Edit">Edit Profile</a> or <a href="Logout">Logout</a> </h1>
+              <h1><a href="/Profile/View">View Profile</a> or <a href="/Profile/Edit">Edit Profile</a> or <a href="Logout">Logout</a> </h1>
 
               <%} 
               else { %>
-             <h1> <a href="/eg_website/login.jsp">Login</a> or <a href="registration.jsp">Register</a> </h1>
+             <h1> <a href="/eg_website/Login">Login</a> or <a href="/eg_website/Register">Register</a> </h1>
                   <% }%>
 </nav>
 	

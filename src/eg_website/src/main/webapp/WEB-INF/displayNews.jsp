@@ -19,11 +19,11 @@
         
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <%@include file="/includes/scripts.jsp" %>
+        <%@include file="/WEB-INF/includes/scripts.jsp" %>
         <title>News</title>
     </head>
     <body>
-        <%@include file="/includes/normalHeader.jsp" %>
+        <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
         <h1><%=ns.getContent().getContentTitle()%></h1>
         <%
             if (newsImage != "")
@@ -41,6 +41,6 @@
         <p>Display at: <%=displayTime.toString()%> </p> --%>
         
         <!-- DISPLAY NEWS ID, ETC HERE -->
-        <%@include file="/includes/normalFooter.jsp" %>
+        <%@include file="/WEB-INF/includes/normalFooter.jsp" %>
     </body>
 </html>

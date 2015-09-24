@@ -42,7 +42,7 @@ public class ViewContent extends HttpServlet{
                 return;
             }
             request.setAttribute("content", cs);
-            RequestDispatcher view = request.getRequestDispatcher("/displayContent.jsp");
+            RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/displayContent.jsp");
             view.include(request, response);
 	}
 

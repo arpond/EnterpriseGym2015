@@ -12,13 +12,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <%@include file="/includes/scripts.jsp" %>
+        <%@include file="/WEB-INF/includes/scripts.jsp" %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
         <title>All News</title>
     </head>
     <body>
-        <%@include file="/includes/normalHeader.jsp" %>
+        <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
         <%
             //Get arraylist here
             
@@ -43,6 +43,6 @@
                 <%                            
             }
         %>
-        <%@include file="/includes/normalFooter.jsp" %>
+        <%@include file="/WEB-INF/includes/normalFooter.jsp" %>
     </body>
 </html>

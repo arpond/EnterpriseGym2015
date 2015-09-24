@@ -3,11 +3,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Register</title>
-        <%@include file="/includes/scripts.jsp" %>
+        <%@include file="/WEB-INF/includes/scripts.jsp" %>
 
     </head>
     <body>
-        <%@include file="/includes/normalHeader.jsp" %>
+        <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
         <div id="big_wrapper">
            
          
@@ -31,6 +31,6 @@
             </div> 
          
         </div>
-        <%@include file="/includes/normalFooter.jsp" %>
+        <%@include file="/WEB-INF/includes/normalFooter.jsp" %>
     </body>
 </html>

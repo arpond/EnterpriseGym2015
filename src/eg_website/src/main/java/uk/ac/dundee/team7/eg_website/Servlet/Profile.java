@@ -117,7 +117,7 @@ public class Profile extends HttpServlet{
         }      
         
         request.setAttribute("profile", up);
-        RequestDispatcher view = request.getRequestDispatcher("/displayProfile.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/displayProfile.jsp");
         view.include(request, response);
     }
     
@@ -139,7 +139,7 @@ public class Profile extends HttpServlet{
         }
         
         request.setAttribute("profile", up);
-        RequestDispatcher view = request.getRequestDispatcher("/displayProfile.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/displayProfile.jsp");
         view.include(request, response);
     }
     
@@ -173,7 +173,7 @@ public class Profile extends HttpServlet{
         request.setAttribute("countries", cs);
         request.setAttribute("statuses", sts);
         request.setAttribute("institutions", is);
-        RequestDispatcher view = request.getRequestDispatcher("/editProfile.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/editProfile.jsp");
         view.include(request, response);
     }
 

@@ -87,7 +87,7 @@ public class ViewEvent extends HttpServlet{
             return;
         }
         request.setAttribute("events", events);
-        RequestDispatcher view = request.getRequestDispatcher("/displayAllEvents.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/displayAllEvents.jsp");
         view.include(request, response);
     }
 
@@ -129,7 +129,7 @@ public class ViewEvent extends HttpServlet{
 
         request.setAttribute("attending", attending);
         request.setAttribute("event", es);
-        RequestDispatcher view = request.getRequestDispatcher("/displayEvent.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/displayEvent.jsp");
         view.include(request, response);
     }
 }

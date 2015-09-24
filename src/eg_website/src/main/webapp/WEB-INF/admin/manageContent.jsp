@@ -21,12 +21,12 @@
 
     <title>Change a page</title>
 
-    <%@include file="/includes/adminScripts.jsp" %>
+    <%@include file="/WEB-INF/includes/adminScripts.jsp" %>
 
 </head>
 
 <body>
-    <%@include file="/includes/adminNav.jsp" %>
+    <%@include file="/WEB-INF/includes/adminNav.jsp" %>
     <div id="wrapper">
 
         <div id="page-wrapper">

@@ -15,12 +15,12 @@
     <meta name="author" content="">
 
     <title>Home</title>
-    <%@include file="/includes/scripts.jsp" %>
+    <%@include file="/WEB-INF/includes/scripts.jsp" %>
 </head>
 
 <body>
 
-   <%@include file="/includes/normalHeader.jsp" %>
+   <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
    <!-- Header Carousel -->
     <header id="myCarousel" class="carousel slide">
         <!-- Indicators -->
@@ -127,7 +127,7 @@
  <!-- Call to Action Section -->
 
         <!-- Footer -->
-        <%@include file="/includes/normalFooter.jsp" %>
+        <%@include file="/WEB-INF/includes/normalFooter.jsp" %>
     </div>
     <!-- /.container -->
 

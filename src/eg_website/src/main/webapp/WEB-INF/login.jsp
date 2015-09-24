@@ -11,11 +11,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
-        <%@include file="/includes/scripts.jsp" %>
+        <%@include file="/WEB-INF/includes/scripts.jsp" %>
 
     </head>
     <body>
-        <%@include file="/includes/normalHeader.jsp" %>
+        <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
         <article>
             <h3>Login</h3>
             <form method="POST"  action="Login" id="login">
@@ -28,6 +28,6 @@
                 <div class="right"><input type="submit" value="Login" class="button" id="loginButton"></div>
             </form>
         </article> 
-        <%@include file="/includes/normalFooter.jsp" %>
+        <%@include file="/WEB-INF/includes/normalFooter.jsp" %>
     </body>
 </html>

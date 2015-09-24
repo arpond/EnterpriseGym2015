@@ -22,10 +22,10 @@
 <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 <!-- Bootstrap Core CSS -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="/eg_website/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom CSS -->
-<link href="css/admin.css" rel="stylesheet">
+<link href="/eg_website/css/admin.css" rel="stylesheet">
 
 <!-- Custom Fonts -->
 <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
