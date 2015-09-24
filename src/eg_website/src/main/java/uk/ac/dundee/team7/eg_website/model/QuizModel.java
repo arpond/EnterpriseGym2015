@@ -129,8 +129,33 @@ public class QuizModel {
      * @param attemptNumber
      * @return 
      */
-    public AnswerStore FetchAnswer(int quizID, int userID, int questionID, int attemptNumber) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public AnswerStore FetchAnswer(int quizID, int userID, int questionID, int attemptNumber) throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        CallableStatement cs = null;
+        cs= conn.prepareCall("select * eg_users_has_eg_quiz_has_eg_question,eg_users_has_eg_quiz,eg_quiz,eg_question,eg_answers"
+                + " where eg_quiz.quizID = ? and"
+                + " eg_quiz.quizID = eg_users_has_eg_quiz.eg_quiz_quizID and"
+                + " eg_users_has_eg_quiz.eg_users_userID = ? and"
+                + " eg_users_has_eg_quiz_has_eg_question.eg_users_has_eg_quiz_eg_users_userID = eg_users_has_eg_quiz.eg_users_userID and"
+                + " eg_users_has_eg_quiz_has_eg_question.eg_users_has_eg_quiz_eg_quiz_quizID = eg_quiz.quizID and"
+                + " eg_question.questionID=? and"
+                + " eg_users_has_eg_quiz.attemptNumber = ? and"
+                + " eg_users_has_eg_quiz_has_eg_question.eg_users_has_eg_quiz_attemptNumber = eg_users_has_eg_quiz.attemptNumber and"
+                + " eg_users_has_eg_quiz_has_eg_question.eg_question_questionID =  eg_question.questionID and"
+                + " eg_question.eg_quiz_quizID = eg_quiz.quizID and"
+                + " eg_answers.eg_question_questionID = eg_question.questionID and"
+                + " eg_answers.eg_question_eg_quiz_quizID = eg_quiz.quizID");
+        cs.setInt(1, quizID);
+        cs.setInt(2, userID);
+        cs.setInt(3, questionID);
+        cs.setInt(4, attemptNumber);
+        cs.execute();
+        ResultSet rs = cs.getResultSet();
+        AnswerStore fetchedAnswer = new AnswerStore(rs.getInt("answerID"),rs.getString("answerText"),false);
+        conn.close();
+        return fetchedAnswer;
     }
     
     /**
