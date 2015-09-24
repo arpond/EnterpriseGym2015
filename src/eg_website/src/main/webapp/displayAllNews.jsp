@@ -31,10 +31,10 @@
                 NewsStore ns = (NewsStore) i1.next();
                 %>
     <div class="newsItem">
-        <h2><%=ns.getContent().getContentTitle()%></h2>
+        <h2><a href="<%=ns.getContent().getContentPath()%>"><%=ns.getContent().getContentTitle()%></a></h2>
         <div class="newsContent">
             <img src=<%=ns.getNewsImage()%> ></img>
-            <p><%=ns.getContent().getContent()%></p>
+            <p><%=ns.getContent().getContentSummary()%></p>
             <p class="posted"><%=ns.getPostedTime().toString()%></p>
             <p class="category"><%=ns.getCategoryName()%></p>
         </div>

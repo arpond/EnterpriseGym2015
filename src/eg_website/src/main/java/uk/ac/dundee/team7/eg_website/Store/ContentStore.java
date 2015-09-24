@@ -6,12 +6,14 @@ public class ContentStore {
 	private String content;
 	private String contentPath;
 	private String contentTitle;
+        private String contentSummary;
 
-    public ContentStore(int contentID, String content, String contentPath, String contentTitle) {
+    public ContentStore(int contentID, String content, String contentPath, String contentTitle, String contentSummary) {
         this.contentID = contentID;
         this.content = content;
         this.contentPath = contentPath;
         this.contentTitle = contentTitle;
+        this.contentSummary = contentSummary;
     }
   
     public ContentStore()
@@ -51,6 +53,12 @@ public class ContentStore {
         this.contentTitle = contentTitle;
     }
 
-        
-        
+    public String getContentSummary() {
+        return contentSummary;
+    }
+
+    public void setContentSummary(String contentSummary) {
+        this.contentSummary = contentSummary;
+    }
+       
 }

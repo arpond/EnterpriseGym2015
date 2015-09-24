@@ -59,15 +59,16 @@ public class NewsModel {
         cs = conn.prepareCall("{call getNews()}");
         cs.execute();
         ResultSet rs = cs.getResultSet();
-        rs.first();
+        //rs.first();
         ArrayList<NewsStore> newsList = new ArrayList<NewsStore>();        
         while(rs.next())
         {
             ContentStore contentstore = new ContentStore();
             contentstore.setContent(rs.getString("content"));
             contentstore.setContentID(rs.getInt("contentID"));
-            contentstore.setContentPath("contentPath");
-            contentstore.setContentTitle("contentTitle");
+            contentstore.setContentPath(rs.getString("contentPath"));
+            contentstore.setContentTitle(rs.getString("contentTitle"));
+            contentstore.setContentSummary(rs.getString("contentSummary"));
             
             Timestamp posted = rs.getTimestamp("posted");
             Date date = new Date(posted.getTime());
