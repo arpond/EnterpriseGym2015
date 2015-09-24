@@ -114,8 +114,10 @@ public class QuizModel {
         ArrayList<AnswerStore> emptyAS = new ArrayList<AnswerStore>();
         cs= conn.prepareCall("select * eg_question where questionID=?");
         cs.setInt(1, questionID);
+        cs.execute();
         ResultSet rs = cs.getResultSet();
         QuestionStore fetchedQuestion = new QuestionStore(rs.getInt("questionID"),rs.getInt("questionNumber"),rs.getString("questionText"),rs.getInt("questionType"),rs.getInt("questionValue"),emptyAS);
+        conn.close();
         return fetchedQuestion;
     }
 
@@ -137,8 +139,18 @@ public class QuizModel {
      * @param userID
      * @param attemptNumber 
      */
-    public void startQuiz(int quizID, int userID, int attemptNumber) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void startQuiz(int quizID, int userID, int attemptNumber) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        CallableStatement cs = null;
+        ArrayList<AnswerStore> emptyAS = new ArrayList<AnswerStore>();
+        cs= conn.prepareCall("insert * eg_users_has_quiz,eg_quiz where eg_quiz.quizID=? and eg_users_has_quiz.quizID=eg_quiz.quizID and eg_users_has_quiz.userID=? and eg_users_has_quiz.attemptNumber=?");
+        cs.setInt(1,quizID);
+        cs.setInt(2,userID);
+        cs.setInt(3,attemptNumber);
+        cs.execute();
+        conn.close();
     }
 
     /**
