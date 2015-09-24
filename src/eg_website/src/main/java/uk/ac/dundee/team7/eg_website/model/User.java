@@ -149,13 +149,13 @@ public class User {
         String ln = up.getLastName();
         String mobile = up.getMobile();
         String contactNum = up.getContactNumber();
-        String YearOfStudy = up.getYearOfStudy();
+        String YearOfStudy = "";//up.getYearOfStudy();
         String matricNum = up.getMatricNumber();
-        Boolean youngES = up.getYoungES_FLAG();
-        String username = ud.getUsername();
+        Boolean youngES = false;//up.getYoungES_FLAG();
+        String username = "babak";//ud.getUsername();
         String email = ud.getEmail();
         try {
-            cs = conn.prepareCall("{call updateProfile(?,?,?,?,?,?,?,?,?,?,?)}");
+            cs = conn.prepareCall("{call updateProfile(?,?,?,?,?,?,?,?,?,?)}");
             cs.setInt(1, userID);
             cs.setString(2, fn);
             cs.setString(3, ln);
@@ -166,8 +166,10 @@ public class User {
             cs.setBoolean(8, youngES);
             cs.setString(9, username);
             cs.setString(10, email);
-
+            cs.execute();
         } catch (SQLException se) {
+            System.out.println(se.toString());
+            String err = se.toString();
             conn.close();
             return false;
         }

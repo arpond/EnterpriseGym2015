@@ -65,7 +65,7 @@ public class Register extends HttpServlet {
         
         if (result)
         {
-            request.setAttribute("message", "Registration Succesful");
+            request.setAttribute("message", "Registration Successful");
             RequestDispatcher view = request.getRequestDispatcher("/message.jsp");
             view.forward(request, response);
         }

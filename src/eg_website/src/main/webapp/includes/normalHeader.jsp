@@ -99,15 +99,15 @@
 	
     <nav
 	      <%
-              UserDetails us = (UserDetails) session.getAttribute("LoggedIn");
-              if (us != null) 
+              UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
+              if (ud != null) 
 	      {
               %>    
-		  <h1><a href="editprofile.jsp">Edit Profile</a> or <a href="logout.jsp">Logout</a> </h1>
+		  <h1><a href="Profile/View">View Profile</a> or <a href="Profile/Edit">Edit Profile</a> or <a href="Logout">Logout</a> </h1>
                
 		  <%} 
 		  else { %>
-                 <h1> <a href="login.html">Login</a> or <a href="register.html">Register</a> </h1>
+                 <h1> <a href="login.jsp">Login</a> or <a href="registration.jsp">Register</a> </h1>
 		      <% }%>
     </nav>
 	

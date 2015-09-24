@@ -2,6 +2,7 @@ package uk.ac.dundee.team7.eg_website.model;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import java.sql.CallableStatement;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -18,33 +19,52 @@ public class Event {
      * @param eventPath
      */
     public EventStore fetchEvent(String eventPath) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
-
+        System.out.println("hiting the db");
         Class.forName("com.mysql.jdbc.Driver").newInstance();
         DatabaseConnection dbc = new DatabaseConnection();
         java.sql.Connection conn = dbc.connectToDB();
         CallableStatement cs = null;
         EventStore evStore = new EventStore();
         ContentStore conStore = new ContentStore();
-
+        System.out.println("123");
         ResultSet rs = null;
         try {
-            cs = conn.prepareCall("{call getEventOne(?)}");
+            System.out.println("321");
+            cs = conn.prepareCall("{call getEventsOne(?)}");
             cs.setString(1, eventPath);
             cs.execute();
             rs = cs.getResultSet();
-
+            
+            rs.first();
             conStore.setContent(rs.getString("content"));
+          
             conStore.setContentPath(rs.getString("contentPath"));
             conStore.setContentTitle(rs.getString("contentTitle"));
             evStore.setContent(conStore);
             evStore.setEventImage(rs.getString("eventImage"));
             evStore.setEventPointType(rs.getString("typeName"));
-            evStore.setEventStartTime(new DateTime(rs.getTimestamp("eventStartTime").getTime()));
+            
+            
+           Timestamp eventStartTime = rs.getTimestamp("eventStartTime");
+            Timestamp eventPosted = rs.getTimestamp("posted");
+            
+            
+            Date date = new Date(eventStartTime.getTime());
+           DateTime eventStartTimeDateTime = new DateTime(date);
+            
+            Date date1 = new Date(eventPosted.getTime());
+            DateTime eventPostedDateTime = new DateTime(date1);
+       
+            
+            evStore.setEventStartTime(eventStartTimeDateTime);
+            evStore.setPostedTime(eventPostedDateTime);
+            
+          
             evStore.setEventValue(rs.getInt("eventPoints"));
-            evStore.setPostedTime(new DateTime(rs.getTimestamp("posted").getTime()));
             evStore.setEventID(rs.getInt("eventID"));
 
         } catch (SQLException se) {
+            System.out.println(se);
             conn.close();
             return evStore;
         }
@@ -54,38 +74,75 @@ public class Event {
     }
 
     public ArrayList<EventStore> fetchEvents() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+        
+        
         Class.forName("com.mysql.jdbc.Driver").newInstance();
         DatabaseConnection dbc = new DatabaseConnection();
         java.sql.Connection conn = dbc.connectToDB();
         CallableStatement cs = null;
-        EventStore evStore = new EventStore();
+       
         ArrayList<EventStore> evStoreList = new ArrayList<EventStore>();
-        ContentStore conStore = new ContentStore();
+        
 
         ResultSet rs = null;
         try {
             cs = conn.prepareCall("{call getEvents()}");
             cs.execute();
             rs = cs.getResultSet();
+            
 
-            if (rs != null && rs.next()) {
-                conStore.setContent(rs.getString("content"));
+            while (rs.next()) {
+                
+                 EventStore evStore = new EventStore();
+                 ContentStore conStore = new ContentStore();
+                 
+                System.out.println("once----twice----trice ?");
+                
+                
+                conStore.setContent(rs.getString("content"));                
                 conStore.setContentPath(rs.getString("contentPath"));
                 conStore.setContentTitle(rs.getString("contentTitle"));
+                //String tempTitle = rs.getString("contentTitle");
+                //conStore.setContentTitle(tempTitle);
                 evStore.setContent(conStore);
                 evStore.setEventImage(rs.getString("eventImage"));
                 evStore.setEventPointType(rs.getString("typeName"));
-                evStore.setEventStartTime(new DateTime(rs.getTimestamp("eventStartTime").getTime()));
+                
+            Timestamp eventPosted = rs.getTimestamp("posted");    
+            Timestamp eventStartTime = rs.getTimestamp("eventStartTime");
+            
+            
+            Date date = new Date(eventStartTime.getTime());
+            DateTime eventStartTimeDateTime = new DateTime(date);
+            
+            Date date1 = new Date(eventPosted.getTime());
+            DateTime eventPostedDateTime = new DateTime(date1);
+       
+            
+            evStore.setEventStartTime(eventStartTimeDateTime);
+            evStore.setPostedTime(eventPostedDateTime);
+            
+          
+            evStore.setEventValue(rs.getInt("eventPoints"));
+            evStore.setEventID(rs.getInt("eventID"));
+                
+
                 evStore.setEventValue(rs.getInt("eventPoints"));
-                evStore.setPostedTime(new DateTime(rs.getTimestamp("posted").getTime()));
+               
                 evStore.setEventID(rs.getInt("eventID"));
 
+                
                 evStoreList.add(evStore);
+                System.out.println(evStoreList);
+             
             }
+            
         } catch (SQLException se) {
+            System.out.println(se);
             conn.close();
             return evStoreList;
         }
+        
         conn.close();
         return evStoreList;
     }

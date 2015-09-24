@@ -56,7 +56,8 @@ public class News {
         java.sql.Connection conn = dbc.connectToDB();
         CallableStatement cs = null;        
         
-        cs = conn.prepareCall("{call getNews}");
+        cs = conn.prepareCall("{call getNews()}");
+        cs.execute();
         ResultSet rs = cs.getResultSet();
         rs.first();
         ArrayList<NewsStore> newsList = new ArrayList<NewsStore>();        
@@ -67,6 +68,7 @@ public class News {
             contentstore.setContentID(rs.getInt("contentID"));
             contentstore.setContentPath("contentPath");
             contentstore.setContentTitle("contentTitle");
+            
             Timestamp posted = rs.getTimestamp("posted");
             Date date = new Date(posted.getTime());
             DateTime postedtime = new DateTime(date);

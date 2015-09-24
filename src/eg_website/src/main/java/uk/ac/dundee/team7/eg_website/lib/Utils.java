@@ -24,8 +24,9 @@ public class Utils {
     public static String[] SplitRequestPath(HttpServletRequest request) {
         StringTokenizer st = new StringTokenizer(request.getRequestURI(), "/");
         String args[] = new String[st.countTokens()];
-        
-        for (int i=0; i<st.countTokens(); i++)
+                int count = st.countTokens();
+
+        for (int i=0; i< count; i++)
         {
             String token = st.nextToken();
             try
