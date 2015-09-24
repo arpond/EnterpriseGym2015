@@ -36,9 +36,9 @@
         <%
           out.println(ns.getContent().getContent());
         %>
-        <p>Category: <%=newsCategory%></p>
+        <%-- <p>Category: <%=newsCategory%></p>
         <p>Posted at: <%=postedTime.toString()%></p>
-        <p>Display at: <%=displayTime.toString()%> </p>
+        <p>Display at: <%=displayTime.toString()%> </p> --%>
         
         <!-- DISPLAY NEWS ID, ETC HERE -->
         <%@include file="/includes/normalFooter.jsp" %>

@@ -31,12 +31,13 @@
                 NewsStore ns = (NewsStore) i1.next();
                 %>
     <div class="newsItem">
-        <h2><a href="<%=ns.getContent().getContentPath()%>"><%=ns.getContent().getContentTitle()%></a></h2>
+        <h2><a href="/eg_website/<%=ns.getContent().getContentPath()%>"><%=ns.getContent().getContentTitle()%></a></h2>
         <div class="newsContent">
             <img src=<%=ns.getNewsImage()%> ></img>
             <p><%=ns.getContent().getContentSummary()%></p>
-            <p class="posted"><%=ns.getPostedTime().toString()%></p>
-            <p class="category"><%=ns.getCategoryName()%></p>
+            <%-- <p class="posted"><%=ns.getPostedTime().toString()%></p>
+            <p class="category"><%=ns.getCategoryName()%></p> --%>
+            <a href="/eg_website/<%=ns.getContent().getContentPath()%>">Read More..</a>
         </div>
     </div>
                 <%                            
