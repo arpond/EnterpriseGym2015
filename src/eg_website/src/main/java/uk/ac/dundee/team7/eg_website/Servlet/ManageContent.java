@@ -15,6 +15,7 @@ import uk.ac.dundee.team7.eg_website.model.ContentModel;
 public class ManageContent extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) {
+            
 		String contentTitle=request.getParameter("contentTitle");
                 String contentPath=request.getParameter("contentPath");
                 String contentSummary=request.getParameter("contentSummary");
@@ -24,7 +25,7 @@ public class ManageContent extends HttpServlet {
                 ContentStore contentS;
                 
                 try{
-                    cm.addContent(contentPath, content, contentTitle);
+                    cm.addContent(contentPath, content, contentTitle, contentSummary);
                     
                 } catch (SQLException ex) {
                 Logger.getLogger(ManageContent.class.getName()).log(Level.SEVERE, null, ex);
