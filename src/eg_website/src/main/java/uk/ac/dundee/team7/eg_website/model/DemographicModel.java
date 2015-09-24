@@ -61,8 +61,25 @@ public class DemographicModel {
         return contList;
     }
 
-    public ArrayList<StatusStore> fetchStatuses() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<StatusStore> fetchStatuses() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+          Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        CallableStatement cs = null;        
+        ArrayList<StatusStore> statusList = new ArrayList<StatusStore>(); 
+        cs = conn.prepareCall("{call getStatuses()}");
+        cs.execute();
+        ResultSet rs = cs.getResultSet();
+        rs.first();
+        while(rs.next())
+        {
+            StatusStore statusStore = new StatusStore();
+            statusStore.setStatusID(rs.getInt("statusID"));
+            statusStore.setStautsName(rs.getString("statusName"));
+            statusList.add(statusStore);
+        }
+        
+        return statusList;
     }
     
     public ArrayList<StatusStore> fetchDegrees() {
