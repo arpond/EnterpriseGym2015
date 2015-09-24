@@ -129,7 +129,7 @@ public class QuizModel {
      * @param attemptNumber
      * @return 
      */
-    public AnswerStore FetchAnswer(int quizID, int userID, int questionID, int attemptNumber) throws SQLException, ClassNotFoundException {
+    public AnswerStore FetchAnswer(int quizID, int userID, int questionID, int attemptNumber) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         Class.forName("com.mysql.jdbc.Driver").newInstance();
         DatabaseConnection dbc = new DatabaseConnection();
         java.sql.Connection conn = dbc.connectToDB();
@@ -170,7 +170,7 @@ public class QuizModel {
         java.sql.Connection conn = dbc.connectToDB();
         CallableStatement cs = null;
         ArrayList<AnswerStore> emptyAS = new ArrayList<AnswerStore>();
-        cs= conn.prepareCall("insert * eg_users_has_quiz,eg_quiz where eg_quiz.quizID=? and eg_users_has_quiz.quizID=eg_quiz.quizID and eg_users_has_quiz.userID=? and eg_users_has_quiz.attemptNumber=?");
+        cs= conn.prepareCall("insert into eg_users_has_quiz (eg_quiz_quizID,eg_users_userID,attemptNumber) Values(?,?,?)");
         cs.setInt(1,quizID);
         cs.setInt(2,userID);
         cs.setInt(3,attemptNumber);
@@ -208,8 +208,21 @@ public class QuizModel {
      * @param attemptNumber
      * @param answerText 
      */
-    public void answerQuestion(int quizID, int userID, int questionID, int attemptNumber, String answerText) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void answerQuestion(int quizID, int userID, int questionID, int attemptNumber, String answerText) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        CallableStatement cs = null;
+        ArrayList<AnswerStore> emptyAS = new ArrayList<AnswerStore>();
+        cs= conn.prepareCall("insert into eg_users_has_eg_quiz_has_eg_question (eg_users_has_eg_quiz_eg_users_userID,eg_users_has_eg_quiz_eg_quiz_quizID, eg_users_has_eg_quiz_attemptNumber,eg_question_questionID,answerText) values(?,?,?,?,?)");
+        cs.setString(1,answerText);
+        cs.setInt(2,attemptNumber);
+        cs.setInt(3,quizID);
+        cs.setInt(4,userID);
+        cs.setInt(5,questionID);
+                
+        cs.execute();
+        conn.close();
     }
 
 }
