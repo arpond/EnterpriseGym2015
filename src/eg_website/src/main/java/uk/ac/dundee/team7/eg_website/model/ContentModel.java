@@ -47,7 +47,7 @@ public class ContentModel {
 	 * @param contentTitle The title of the content
          * @return Boolean if the content was added successfully
 	 */
-	public Boolean addContent(String contentPath, String content, String contentTitle) throws SQLException {
+	public Boolean addContent(String contentPath, String content, String contentTitle, String contentSummary) throws SQLException {
             java.sql.Connection conn = null;
             try 
             {
@@ -55,11 +55,12 @@ public class ContentModel {
                 DatabaseConnection dbc = new DatabaseConnection();
                 conn = dbc.connectToDB();
 
-                CallableStatement cs = conn.prepareCall("insert into eg_content (content, contentPath, contentTitle) VALUES (?,?,?) ");
+                CallableStatement cs = conn.prepareCall("insert into eg_content (content, contentPath, contentTitle, contentSummary) VALUES (?,?,?,?) ");
                 ContentStore contents = new ContentStore();
                 cs.setString(1, content);
                 cs.setString(2, contentPath);
                 cs.setString(3, contentTitle);
+                cs.setString(4, contentSummary);
                 cs.execute();
                 conn.close();
             }
