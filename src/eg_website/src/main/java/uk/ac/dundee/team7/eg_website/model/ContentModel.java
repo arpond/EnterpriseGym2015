@@ -91,7 +91,7 @@ public class ContentModel {
                 String contentTitle = content.getContentTitle();
                 int contentID = content.getContentID();
                 
-                CallableStatement cs = conn.prepareCall("update eg_content set content=?, contentPath=?, contentTitle=? where contentID =? ");
+                    CallableStatement cs = conn.prepareCall("update eg_content set content=?, contentPath=?, contentTitle=? where contentID =? ");
                 cs.setString(1, contentString);
                 cs.setString(2, contentPath);
                 cs.setString(3, contentTitle);
