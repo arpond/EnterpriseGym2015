@@ -57,6 +57,7 @@ public class News {
         CallableStatement cs = null;        
         
         cs = conn.prepareCall("{call getNews()}");
+        cs.execute();
         ResultSet rs = cs.getResultSet();
         rs.first();
         ArrayList<NewsStore> newsList = new ArrayList<NewsStore>();        
