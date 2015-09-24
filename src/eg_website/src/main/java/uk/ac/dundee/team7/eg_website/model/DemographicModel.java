@@ -40,8 +40,25 @@ public class DemographicModel {
         return instList;
     }
 
-    public ArrayList<CountryStore> fetchCountries() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<CountryStore> fetchCountries() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+           Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        CallableStatement cs = null;        
+        ArrayList<CountryStore> contList = new ArrayList<CountryStore>(); 
+        cs = conn.prepareCall("{call getCountries()}");
+        cs.execute();
+        ResultSet rs = cs.getResultSet();
+        rs.first();
+        while(rs.next())
+        {
+            CountryStore contrStore = new CountryStore();
+            contrStore.setCountryID(rs.getInt("countryID"));
+            contrStore.setCountryName(rs.getString("countryName"));
+            contList.add(contrStore);
+        }
+        
+        return contList;
     }
 
     public ArrayList<StatusStore> fetchStatuses() {
