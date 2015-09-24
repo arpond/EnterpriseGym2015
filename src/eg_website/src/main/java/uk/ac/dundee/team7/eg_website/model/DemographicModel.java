@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import uk.ac.dundee.team7.eg_website.Store.CountryStore;
+import uk.ac.dundee.team7.eg_website.Store.DegreeStore;
 import uk.ac.dundee.team7.eg_website.Store.InstitutionStore;
 import uk.ac.dundee.team7.eg_website.Store.StatusStore;
 
@@ -82,8 +83,26 @@ public class DemographicModel {
         return statusList;
     }
     
-    public ArrayList<StatusStore> fetchDegrees() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<DegreeStore> fetchDegrees() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        CallableStatement cs = null;        
+        ArrayList<DegreeStore> degreeList = new ArrayList<DegreeStore>(); 
+        cs = conn.prepareCall("{call getDegrees()}");
+        cs.execute();
+        ResultSet rs = cs.getResultSet();
+        rs.first();
+        while(rs.next())
+        {
+            DegreeStore degreeStore = new DegreeStore();
+            degreeStore.setDegreeID(rs.getInt("degreeID"));
+            degreeStore.setDegreeName(rs.getString("degreeName"));
+            degreeStore.setOtherFlag(rs.getBoolean("other_FLAG"));
+            degreeList.add(degreeStore);
+        }
+        
+        return degreeList;
     }
 
     
