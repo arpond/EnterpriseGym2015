@@ -29,22 +29,7 @@
 </head>
 <body>
         <%@include file="/includes/normalHeader.jsp" %>
-        
-        
-    <div>
-      <textarea cols="80" rows="10" id="content" name="content"> 
-        
-      </textarea>
-      <script type="text/javascript">
-        
-    
-    CKEDITOR.replace( 'content' );
-      </script>
-      <input type="submit" value="Submit"/>
-    </div>
   
-        
-        
         <%
           
             

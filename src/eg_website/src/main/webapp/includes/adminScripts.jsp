@@ -1,6 +1,6 @@
 <%-- 
-    Document   : scripts
-    Created on : 24-Sep-2015, 09:56:02
+    Document   : adminScripts
+    Created on : 24-Sep-2015, 17:01:38
     Author     : Andrew
 --%>
 
@@ -9,10 +9,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-
-<link href="/eg_website/css/bootstrap.min.css" rel="stylesheet">
-<link href="/eg_website/css/modern-business.css" rel="stylesheet">
-<link href="/eg_website/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -25,3 +21,18 @@
 <!-- Include Date Range Picker -->
 <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom CSS -->
+<link href="css/admin.css" rel="stylesheet">
+
+<!-- Custom Fonts -->
+<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->

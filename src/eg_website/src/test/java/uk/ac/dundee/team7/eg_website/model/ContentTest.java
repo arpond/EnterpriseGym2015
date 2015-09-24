@@ -22,48 +22,48 @@ public class ContentTest {
     public ContentTest() {
     }
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-        String contentPath = "/test/test";
-        String content = "<div><p>test html</p></div>";
-        String contentTitle = "Test HTML";
-        ContentModel instance = new ContentModel();
-        Boolean expResult = true;
-        try
-        {
-            Boolean result = instance.addContent(contentPath, content, contentTitle);
-            assertEquals(expResult, result);
-        }
-        catch (Exception e)
-        {
-            fail("Failed with exception\n" + e.toString());
-        }
-    }
-    
-    @After
-    public void tearDown() {
-        ContentModel instance = new ContentModel();
-        ContentStore cs;
-        try
-        {
-            cs = instance.fetchContent("/test/test");
-            int id = cs.getContentID();
-            instance.deleteContent(id);
-            //assertEquals(true, instance.deleteContent(cs.getContentID()));
-        }
-        catch (Exception e)
-        {
-            fail("Failed with exception\n" + e.toString());
-        }
-    }
+//    @BeforeClass
+//    public static void setUpClass() {
+//    }
+//    
+//    @AfterClass
+//    public static void tearDownClass() {
+//    }
+//    
+//    @Before
+//    public void setUp() {
+//        String contentPath = "/test/test";
+//        String content = "<div><p>test html</p></div>";
+//        String contentTitle = "Test HTML";
+//        ContentModel instance = new ContentModel();
+//        Boolean expResult = true;
+//        try
+//        {
+//            Boolean result = instance.addContent(contentPath, content, contentTitle);
+//            assertEquals(expResult, result);
+//        }
+//        catch (Exception e)
+//        {
+//            fail("Failed with exception\n" + e.toString());
+//        }
+//    }
+//    
+//    @After
+//    public void tearDown() {
+//        ContentModel instance = new ContentModel();
+//        ContentStore cs;
+//        try
+//        {
+//            cs = instance.fetchContent("/test/test");
+//            int id = cs.getContentID();
+//            instance.deleteContent(id);
+//            //assertEquals(true, instance.deleteContent(cs.getContentID()));
+//        }
+//        catch (Exception e)
+//        {
+//            fail("Failed with exception\n" + e.toString());
+//        }
+//    }
 
     /**
      * Test of fetchContent method, of class ContentModel.
