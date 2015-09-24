@@ -62,7 +62,7 @@ public class Login extends HttpServlet{
         }
         else
         {
-            Message.message("Your username or passowrd is invalid", request, response);
+            Message.message("Your username or passowrd could not be found", request, response);
         }
           
     }

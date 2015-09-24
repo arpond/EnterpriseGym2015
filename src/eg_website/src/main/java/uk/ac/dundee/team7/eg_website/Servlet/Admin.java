@@ -39,7 +39,7 @@ public class Admin extends HttpServlet {
         HttpSession session = request.getSession();
         UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
         
-        /**if (ud.getAuthID() != 1)
+        /**if (ud == null || ud.getAuthID() != 1)
         {
             Message.message("You do not have access to the admin page.", request, response);
         }
