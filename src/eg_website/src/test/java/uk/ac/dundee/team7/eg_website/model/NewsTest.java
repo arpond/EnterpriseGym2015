@@ -48,11 +48,12 @@ public class NewsTest {
     /**
      * Test of fetchNews method, of class NewsModel.
      */
+    /**
     @Test
     public void testFetchNews_String() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         NewsModel news = new NewsModel();
         NewsStore bob = news.fetchNews("dsadas");
-    }
+    }**/
 
     /**
      * Test of fetchNews method, of class NewsModel.
