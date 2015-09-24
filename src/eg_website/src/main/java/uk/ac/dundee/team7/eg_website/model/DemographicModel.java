@@ -37,7 +37,7 @@ public class DemographicModel {
             instStore.setInstitutionName(rs.getString("institutionName"));
             instList.add(instStore);
         }
-        
+        conn.close();
         return instList;
     }
 
@@ -58,7 +58,7 @@ public class DemographicModel {
             contrStore.setCountryName(rs.getString("countryName"));
             contList.add(contrStore);
         }
-        
+        conn.close();
         return contList;
     }
 
@@ -79,7 +79,7 @@ public class DemographicModel {
             statusStore.setStautsName(rs.getString("statusName"));
             statusList.add(statusStore);
         }
-        
+        conn.close();
         return statusList;
     }
     
@@ -101,7 +101,7 @@ public class DemographicModel {
             degreeStore.setOtherFlag(rs.getBoolean("other_FLAG"));
             degreeList.add(degreeStore);
         }
-        
+        conn.close();
         return degreeList;
     }
 
