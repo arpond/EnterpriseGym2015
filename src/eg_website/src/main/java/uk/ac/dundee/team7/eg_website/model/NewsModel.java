@@ -39,6 +39,7 @@ public class NewsModel {
         contentstore.setContentID(rs.getInt("contentID"));
         contentstore.setContentPath(rs.getString("contentPath"));
         contentstore.setContentTitle(rs.getString("contentTitle"));
+        contentstore.setContentSummary(rs.getString("contentSummary"));
         
         Timestamp posted = rs.getTimestamp("posted");
         Date date = new Date(posted.getTime());
