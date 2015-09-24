@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import uk.ac.dundee.team7.eg_website.Store.ContentStore;
 import uk.ac.dundee.team7.eg_website.lib.Utils;
-import uk.ac.dundee.team7.eg_website.model.Content;
+import uk.ac.dundee.team7.eg_website.model.ContentModel;
 
 
 @WebServlet(urlPatterns = {
@@ -30,7 +30,7 @@ public class ViewContent extends HttpServlet{
             }
             
             String path = sb.toString();
-            Content cm = new Content();
+            ContentModel cm = new ContentModel();
             ContentStore cs;
             try
             {

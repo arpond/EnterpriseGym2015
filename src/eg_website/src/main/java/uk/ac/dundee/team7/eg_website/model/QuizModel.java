@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import uk.ac.dundee.team7.eg_website.Store.*;
 
-public class Quiz {
+public class QuizModel {
 
 	/**
 	 * 

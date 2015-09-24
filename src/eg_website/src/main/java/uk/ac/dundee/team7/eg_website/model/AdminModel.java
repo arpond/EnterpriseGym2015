@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import uk.ac.dundee.team7.eg_website.Store.*;
 
-public class Admin {
+public class AdminModel {
 
     /**
      *
@@ -169,7 +169,7 @@ public class Admin {
      * @param email
      */
     public ArrayList<UserStore> searchUser(String firstName, String lastName, String mobile, String contactNumber, String yearOfStudy, String matricNumber, Boolean youngES_FLAG, String country, String institution, String degree, String college, String status, String email) {
-        // TODO - implement Admin.searchUser
+        // TODO - implement AdminModel.searchUser
         throw new UnsupportedOperationException();
     }
 

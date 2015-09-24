@@ -15,7 +15,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import uk.ac.dundee.team7.eg_website.Store.*;
 
-public class News {
+public class NewsModel {
 
 	/**
 	 * 

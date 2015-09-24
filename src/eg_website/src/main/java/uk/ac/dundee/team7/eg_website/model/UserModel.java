@@ -9,7 +9,7 @@ import java.util.HashMap;
 import uk.ac.dundee.team7.eg_website.Store.*;
 
 
-public class User {
+public class UserModel {
 
     /**
      *

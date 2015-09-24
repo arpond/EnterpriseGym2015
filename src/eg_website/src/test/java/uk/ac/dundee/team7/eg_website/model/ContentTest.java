@@ -35,7 +35,7 @@ public class ContentTest {
         String contentPath = "/test/test";
         String content = "<div><p>test html</p></div>";
         String contentTitle = "Test HTML";
-        Content instance = new Content();
+        ContentModel instance = new ContentModel();
         Boolean expResult = true;
         try
         {
@@ -50,7 +50,7 @@ public class ContentTest {
     
     @After
     public void tearDown() {
-        Content instance = new Content();
+        ContentModel instance = new ContentModel();
         ContentStore cs;
         try
         {
@@ -66,13 +66,13 @@ public class ContentTest {
     }
 
     /**
-     * Test of fetchContent method, of class Content.
+     * Test of fetchContent method, of class ContentModel.
      */
     @Test
     public void testFetchContent() throws Exception {
         System.out.println("fetchContent");
         String contentPath = "/test/test";
-        Content instance = new Content();
+        ContentModel instance = new ContentModel();
         
         ContentStore result = instance.fetchContent(contentPath);
         assertEquals("<div><p>test html</p></div>", result.getContent());
@@ -81,7 +81,7 @@ public class ContentTest {
     }
 
     /**
-     * Test of addContent method, of class Content.
+     * Test of addContent method, of class ContentModel.
      */
     @Test
     public void testAddContent() {
@@ -89,7 +89,7 @@ public class ContentTest {
         String contentPath = "/test/test2";
         String content = "<div><p>test html</p></div>";
         String contentTitle = "Test HTML";
-        Content instance = new Content();
+        ContentModel instance = new ContentModel();
         Boolean expResult = true;
         
         try
@@ -111,12 +111,12 @@ public class ContentTest {
     }
 
     /**
-     * Test of updateContent method, of class Content.
+     * Test of updateContent method, of class ContentModel.
      */
     @Test
     public void testUpdateContent() {
         System.out.println("updateContent");
-        Content instance = new Content();
+        ContentModel instance = new ContentModel();
         try
         {
             ContentStore fetched = instance.fetchContent("/test/test");
@@ -138,13 +138,13 @@ public class ContentTest {
     }
 
     /**
-     * Test of deleteContent method, of class Content.
+     * Test of deleteContent method, of class ContentModel.
      */
     @Test
     public void testDeleteContent() {
         System.out.println("deleteContent");
         ContentStore cs;
-        Content instance = new Content();
+        ContentModel instance = new ContentModel();
         try
         {
             cs = instance.fetchContent("/test/test");

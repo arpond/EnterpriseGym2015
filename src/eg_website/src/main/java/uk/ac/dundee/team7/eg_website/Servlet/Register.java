@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import uk.ac.dundee.team7.eg_website.Store.UserDetails;
-import uk.ac.dundee.team7.eg_website.model.User;
+import uk.ac.dundee.team7.eg_website.model.UserModel;
 
 @WebServlet(name = "Register", urlPatterns = {"/Register"})
 public class Register extends HttpServlet {
@@ -51,7 +51,7 @@ public class Register extends HttpServlet {
             return;
         }
         
-        User user = new User();
+        UserModel user = new UserModel();
         Boolean result = false;
         
         try

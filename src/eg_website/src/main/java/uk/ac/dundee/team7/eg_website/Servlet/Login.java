@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.team7.eg_website.Servlet.Message;
 import uk.ac.dundee.team7.eg_website.Store.UserDetails;
-import uk.ac.dundee.team7.eg_website.model.User;
+import uk.ac.dundee.team7.eg_website.model.UserModel;
 
 @WebServlet(name = "Login", urlPatterns = {"/Login"})
 public class Login extends HttpServlet{
@@ -41,7 +41,7 @@ public class Login extends HttpServlet{
             return;
         }
         
-        User user = new User();
+        UserModel user = new UserModel();
         UserDetails userDetails;
         try
         {

@@ -14,7 +14,7 @@ import uk.ac.dundee.team7.eg_website.Store.QuestionStore;
 import uk.ac.dundee.team7.eg_website.Store.QuizStore;
 import uk.ac.dundee.team7.eg_website.Store.UserDetails;
 import uk.ac.dundee.team7.eg_website.lib.Utils;
-import uk.ac.dundee.team7.eg_website.model.Quiz;
+import uk.ac.dundee.team7.eg_website.model.QuizModel;
 
 @WebServlet(urlPatterns = {
     "/Quiz",
@@ -86,7 +86,7 @@ public class ViewQuiz extends HttpServlet {
            return; 
         }
         
-        Quiz qm = new Quiz();
+        QuizModel qm = new QuizModel();
         QuizStore quiz;
         try
         {
@@ -129,7 +129,7 @@ public class ViewQuiz extends HttpServlet {
            return;
         }
         
-        Quiz qm = new Quiz();
+        QuizModel qm = new QuizModel();
         QuestionStore qs;
         AnswerStore as;
         try
@@ -171,7 +171,7 @@ public class ViewQuiz extends HttpServlet {
            return;
         }
         
-        Quiz qm = new Quiz();
+        QuizModel qm = new QuizModel();
         QuestionStore qs;
         try
         {
@@ -193,7 +193,7 @@ public class ViewQuiz extends HttpServlet {
         HttpSession session = request.getSession();
         UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
         
-        Quiz qm = new Quiz();
+        QuizModel qm = new QuizModel();
         
         ArrayList<QuizStore> quizes = new ArrayList<QuizStore>();
         try
@@ -232,7 +232,7 @@ public class ViewQuiz extends HttpServlet {
            return;
         }
         
-        Quiz qm = new Quiz();
+        QuizModel qm = new QuizModel();
         QuestionStore qs;
         AnswerStore as;
         try

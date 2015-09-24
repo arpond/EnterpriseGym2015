@@ -17,7 +17,7 @@ import uk.ac.dundee.team7.eg_website.Store.UserDetails;
 import uk.ac.dundee.team7.eg_website.Store.UserProfile;
 import uk.ac.dundee.team7.eg_website.lib.Utils;
 import uk.ac.dundee.team7.eg_website.model.DemographicModel;
-import uk.ac.dundee.team7.eg_website.model.User;
+import uk.ac.dundee.team7.eg_website.model.UserModel;
 
 @WebServlet(urlPatterns = {
     "/Profile/*"
@@ -105,7 +105,7 @@ public class Profile extends HttpServlet{
         up.setCollege(college);
         up.setDegree(degree);
         
-        User user = new User();
+        UserModel user = new UserModel();
         try
         {
             user.updateProfile(up, ud);
@@ -126,7 +126,7 @@ public class Profile extends HttpServlet{
         HttpSession session = request.getSession();
         UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
         
-        User user = new User();
+        UserModel user = new UserModel();
         UserProfile up;
         try
         {
@@ -147,7 +147,7 @@ public class Profile extends HttpServlet{
         HttpSession session = request.getSession();
         UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
         
-        User user = new User();
+        UserModel user = new UserModel();
         DemographicModel dm = new DemographicModel();
         UserProfile up;
         ArrayList<InstitutionStore> is = new ArrayList<InstitutionStore>();

@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import uk.ac.dundee.team7.eg_website.Store.*;
 
-public class Content {
+public class ContentModel {
 
 	/**
 	 * Fetches stored content from the database based on the path.

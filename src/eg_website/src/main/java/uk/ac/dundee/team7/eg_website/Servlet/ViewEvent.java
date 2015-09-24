@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import uk.ac.dundee.team7.eg_website.Store.EventStore;
 import uk.ac.dundee.team7.eg_website.lib.Utils;
-import uk.ac.dundee.team7.eg_website.model.Event;
+import uk.ac.dundee.team7.eg_website.model.EventModel;
 
 @WebServlet(urlPatterns = {
     "/Event",
@@ -48,7 +48,7 @@ public class ViewEvent extends HttpServlet{
      */
     private void DisplayAllEvents(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-        Event em = new Event();
+        EventModel em = new EventModel();
         ArrayList<EventStore> events = new ArrayList<EventStore>();
         try
         {
@@ -86,7 +86,7 @@ public class ViewEvent extends HttpServlet{
 
         String path = sb.toString();
 
-        Event em = new Event();
+        EventModel em = new EventModel();
         EventStore es;
         try
         {

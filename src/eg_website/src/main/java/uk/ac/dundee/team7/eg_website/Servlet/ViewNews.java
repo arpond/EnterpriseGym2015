@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import uk.ac.dundee.team7.eg_website.Store.NewsStore;
 import uk.ac.dundee.team7.eg_website.lib.Utils;
-import uk.ac.dundee.team7.eg_website.model.News;
+import uk.ac.dundee.team7.eg_website.model.NewsModel;
 
 @WebServlet(urlPatterns = {
     "/News",
@@ -51,7 +51,7 @@ public class ViewNews extends HttpServlet{
      */
     private void DisplayAllNews(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        News nm = new News();
+        NewsModel nm = new NewsModel();
         ArrayList<NewsStore> news = new ArrayList<NewsStore>();
         try
         {
@@ -85,7 +85,7 @@ public class ViewNews extends HttpServlet{
 
         String path = sb.toString();
 
-        News nm = new News();
+        NewsModel nm = new NewsModel();
         NewsStore ns;
         try
         {
