@@ -40,7 +40,7 @@ public class QuizModel {
             QuestionStore questionToAdd = new QuestionStore(rs.getInt("questionID"),rs.getInt("questionNumber"),rs.getString("questionText"),rs.getInt("questionType"),rs.getInt("questionValue"),answersArray);
             questionsArray.add(questionToAdd);
         }
-        QuizStore qs = new QuizStore(rs.getInt("quizID"),rs.getString("quizName"), rs.getInt("quizOrder"),rs.getInt("attemptNumber"),rs.getInt("quizPassRate"), rs.getInt("quizPointsValue"),rs.getInt("typeID"),questionsArray,rs.getInt("status"),rs.getInt("attemptNumber"));
+        QuizStore qs = new QuizStore(rs.getInt("quizID"),rs.getString("quizName"), rs.getInt("quizOrder"),rs.getInt("attemptID "),rs.getInt("quizPassRate"), rs.getInt("quizPointsValue"),rs.getInt("typeID"),questionsArray,rs.getInt("status"),rs.getInt("attemptID"));
         conn.close();
         return qs;
 	}
@@ -65,7 +65,7 @@ public class QuizModel {
         while(rs.next())
         {
            ArrayList<QuestionStore> blankQS = new ArrayList<QuestionStore>(); 
-           QuizStore tempQuiz = new QuizStore(rs.getInt("quizID"),rs.getString("quizName"),rs.getInt("quizOrder"),rs.getInt("quizAttemptsAllowed"),rs.getInt("quizPassRate"),rs.getInt("quizPointValue"),1,blankQS,rs.getInt("status"),rs.getInt("attemptNumber")); 
+           QuizStore tempQuiz = new QuizStore(rs.getInt("quizID"),rs.getString("quizName"),rs.getInt("quizOrder"),rs.getInt("quizAttemptsAllowed"),rs.getInt("quizPassRate"),rs.getInt("quizPointValue"),1,blankQS,rs.getInt("status"),rs.getInt("attemptID")); 
            quizzes.add(tempQuiz);
         }        
         return quizzes;
@@ -78,8 +78,7 @@ public class QuizModel {
      * @param userID
 	 */
 	public Boolean addQuizAttempt(QuizStore attempt, int userID) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
-	
-         //TODO need to think about this and implement.
+	//TODO unsure if answers should be stored?
         Class.forName("com.mysql.jdbc.Driver").newInstance();
         DatabaseConnection dbc = new DatabaseConnection();
         java.sql.Connection conn = dbc.connectToDB();
@@ -93,15 +92,21 @@ public class QuizModel {
 
 	/**
 	 * 
-	 * @param quiz
+	 * 
+         * @param userID
 	 * @param attempt
 	 */
-	public Boolean updateQuizAttempt(QuizStore quiz, QuizStore attempt) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-        //TODO need to think about this and implement
+	public Boolean updateQuizAttempt(QuizStore attempt, int userID) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+        //TODO unsure if answers are to be updated?
         Class.forName("com.mysql.jdbc.Driver").newInstance();
         DatabaseConnection dbc = new DatabaseConnection();
         java.sql.Connection conn = dbc.connectToDB();
         CallableStatement cs = null;
+        cs = conn.prepareCall("{call updateQuizAttempt(?,?,?)}");
+        cs.setInt(1,attempt.getQuizId());
+        cs.setInt(2,userID);
+        cs.setInt(3,attempt.getAttemptNumber());
+        cs.execute();
         return true;
 	}
 
@@ -145,8 +150,8 @@ public class QuizModel {
                 + " eg_users_has_eg_quiz_has_eg_question.eg_users_has_eg_quiz_eg_users_userID = eg_users_has_eg_quiz.eg_users_userID and"
                 + " eg_users_has_eg_quiz_has_eg_question.eg_users_has_eg_quiz_eg_quiz_quizID = eg_quiz.quizID and"
                 + " eg_question.questionID=? and"
-                + " eg_users_has_eg_quiz.attemptNumber = ? and"
-                + " eg_users_has_eg_quiz_has_eg_question.eg_users_has_eg_quiz_attemptNumber = eg_users_has_eg_quiz.attemptNumber and"
+                + " eg_users_has_eg_quiz.attemptID ? and"
+                + " eg_users_has_eg_quiz_has_eg_question.eg_users_has_eg_quiz_attemptID  = eg_users_has_eg_quiz.attemptID  and"
                 + " eg_users_has_eg_quiz_has_eg_question.eg_question_questionID =  eg_question.questionID and"
                 + " eg_question.eg_quiz_quizID = eg_quiz.quizID and"
                 + " eg_answers.eg_question_questionID = eg_question.questionID and"
@@ -174,7 +179,7 @@ public class QuizModel {
         java.sql.Connection conn = dbc.connectToDB();
         CallableStatement cs = null;
         ArrayList<AnswerStore> emptyAS = new ArrayList<AnswerStore>();
-        cs= conn.prepareCall("insert into eg_users_has_quiz (eg_quiz_quizID,eg_users_userID,attemptNumber) Values(?,?,?)");
+        cs= conn.prepareCall("insert into eg_users_has_quiz (eg_quiz_quizID,eg_users_userID,attemptID) Values(?,?,?)");
         cs.setInt(1,quizID);
         cs.setInt(2,userID);
         cs.setInt(3,attemptNumber);
@@ -218,7 +223,7 @@ public class QuizModel {
         java.sql.Connection conn = dbc.connectToDB();
         CallableStatement cs = null;
         ArrayList<AnswerStore> emptyAS = new ArrayList<AnswerStore>();
-        cs= conn.prepareCall("insert into eg_users_has_eg_quiz_has_eg_question (eg_users_has_eg_quiz_eg_users_userID,eg_users_has_eg_quiz_eg_quiz_quizID, eg_users_has_eg_quiz_attemptNumber,eg_question_questionID,answerText) values(?,?,?,?,?)");
+        cs= conn.prepareCall("insert into eg_users_has_eg_quiz_has_eg_question (eg_users_has_eg_quiz_eg_users_userID,eg_users_has_eg_quiz_eg_quiz_quizID, eg_users_has_eg_quiz_attemptID ,eg_question_questionID,answerText) values(?,?,?,?,?)");
         cs.setString(1,answerText);
         cs.setInt(2,attemptNumber);
         cs.setInt(3,quizID);
