@@ -8,10 +8,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <%@include file="/WEB-INF/includes/adminScripts.jsp" %>
         <title>JSP Page</title>
     </head>
     <body>
+        <%@include file="/WEB-INF/includes/adminNav.jsp" %>
+        <div id="wrapper">
+        <div id="page-wrapper">
         <form method="GET"  action="getContentToEdit" id="getContentToEdit">
                 <div class="left">
                     <ul>
@@ -35,5 +38,7 @@
                 </div>
                 <div class="right"><input type="submit" value="Add Content" class="button" id="editCont"></div>
             </form>
+        </div>
+        </div>
     </body>
 </html>
