@@ -11,6 +11,11 @@ public class AnswerStore {
         this.answerText = answerText;
         this.correct = correct;
     }
+    
+    public AnswerStore()
+    {
+        answerId = 0;
+    }
 
     public int getAnswerId() {
         return answerId;

@@ -22,7 +22,7 @@
         <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
         <h1>Quiz Name</h1>
         <div>
-            <p>Question <%=question.getQuestionNumber()%>></p>
+            <p>Question <%=question.getQuestionNumber()%></p>
             <p><%=question.getQuestionText()%></p>
             <%
                 if (question.getQuestionType() == 0)
@@ -38,13 +38,13 @@
                         if (userAnswer != null && userAnswer.getAnswerText().equals(ans.get(i).getAnswerText()))
                         {
                             %>
-                            <li><input type="radio" name="answer" value="<%=ans.get(i).getAnswerText()%>" checked></li>
+                            <li><input type="radio" name="answer" value="<%=ans.get(i).getAnswerText()%>" checked><%=ans.get(i).getAnswerText()%></li>
                             <%
                         }
                         else
                         {
                             %>
-                            <li><input type="radio" name="answer" value="<%=ans.get(i).getAnswerText()%>"></li>
+                            <li><input type="radio" name="answer" value="<%=ans.get(i).getAnswerText()%>"><%=ans.get(i).getAnswerText()%></li>
                             <%
                         }
                     }

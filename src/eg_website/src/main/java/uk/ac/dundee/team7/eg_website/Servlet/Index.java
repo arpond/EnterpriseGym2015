@@ -13,7 +13,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import uk.ac.dundee.team7.eg_website.Store.EventStore;
+import uk.ac.dundee.team7.eg_website.Store.UserDetails;
 import uk.ac.dundee.team7.eg_website.model.EventModel;
 
 /**
@@ -26,6 +28,8 @@ public class Index extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
         EventModel em = new EventModel();
         ArrayList<EventStore> events = new ArrayList<EventStore>();
         try
@@ -37,6 +41,7 @@ public class Index extends HttpServlet{
             Message.message("Database error. " + e.toString(), request, response);
             return;
         }
+        session.setAttribute("UserDetails", ud);
         request.setAttribute("events", events);
         RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/index.jsp");
         view.include(request, response);
