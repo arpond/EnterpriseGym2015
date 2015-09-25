@@ -1,5 +1,5 @@
 <?php 
-require_once("/connector/scheduler_connector.php");
+require_once("http://localhost:8080/eg_website/connector/scheduler_connector.php");
  
 $res=mysql_connect("46.101.32.81:3306","root","teameight");
 mysql_select_db("eg_database");

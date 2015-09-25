@@ -31,8 +31,8 @@
                 <script type="text/javascript" charset="utf-8">
                     function init() {
                         scheduler.config.xml_date = "%Y-%m-%d %H:%i";
-                        scheduler.init('scheduler_here', new Date(2015, 0, 10), "week");
-
+                        scheduler.init('scheduler_here', new Date(2015, 0, 10), "week");                        
+                        scheduler.load("connector/Connector.php");
                     }
                 </script>
             </div>
