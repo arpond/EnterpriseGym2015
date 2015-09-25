@@ -50,7 +50,7 @@ public class ManageNews extends HttpServlet {
             try {
                 System.out.println("THE TIME BRO");
                 System.out.println(realDisplayTime+" "+ realDisplayTime1.substring(0,realDisplayTime1.length()-2));
-                java.sql.Date date = (java.sql.Date ) simpleDateFormat.parse(realDisplayTime+" "+ realDisplayTime1.substring(0,realDisplayTime1.length()-2));
+                    java.util.Date date = simpleDateFormat.parse(realDisplayTime+" "+ realDisplayTime1.substring(0,realDisplayTime1.length()-2));
                // newsStartTime = new DateTime(date);
                  sqlStartDate = new java.sql.Date(date.getTime());
             } catch (ParseException ex) {
@@ -79,7 +79,8 @@ public class ManageNews extends HttpServlet {
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) {
-		
+		 HttpSession session = request.getSession();
+        ContentStore cs = (ContentStore) session.getAttribute("getContentToEdit");
 	}
 
 }
