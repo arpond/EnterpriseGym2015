@@ -13,9 +13,9 @@ public class QuizStore {
 	private int pointType;
 	private ArrayList<QuestionStore> questionsArray;
 	private int status;
-	private int attemptNumber;
+	private int attemptID;
 
-    public QuizStore(int quizId, String quizName, int quizOrder, int quizAttemptsAllowed, int quizPassRate, int quizPointValue, int pointType, ArrayList<QuestionStore> questionsArray, int status, int attemptNumber) {
+    public QuizStore(int quizId, String quizName, int quizOrder, int quizAttemptsAllowed, int quizPassRate, int quizPointValue, int pointType, ArrayList<QuestionStore> questionsArray, int status, int attemptID) {
         this.quizId = quizId;
         this.quizName = quizName;
         this.quizOrder = quizOrder;
@@ -25,9 +25,23 @@ public class QuizStore {
         this.pointType = pointType;
         this.questionsArray = questionsArray;
         this.status = status;
-        this.attemptNumber = attemptNumber;
+        this.attemptID = attemptID;
     }
 
+    public QuizStore(int quizId, String quizName, int quizOrder, int quizAttemptsAllowed, int quizPassRate, int quizPointValue, int pointType, ArrayList<QuestionStore> questionsArray) {
+        this.quizId = quizId;
+        this.quizName = quizName;
+        this.quizOrder = quizOrder;
+        this.quizAttemptsAllowed = quizAttemptsAllowed;
+        this.quizPassRate = quizPassRate;
+        this.quizPointValue = quizPointValue;
+        this.pointType = pointType;
+        this.questionsArray = questionsArray;
+        this.status = 0;
+    }
+
+    
+    
     public int getQuizId() {
         return quizId;
     }
@@ -100,12 +114,12 @@ public class QuizStore {
         this.status = status;
     }
 
-    public int getAttemptNumber() {
-        return attemptNumber;
+    public int getAttemptID() {
+        return attemptID;
     }
 
-    public void setAttemptNumber(int attemptNumber) {
-        this.attemptNumber = attemptNumber;
+    public void setAttemptID(int attemptID) {
+        this.attemptID = attemptID;
     }
 
     
