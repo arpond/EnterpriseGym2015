@@ -14,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-   <title>All Events</title>
+   <title>Add Content</title>
    
     <%@include file="/includes/scripts.jsp" %>
     

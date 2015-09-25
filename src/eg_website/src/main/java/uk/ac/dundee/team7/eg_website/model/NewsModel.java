@@ -90,15 +90,17 @@ public class NewsModel {
 	 * @param imageURL
 	 * @param category
 	 */
-	public Boolean addNews(int userID, String newsPath, String newsTitle, String news, DateTime displayTime, String imageURL, int categoryID) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+	public Boolean addNews(int userID, String newsPath, String newsTitle, String news, java.sql.Date displayTime, String imageURL, int categoryID, String newSummary) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
 		
         Class.forName("com.mysql.jdbc.Driver").newInstance();
         DatabaseConnection dbc = new DatabaseConnection();
         java.sql.Connection conn = dbc.connectToDB();
         CallableStatement cs = null;        
         
-        cs = conn.prepareCall("{call addNews(?,?,?,?,?,?,?)}");
-        cs.setTimestamp(1, new Timestamp(displayTime.getMillis()));
+        java.sql.Date sqlStartDate = new java.sql.Date(displayTime.getTime());
+        
+        cs = conn.prepareCall("{call addNews(?,?,?,?,?,?,?,?)}");
+        cs.setDate(1, sqlStartDate);
         cs.setString(2, imageURL);
         cs.setString(3, news);
         cs.setInt(4, categoryID);
@@ -106,6 +108,7 @@ public class NewsModel {
         cs.setString(5, newsPath);        
         cs.setInt(6, userID);
         cs.setString(7, newsTitle);
+        cs.setString(8, newSummary);
         cs.execute();
         conn.close();
         return true;
