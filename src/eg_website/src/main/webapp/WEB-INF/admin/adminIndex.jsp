@@ -46,7 +46,7 @@
                         </div>
                         <div class="panel panel-primary">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><a href="/eg_website/Admin/manageContent">Manage existing content</a></h3>
+                                <h3 class="panel-title"><a href="/eg_website/Admin/editContent">Manage existing content</a></h3>
                             </div>
                             <div class="panel-body">
                                 Edit existing content

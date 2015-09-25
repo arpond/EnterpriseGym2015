@@ -11,18 +11,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
-
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <%@include file="/WEB-INF/includes/adminScripts.jsp" %>
         <title>Add News</title>
-
-        <%@include file="/includes/scripts.jsp" %>
     </head>
     <body>
+        <%@include file="/WEB-INF/includes/adminNav.jsp" %>
+        <div id="wrapper">
+        <div id="page-wrapper">
         <form method="POST"  action="addNews" id="addNews">
             <div class="left">
                 <ul>
@@ -67,5 +62,7 @@
             <button type="submit" class="btn btn-primary" id="addNews" >Add News</button>
            
         </form>
+        </div>
+        </div>
     </body>
 </html>

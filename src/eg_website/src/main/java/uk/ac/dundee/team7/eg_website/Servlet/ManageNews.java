@@ -1,11 +1,14 @@
 package uk.ac.dundee.team7.eg_website.Servlet;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +21,7 @@ import uk.ac.dundee.team7.eg_website.Store.UserDetails;
 import uk.ac.dundee.team7.eg_website.model.NewsModel;
 
 
-@WebServlet(name = "addNews", urlPatterns = {"/addNews"})
+@WebServlet(name = "addNews", urlPatterns = {"/Admin/addNews"})
 
 public class ManageNews extends HttpServlet {
     
@@ -78,9 +81,11 @@ public class ManageNews extends HttpServlet {
                 
 	}
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response) {
-		 HttpSession session = request.getSession();
-        ContentStore cs = (ContentStore) session.getAttribute("getContentToEdit");
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            HttpSession session = request.getSession();
+            ContentStore cs = (ContentStore) session.getAttribute("getContentToEdit");
+            RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/addNews.jsp");
+            view.include(request, response);
 	}
 
 }
