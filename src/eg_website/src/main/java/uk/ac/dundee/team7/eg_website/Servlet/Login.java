@@ -58,14 +58,30 @@ public class Login extends HttpServlet{
         {
             session.setAttribute("UserDetails", userDetails);
             System.out.println("Session in servlet "+session);
-            RequestDispatcher rd=request.getRequestDispatcher("index.jsp");
-            rd.forward(request,response); 
+            Message.message("You are now logged in.", request, response);
         }
         else
         {
-            Message.message("Your username or passowrd is invalid", request, response);
+            Message.message("Your username or passowrd could not be found", request, response);
         }
           
+    }
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        /**if (ud.getAuthID() != 1)
+        {
+            Message.message("You do not have access to the admin page.", request, response);
+        }
+        else
+        {
+            RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/Admin/adminIndex.jsp");
+            rd.forward(request,response); 
+        }**/
+        RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/login.jsp");
+        rd.forward(request,response); 
     }
 
     

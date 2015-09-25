@@ -28,7 +28,7 @@ public class Message {
      */
     public static void message(String message, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("message", message);
-        RequestDispatcher view = request.getRequestDispatcher("/message.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/message.jsp");
         view.forward(request, response);
     }
    

@@ -46,7 +46,7 @@ public class EventModel {
             evStore.setEventPointType(rs.getString("typeName"));
             
             
-           Timestamp eventStartTime = rs.getTimestamp("eventStartTime");
+            Timestamp eventStartTime = rs.getTimestamp("eventStartTime");
             Timestamp eventPosted = rs.getTimestamp("posted");
             
             

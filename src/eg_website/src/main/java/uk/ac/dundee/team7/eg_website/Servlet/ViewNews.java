@@ -63,7 +63,7 @@ public class ViewNews extends HttpServlet{
             return;
         }
         request.setAttribute("news", news);
-        RequestDispatcher view = request.getRequestDispatcher("/displayAllNews.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/displayAllNews.jsp");
         view.include(request, response);
     }
 
@@ -97,7 +97,7 @@ public class ViewNews extends HttpServlet{
             return;
         }
         request.setAttribute("news", ns);
-        RequestDispatcher view = request.getRequestDispatcher("/displayNews.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/displayNews.jsp");
         view.include(request, response);
     }
 }
