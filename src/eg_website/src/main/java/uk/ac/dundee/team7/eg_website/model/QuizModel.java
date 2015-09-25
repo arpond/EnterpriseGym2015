@@ -45,6 +45,47 @@ public class QuizModel {
         return qs;
 	}
 
+        
+        public ArrayList<QuizStore> fetchQuizzesForGroup(int userID, int groupID) throws ClassNotFoundException, InstantiationException, SQLException, IllegalAccessException
+        {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            DatabaseConnection dbc = new DatabaseConnection();
+            java.sql.Connection conn = dbc.connectToDB();
+            CallableStatement cs = conn.prepareCall("{call getQuizesForUser(?)}");
+            cs.setInt(1,groupID);
+            cs.execute();
+            ResultSet rs = cs.getResultSet();
+            ArrayList <QuizStore> quizzes = new ArrayList<QuizStore>();
+
+            while(rs.next())
+            {
+               ArrayList<QuestionStore> blankQS = new ArrayList<QuestionStore>(); 
+               QuizStore tempQuiz = new QuizStore(rs.getInt("quizID"),rs.getString("quizName"),rs.getInt("quizOrder"),rs.getInt("quizAttemptsAllowed"),rs.getInt("quizPassRate"),rs.getInt("quizPointsValue"),1,blankQS); 
+               quizzes.add(tempQuiz);
+            }
+            
+            cs = conn.prepareCall("{call getQuizzes(?,?)}");
+            cs.setInt(1, userID);
+            cs.setInt(2,groupID);
+            cs.execute();
+            rs = cs.getResultSet();
+
+            while (rs.next())
+            {
+                int id = rs.getInt("quizID");
+                for (int i = 0; i < quizzes.size(); i++)
+                {
+                    if (id == quizzes.get(i).getQuizId())
+                    {
+                        quizzes.get(i).setStatus(rs.getInt("status"));
+                        break;
+                    }
+                }
+            }
+            conn.close();
+            return quizzes;
+        }
+        
 	/**
 	 * 
 	 * @param userID
@@ -61,13 +102,15 @@ public class QuizModel {
         cs.execute();
         ResultSet rs = cs.getResultSet();
         ArrayList <QuizStore> quizzes = new ArrayList<QuizStore>();
-        rs.first();
+
         while(rs.next())
         {
            ArrayList<QuestionStore> blankQS = new ArrayList<QuestionStore>(); 
-           QuizStore tempQuiz = new QuizStore(rs.getInt("quizID"),rs.getString("quizName"),rs.getInt("quizOrder"),rs.getInt("quizAttemptsAllowed"),rs.getInt("quizPassRate"),rs.getInt("quizPointValue"),1,blankQS,rs.getInt("status"),rs.getInt("attemptID")); 
+           QuizStore tempQuiz = new QuizStore(rs.getInt("quizID"),rs.getString("quizName"),rs.getInt("quizOrder"),rs.getInt("quizAttemptsAllowed"),rs.getInt("quizPassRate"),rs.getInt("quizPointsValue"),1,blankQS,rs.getInt("status"),rs.getInt("attemptID")); 
            quizzes.add(tempQuiz);
-        }        
+        }
+        
+        
         return quizzes;
 	}
 
@@ -120,7 +163,7 @@ public class QuizModel {
         cs = conn.prepareCall("{call updateQuizAttempt(?,?,?)}");
         cs.setInt(1,attempt.getQuizId());
         cs.setInt(2,userID);
-        cs.setInt(3,attempt.getAttemptNumber());
+        cs.setInt(3,attempt.getAttemptID());
         cs.execute();
         return true;
 	}

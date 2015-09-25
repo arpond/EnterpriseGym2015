@@ -198,14 +198,30 @@ public class ViewQuiz extends HttpServlet {
         ArrayList<QuizStore> quizes = new ArrayList<QuizStore>();
         try
         {
-            quizes = qm.fetchQuizes(ud.getUserID(), ud.getGroupID());
+            quizes = qm.fetchQuizzesForGroup(ud.getUserID(), ud.getGroupID());
         }
         catch (Exception e)
         {
             Message.message("Database error. " + e.toString(), request, response);
             return;
         }
-        request.setAttribute("quizes", quizes);
+        
+        ArrayList<QuizStore> taken = new ArrayList<QuizStore>();
+        ArrayList<QuizStore> untaken = new ArrayList<QuizStore>();
+        
+        for(int i=0; i < quizes.size(); i++)
+        {
+            if(quizes.get(i).getStatus() == 0)
+            {
+                untaken.add(quizes.get(i));
+            }
+            else
+            {
+                taken.add(quizes.get(i));
+            }
+        }
+        request.setAttribute("untaken", untaken);
+        request.setAttribute("taken", taken);
         RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/displayAllQuizes.jsp");
         view.include(request, response);
     }

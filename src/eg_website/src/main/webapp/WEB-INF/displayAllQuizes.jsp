@@ -6,13 +6,18 @@
 <%@page import="org.joda.time.DateTime"%>
 <%@page import="java.util.ArrayList" %>
 <%@page import="uk.ac.dundee.team7.eg_website.Store.*" %>
+<%@page import="java.util.HashMap" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     
     <%
-          ArrayList<QuizStore> quizes = (ArrayList<QuizStore>) request.getAttribute("quizes");
-          //ArrayList<QuizStore> taken = (ArrayList<QuizStore>) request.getAttribute("quizes");
+          ArrayList<QuizStore> untaken = (ArrayList<QuizStore>) request.getAttribute("untaken");
+          ArrayList<QuizStore> taken = (ArrayList<QuizStore>) request.getAttribute("taken");
+          HashMap StatusMap = new HashMap();
+          StatusMap.put(0, "Start");
+          StatusMap.put(1, "In Progress");
+          StatusMap.put(2, "Completed");
     %>
     <head>
         <%@include file="/WEB-INF/includes/scripts.jsp" %>
@@ -22,15 +27,40 @@
     <body>
         <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
         <h1>Quiz Page</h1>
-        <% for(int i=0; i<quizes.size(); i++)
+        <%
+        if (taken.size() > 0)
+        {
+        %>
+        <h2>Quizzes you have taken</h2>
+        <%
+            for (int i = 0; i<taken.size(); i++)
+            {
+                QuizStore current = taken.get(i);
+                %>
+        <div class="quizItem">
+            <p><a href="/eg_website/Quiz/<%=current.getQuizId()%>"><%=current.getQuizName()%></a> Status: <%=StatusMap.get(current.getStatus())%></p>            
+        </div>
+                <%
+            }
+        %>
+        <%
+        }
+        if (untaken.size() > 0)
+        {
+        %>
+        <h2>All Quizzes</h2>
+        <%
+            for(int i=0; i<untaken.size(); i++)
            {
-               QuizStore current = quizes.get(i);
+               QuizStore current = untaken.get(i);
+               
         %>       
         <div class="quizItem">
-            <h3><%=current.getQuizName()%></h3>
+            <p><a href="/eg_website/Quiz/<%=current.getQuizId()%>"><%=current.getQuizName()%></a></p>
         </div>
         <%   
            }
+        }
         %>
         <%@include file="/WEB-INF/includes/normalFooter.jsp" %>
     </body>
