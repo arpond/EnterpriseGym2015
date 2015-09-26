@@ -87,7 +87,7 @@
 
                         <form method="POST"  action="Event">
                             <input type="hidden" name="eventID" value="<%=ev.getEventID()%>">
-                            <input type="submit" value="Event" class="button" id="signUpButton">
+                            <input type="submit" value="Sign up" class="button" id="signUpButton">
                         </form>
 
                         <% }%>
