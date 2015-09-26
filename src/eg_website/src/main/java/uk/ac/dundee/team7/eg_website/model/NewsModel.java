@@ -81,6 +81,41 @@ public class NewsModel {
         conn.close();
         return newsList;
 	}
+        
+        public ArrayList<NewsStore> fetchNews(int start, int limit) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+			
+        //TODO fetch news need to be ordered by date
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        CallableStatement cs = null;        
+        
+        cs = conn.prepareCall("{call getNewsLimited(?,?)}");
+        cs.setInt(1, start);
+        cs.setInt(2, limit);
+        cs.execute();
+        ResultSet rs = cs.getResultSet();
+        //rs.first();
+        ArrayList<NewsStore> newsList = new ArrayList<NewsStore>();        
+        while(rs.next())
+        {
+            ContentStore contentstore = new ContentStore();
+            contentstore.setContent(rs.getString("content"));
+            contentstore.setContentID(rs.getInt("contentID"));
+            contentstore.setContentPath(rs.getString("contentPath"));
+            contentstore.setContentTitle(rs.getString("contentTitle"));
+            contentstore.setContentSummary(rs.getString("contentSummary"));
+            
+            Timestamp posted = rs.getTimestamp("posted");
+            Date date = new Date(posted.getTime());
+            DateTime postedtime = new DateTime(date);
+            DateTime displaytime = new DateTime();
+            NewsStore newsToAdd = new NewsStore(rs.getInt("newsID"),postedtime,displaytime,rs.getString("newsImage"),rs.getString("categoryName"),contentstore);
+            newsList.add(newsToAdd);
+        }
+        conn.close();
+        return newsList;
+	}
 
 	/**
 	 * 

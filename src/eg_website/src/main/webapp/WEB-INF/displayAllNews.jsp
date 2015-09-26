@@ -14,15 +14,16 @@
 <html>
     <head>
         <%@include file="/WEB-INF/includes/scripts.jsp" %>
+        <script src="/eg_website/js/news.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
         <title>All News</title>
     </head>
     <body>
         <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
-       <div class="container">
-        
-           
+        <div class="container">
+
+
             <!-- Page Heading/Breadcrumbs -->
             <div class="row">
                 <div class="col-lg-12">
@@ -37,52 +38,51 @@
                     </ol>
                 </div>
             </div>
-                    
-       <div class="row">      
-           
-        <%
-            //Get arraylist here
-            
-            ArrayList<NewsStore> alNews = new ArrayList();
-            alNews = (ArrayList<NewsStore>) request.getAttribute("news");
-            Iterator i1 =  alNews.iterator();
-            
-            while (i1.hasNext())
-            {
-                NewsStore ns = (NewsStore) i1.next();
+
+            <div class="row" id="newsList">      
+
+                <%
+                    //Get arraylist here
+                    ArrayList<NewsStore> alNews = new ArrayList();
+                    alNews = (ArrayList<NewsStore>) request.getAttribute("news");
+                    Iterator i1 = alNews.iterator();
+
+                    while (i1.hasNext()) {
+                        NewsStore ns = (NewsStore) i1.next();
                 %>
-    <div class="newsItem">
-        <div class="col-md-1 text-center">
-                <p><i class="fa fa-camera fa-4x"></i>
-                </p>
-                <p>June 17, 2014</p>
+                <div class="newsItem">
+                    <div class="col-md-1 text-center">
+                        <p><i class="fa fa-camera fa-4x"></i>
+                        </p>
+                        <p>June 17, 2014</p>
+                    </div>
+
+                    <div class="newsContent">
+                        <div class="col-md-5">
+                            <img src=<%=ns.getNewsImage()%> width="300" height="100" > </img>
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <h2><a href="/eg_website/<%=ns.getContent().getContentPath()%>"><%=ns.getContent().getContentTitle()%></a></h2>
+
+                            <p><%=ns.getContent().getContentSummary()%></p>
+                            <%-- <p class="posted"><%=ns.getPostedTime().toString()%></p>
+                            <p class="category"><%=ns.getCategoryName()%></p> --%>
+                            <a href="/eg_website/<%=ns.getContent().getContentPath()%>">Read More..</a>
+                        </div>
+                    </div>
+                </div>
+                <%
+                    }
+                %>
             </div>
-       
-        <div class="newsContent">
-         <div class="col-md-5">
-            <img src=<%=ns.getNewsImage()%> width="300" height="100" > </img>
-            
-         </div>
-            
-            <div class="col-md-6">
-                 <h2><a href="/eg_website/<%=ns.getContent().getContentPath()%>"><%=ns.getContent().getContentTitle()%></a></h2>
-        
-            <p><%=ns.getContent().getContentSummary()%></p>
-            <%-- <p class="posted"><%=ns.getPostedTime().toString()%></p>
-            <p class="category"><%=ns.getCategoryName()%></p> --%>
-            <a href="/eg_website/<%=ns.getContent().getContentPath()%>">Read More..</a>
-            </div>
-            
+
+
+
         </div>
-    </div>
-                <%                            
-            }
-        %>
-        </div>
-        
-        
-        
-    </div>
-        <%@include file="/WEB-INF/includes/normalFooter.jsp" %>
+        <button class="newsPage" value="0">News 0</button>
+        <button class="newsPage" value="1">News 1</button>
+            <%@include file="/WEB-INF/includes/normalFooter.jsp" %>
     </body>
 </html>
