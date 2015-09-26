@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import uk.ac.dundee.team7.eg_website.Store.*;
 
 public class AdminModel {
@@ -98,8 +99,7 @@ public class AdminModel {
         Class.forName("com.mysql.jdbc.Driver").newInstance();
         DatabaseConnection dbc = new DatabaseConnection();
         java.sql.Connection conn = dbc.connectToDB();
-        UserDetails usrDetails = new UserDetails();
-        UserProfile usrProfile = new UserProfile();
+        
 
         ArrayList<UserStore> usrStoreList = new ArrayList<UserStore>();
         ResultSet rs = null;
@@ -109,25 +109,26 @@ public class AdminModel {
             cs = conn.prepareCall("{call getAllUsers()}");
             cs.execute();
             rs = cs.getResultSet();
-            HashMap map = new HashMap();
+            
             // put detailsin usrDetails]
             // put profile in usrProfile
             // create new usrStore wih usr details + user profile
 
             // Add the new store to the list of store
-            if (rs != null && rs.next()) {
-
+            rs.first();
+            do 
+            {
+                UserDetails usrDetails = new UserDetails();
+                UserProfile usrProfile = new UserProfile();
+                HashMap map = new HashMap();
                 usrDetails.setAuthID(rs.getInt("eg_auth_authID"));
                 usrDetails.setEmail(rs.getString("email"));
                 usrDetails.setGroupID(rs.getInt("eg_groups_groupID"));
 
                 usrDetails.setUserID(rs.getInt("userID"));
                 usrDetails.setUsername(rs.getString("username"));
-                while (rs.getInt("userID") == usrDetails.getUserID()) {
-                    map.put(rs.getString("typeName"), rs.getInt("numberOfPoints"));
-                }
-                usrDetails.setPoints(map);
-                usrProfile.setCollege(rs.getString("collageName"));
+                
+                usrProfile.setCollege(rs.getString("collegeName"));
                 usrProfile.setContactNumber(rs.getString("contactNumber"));
                 usrProfile.setCountry(rs.getString("countryName"));
                 usrProfile.setDegree(rs.getString("degreeName"));
@@ -139,12 +140,25 @@ public class AdminModel {
                 usrProfile.setStatus(rs.getString("statusName"));
                 usrProfile.setYearOfStudy(rs.getString("yearOfStudy"));
                 usrProfile.setYoungES_FLAG(rs.getBoolean("youngES_FLAG"));
+                
+                do
+                {
+                    if (rs.getInt("userID") != usrDetails.getUserID())
+                    {
+                        rs.previous();
+                        break;
+                    }
+                    map.put(rs.getString("typeName"), rs.getInt("numberOfPoints"));
+                } while (rs.next());
+                usrDetails.setPoints(map);
+                
 
                 UserStore us = new UserStore(usrProfile, usrDetails);
                 usrStoreList.add(us);
-            }
+            } while (rs.next());
 
         } catch (SQLException se) {
+            String error = se.toString();
             conn.close();
             return usrStoreList;
         }
@@ -215,6 +229,54 @@ public class AdminModel {
         } catch (SQLException se) {
             conn.close();
             return false;
+        }
+    }
+
+    public ArrayList<String> fetchPointTypes() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException{
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        ArrayList<String> types = new ArrayList<String>();
+
+        CallableStatement cs = null;
+        try {
+            cs = conn.prepareCall("SELECT *  FROM eg_pointTypes");
+            cs.execute();
+            ResultSet rs = cs.getResultSet();
+            while(rs.next())
+            {
+                types.add(rs.getString("typeName"));
+            }
+            conn.close();
+            return types;
+        } catch (SQLException se) {
+            String e = se.toString();
+            conn.close();
+            return types;
+        }
+    }
+
+    public HashMap fetchGroups()throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException{
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        HashMap groups = new HashMap();
+        
+        CallableStatement cs = null;
+        try {
+            cs = conn.prepareCall("SELECT *  FROM eg_groups");
+            cs.execute();
+            ResultSet rs = cs.getResultSet();
+            while(rs.next())
+            {
+                groups.put(rs.getInt("groupID"), rs.getString("groupTitle"));
+            }
+            conn.close();
+            return groups;
+        } catch (SQLException se) {
+            String e = se.toString();
+            conn.close();
+            return groups;
         }
     }
 
