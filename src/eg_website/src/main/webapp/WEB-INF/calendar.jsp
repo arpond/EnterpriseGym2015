@@ -17,25 +17,31 @@
         <script src="/eg_website/js/dxhtmlxscheduler/dhtmlxscheduler.js" type="text/javascript"></script>
         <link rel="stylesheet" href="/eg_website/css/dhtmlxscheduler.css" type="text/css">
     </head>
-    
-    <%  ArrayList<EventStore> alEvents = new ArrayList();
-                        alEvents = (ArrayList<EventStore>) request.getAttribute("events");
-                        Iterator i1 = alEvents.iterator();
-                        String toParse = "";
-                        while (i1.hasNext()) {
 
-                            EventStore es = (EventStore) i1.next();
-                            int eventID = es.getEventID();
-                            ContentStore content = es.getContent();
-                            DateTime eventStartTime = es.getEventStartTime();
-                            DateTime eventEndTime = es.getEventEndTime();
-                            toParse = toParse + "{id:" + Integer.toString(eventID) + ",start_date:"
-                            + eventStartTime.toString() + ",end_date:" + eventEndTime.toString() + 
-                            ",text:" + content.getContentSummary() + ",";
+    <%
+        ArrayList<EventStore> alEvents = new ArrayList();
+        alEvents = (ArrayList<EventStore>) request.getAttribute("events");
+        Iterator i1 = alEvents.iterator();
+        String toParse = "";
+        while (i1.hasNext()) {
+            
+            EventStore es = (EventStore) i1.next();
+            int eventID = es.getEventID();
+            ContentStore content = es.getContent();
+            DateTime eventStartTime = new DateTime();//es.getEventStartTime();
+            DateTime eventEndTime = new DateTime();//es.getEventEndTime();
+            if (!i1.hasNext()) {
+                    toParse = toParse + "{id:" + Integer.toString(eventID) + ",start_date:"
+                            + eventStartTime.toString() + ",end_date:" + eventEndTime.toString()
+                            + ",text:" + content.getContentSummary() + "}";
+                } else {
+                    toParse = toParse + "{id:" + Integer.toString(eventID) + ",start_date:"
+                            + eventStartTime.toString() + ",end_date:" + eventEndTime.toString()
+                            + ",text:" + content.getContentSummary() + "},";
+                }
+        }
+    %>
 
-                    }
-                %>
-                
     <body onload="init();">
         <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
         <article>
@@ -53,17 +59,17 @@
                 </div>
                 <div class="dhx_cal_header"></div>
                 <div class="dhx_cal_data"></div>  
-                
+
                 <script type="text/javascript" charset="utf-8">
                     function init() {
-                        
+
                         scheduler.config.xml_date = "%Y-%m-%d %H:%i";
-                        scheduler.init('scheduler_here', new Date(2015, 0, 10), "week");                        
-                        scheduler.load("connector/Connector.php");
-                        scheduler.parse([                        
-                        <%=toParse%>
-                        ],"json");                        
+                        scheduler.init('scheduler_here', new Date(2015, 0, 10), "week");
+                        string StringToJson = "<%=toParse%>"
+                        scheduler.parse([StringToJson
+                        ], "json");
                     }
+                    // scheduler.load("connector/Connector.php");
                 </script>
             </div>
         </article> 
