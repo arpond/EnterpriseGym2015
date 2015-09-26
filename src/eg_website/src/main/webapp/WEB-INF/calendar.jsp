@@ -1,4 +1,8 @@
 
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.sql.Date"%>
+<%@page import="com.google.gson.Gson"%>
+<%@page import="uk.ac.dundee.team7.eg_website.Store.CalendarStore"%>
 <%@page import="uk.ac.dundee.team7.eg_website.Store.ContentStore"%>
 <%@page import="org.joda.time.DateTime"%>
 <%@page import="java.util.Iterator"%>
@@ -19,27 +23,25 @@
     </head>
 
     <%
+    
         ArrayList<EventStore> alEvents = new ArrayList();
         alEvents = (ArrayList<EventStore>) request.getAttribute("events");
+        ArrayList<CalendarStore> alEventsJson = new ArrayList();
         Iterator i1 = alEvents.iterator();
-        String toParse = "";
+        String toParse="";
+        //String toParse = "[{id=\"1\",text:\"You and Your Team\",eventStartTime:\"04/11/2015 14:00\",eventEndTime:\"04/11/2015 14:00\"}]";
         while (i1.hasNext()) {
             
             EventStore es = (EventStore) i1.next();
             int eventID = es.getEventID();
             ContentStore content = es.getContent();
-            DateTime eventStartTime = new DateTime();//es.getEventStartTime();
-            DateTime eventEndTime = new DateTime();//es.getEventEndTime();
-            if (!i1.hasNext()) {
-                    toParse = toParse + "{id:" + Integer.toString(eventID) + ",start_date:"
-                            + eventStartTime.toString() + ",end_date:" + eventEndTime.toString()
-                            + ",text:" + content.getContentSummary() + "}";
-                } else {
-                    toParse = toParse + "{id:" + Integer.toString(eventID) + ",start_date:"
-                            + eventStartTime.toString() + ",end_date:" + eventEndTime.toString()
-                            + ",text:" + content.getContentSummary() + "},";
-                }
+            
+            String date = "04/11/2015 14:00";
+            CalendarStore toStore = new CalendarStore(date,content.getContentTitle(),date);
+            alEventsJson.add(toStore);
         }
+        Gson gson = new Gson();
+        toParse = gson.toJson(toParse);
     %>
 
     <body onload="init();">
@@ -65,9 +67,8 @@
 
                         scheduler.config.xml_date = "%Y-%m-%d %H:%i";
                         scheduler.init('scheduler_here', new Date(2015, 0, 10), "week");
-                        string StringToJson = "<%=toParse%>"
-                        scheduler.parse([StringToJson
-                        ], "json");
+                        scheduler.parse(<%=toParse%> 
+                        , "json");
                     }
                     // scheduler.load("connector/Connector.php");
                 </script>
