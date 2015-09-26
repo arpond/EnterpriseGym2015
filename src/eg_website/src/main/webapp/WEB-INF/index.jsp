@@ -8,18 +8,11 @@
 <html lang="en">
 
 <head>
-
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Home</title>
     <%@include file="/WEB-INF/includes/scripts.jsp" %>
+    <title>Home</title>
 </head>
 
 <body>
-
    <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
    <!-- Header Carousel -->
     <header id="myCarousel" class="carousel slide">
