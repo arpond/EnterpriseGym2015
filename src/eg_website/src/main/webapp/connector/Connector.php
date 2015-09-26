@@ -1,10 +1,9 @@
 <?php 
-require_once("http://localhost:8080/eg_website/connector/scheduler_connector.php");
+require("connector/scheduler_connector.php");
  
 $res=mysql_connect("46.101.32.81:3306","root","teameight");
 mysql_select_db("eg_database");
- 
-$conn = new SchedulerConnector($res);
+  
+$conn = new SchedulerConnector($res,"MySQL");
  
 $conn->render_table("eg_calender_events","eventID","start_date,end_date,text");
-?>

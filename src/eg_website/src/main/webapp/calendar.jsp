@@ -1,4 +1,10 @@
 
+<%@page import="uk.ac.dundee.team7.eg_website.Store.ContentStore"%>
+<%@page import="org.joda.time.DateTime"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="uk.ac.dundee.team7.eg_website.model.EventModel"%>
+<%@page import="uk.ac.dundee.team7.eg_website.Store.EventStore"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="uk.ac.dundee.team7.eg_website.Store.UserDetails"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,6 +17,25 @@
         <script src="/eg_website/js/dxhtmlxscheduler/dhtmlxscheduler.js" type="text/javascript"></script>
         <link rel="stylesheet" href="/eg_website/css/dhtmlxscheduler.css" type="text/css">
     </head>
+    
+    <%  ArrayList<EventStore> alEvents = new ArrayList();
+                        alEvents = (ArrayList<EventStore>) request.getAttribute("events");
+                        Iterator i1 = alEvents.iterator();
+                        String toParse = "";
+                        while (i1.hasNext()) {
+
+                            EventStore es = (EventStore) i1.next();
+                            int eventID = es.getEventID();
+                            ContentStore content = es.getContent();
+                            DateTime eventStartTime = es.getEventStartTime();
+                            DateTime eventEndTime = es.getEventEndTime();
+                            toParse = toParse + "{id:" + Integer.toString(eventID) + ",start_date:"
+                            + eventStartTime.toString() + ",end_date:" + eventEndTime.toString() + 
+                            ",text:" + content.getContentSummary() + ",";
+
+                    }
+                %>
+                
     <body onload="init();">
         <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
         <article>
@@ -28,11 +53,16 @@
                 </div>
                 <div class="dhx_cal_header"></div>
                 <div class="dhx_cal_data"></div>  
+                
                 <script type="text/javascript" charset="utf-8">
                     function init() {
+                        
                         scheduler.config.xml_date = "%Y-%m-%d %H:%i";
                         scheduler.init('scheduler_here', new Date(2015, 0, 10), "week");                        
                         scheduler.load("connector/Connector.php");
+                        scheduler.parse([                        
+                        <%=toParse%>
+                        ],"json");                        
                     }
                 </script>
             </div>
