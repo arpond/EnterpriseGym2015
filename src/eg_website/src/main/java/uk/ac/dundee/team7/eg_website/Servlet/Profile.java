@@ -156,11 +156,11 @@ public class Profile extends HttpServlet{
         try
         {
             up = user.fetchUserProfile(ud.getUserID());
-            //up.setFirstName("bob");
-            //user.updateProfile(up, ud);
-           // is = dm.fetchInstitutions();
-           // cs = dm.fetchCountries();
-           // sts = dm.fetchStatuses();
+            cs = dm.fetchCountries();
+            sts = dm.fetchStatuses();
+            is = dm.fetchInstitutions();
+           
+           
         }
         catch (Exception e)
         {
