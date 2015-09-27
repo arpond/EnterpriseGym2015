@@ -46,7 +46,7 @@
                         </div>
                         <div class="panel panel-primary">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><a href="/eg_website/Admin/editContent">Manage existing content</a></h3>
+                                <h3 class="panel-title"><a href="/eg_website/Admin/ContentOptions">Manage existing content</a></h3>
                             </div>
                             <div class="panel-body">
                                 Edit existing content
@@ -73,7 +73,7 @@
                         </div>
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><a href="/eg_website/Admin/manageNews">Manage News</a></h3>
+                                <h3 class="panel-title"><a href="/eg_website/Admin/NewsOptions">Manage News</a></h3>
                             </div>
                             <div class="panel-body">
                                 Edit a piece of news
@@ -100,7 +100,7 @@
                         </div>
                         <div class="panel panel-danger">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><a href="/eg_website/Admin/editEvent">Edit an event</a></h3>
+                                <h3 class="panel-title"><a href="/eg_website/Admin/EventOptions">Edit an event</a></h3>
                             </div>
                             <div class="panel-body">
                                 Edit an existing event.
