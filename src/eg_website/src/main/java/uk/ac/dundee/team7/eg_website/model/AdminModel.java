@@ -68,7 +68,7 @@ public class AdminModel {
      * @param userId
      * @param groupId
      */
-    public Boolean updateGroup(int userId, int groupId) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public Boolean updateGroup(List<String> userIDs, int groupId) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         
        
         Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -77,11 +77,15 @@ public class AdminModel {
 
         CallableStatement cs = null;
         try {
-            cs = conn.prepareCall("{call updateUserGroup(?,?)}");
-            cs.setInt(1, userId);
-            cs.setInt(2, groupId);
-            
-            cs.execute();
+            for (int i=0; i<userIDs.size(); i++)
+            {
+                int userId = Integer.parseInt(userIDs.get(i));
+                
+                cs = conn.prepareCall("{call updateUserGroup(?,?)}");
+                cs.setInt(1, userId);
+                cs.setInt(2, groupId);
+                cs.execute();
+            }
             conn.close();
             return true;
         } catch (SQLException se) {
@@ -232,11 +236,11 @@ public class AdminModel {
         }
     }
 
-    public ArrayList<String> fetchPointTypes() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException{
+    public HashMap fetchPointTypes() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException{
         Class.forName("com.mysql.jdbc.Driver").newInstance();
         DatabaseConnection dbc = new DatabaseConnection();
         java.sql.Connection conn = dbc.connectToDB();
-        ArrayList<String> types = new ArrayList<String>();
+        HashMap types = new HashMap();
 
         CallableStatement cs = null;
         try {
@@ -245,7 +249,7 @@ public class AdminModel {
             ResultSet rs = cs.getResultSet();
             while(rs.next())
             {
-                types.add(rs.getString("typeName"));
+                types.put(rs.getInt("typeId"),  rs.getString("typeName"));
             }
             conn.close();
             return types;
@@ -277,6 +281,31 @@ public class AdminModel {
             String e = se.toString();
             conn.close();
             return groups;
+        }
+    }
+
+    public void modifyPoints(List<String> userIDs, int points, int type) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException{
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        HashMap types = new HashMap();
+
+        CallableStatement cs = null;
+        try {
+            for (int i=0; i<userIDs.size(); i++)
+            {
+                int id = Integer.parseInt(userIDs.get(i));
+                
+                cs = conn.prepareCall("{call modifyPoints(?,?,?)}");
+                cs.setInt(1, id);
+                cs.setInt(2, type);
+                cs.setInt(3, points);
+                cs.execute();
+            }
+            conn.close();
+        } catch (SQLException se) {
+            String e = se.toString();
+            conn.close();
         }
     }
 
