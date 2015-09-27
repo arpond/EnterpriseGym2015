@@ -4,6 +4,8 @@
     Author     : dragomir
 --%>
 
+<%@page import="javax.swing.text.View"%>
+<%@page import="uk.ac.dundee.team7.eg_website.Store.NewsStore"%>
 <%@page import="uk.ac.dundee.team7.eg_website.Store.ContentStore"%>
 <%@page import="org.joda.time.DateTime"%>
 <%@page import="uk.ac.dundee.team7.eg_website.Store.EventStore"%>
@@ -19,7 +21,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>All Content Edit</title>
+        <title>All News Content</title>
 
         <%@include file="/WEB-INF/includes/scripts.jsp" %>
 
@@ -28,32 +30,43 @@
         <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
 
         <%
-            ArrayList<ContentStore> csL = new ArrayList();
-            csL = (ArrayList<ContentStore>) request.getAttribute("allContentForEdit");
-            Iterator i1 = csL.iterator();
-
+            ArrayList<NewsStore> nsL = new ArrayList();
+            
+            nsL = (ArrayList<NewsStore>) request.getAttribute("allNewsForEdit");
+            Iterator i1 = nsL.iterator();
+      
+            
+            
+            
             while (i1.hasNext()) {
-
-                ContentStore es = (ContentStore) i1.next();
+              
+                NewsStore es = (NewsStore) i1.next();
 
         %>
-        <form method="GET"  action="editContent" id="editContent">
+        <form method="GET"  action="editNews" id="editNews">
             <div class="newsItem">
-               
-                <h2><a href="/eg_website<%=es.getContentPath()%>"><%=es.getContentTitle()%></a></h2>
+                <%            
+                
+                
+                %>
+                <h2><a href="/eg_website<%=es.getContent().getContentPath()%>"><%=es.getContent().getContentTitle()%></a></h2>
 
                 <div class="Content">
 
-                    <p><%=es.getContentSummary()%></p>
+                    <p><%=es.getContent().getContentSummary()%></p>
                    
-                    <a href="/eg_website<%=es.getContentPath()%>">Read more...</a>
-                    <input hidden name="path" value="<%=es.getContentPath()%>">
-                    <input type="submit" value="Edit Content" class="button" id="editContent">
+                    <a href="/eg_website<%=es.getContent().getContentPath()%>">Read more...</a>
+                   <input hidden name="path" value="<%=es.getContent().getContentPath()%>">
+                    <input type="submit" value="Edit Content" class="button" id="editNews" name="${buttonID}">
                     </form>
                 </div>
             </div>
             <%
+           
+           
                 }
+            
+           
             %>
 
             <%@include file="/WEB-INF/includes/normalFooter.jsp" %>

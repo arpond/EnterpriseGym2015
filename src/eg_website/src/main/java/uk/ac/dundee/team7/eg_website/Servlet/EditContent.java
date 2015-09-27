@@ -71,7 +71,7 @@ public class EditContent extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         ContentStore cs = new ContentStore();
-        String tempstring = (String) request.getSession().getAttribute("SUBFAMILY");
+        String tempstring = (String) request.getParameter("path");
         // String tempstring = subFam.getContentPath();
         ContentModel cm = new ContentModel();
         try {

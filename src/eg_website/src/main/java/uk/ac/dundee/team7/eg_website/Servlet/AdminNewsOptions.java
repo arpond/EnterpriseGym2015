@@ -27,8 +27,9 @@ import uk.ac.dundee.team7.eg_website.model.NewsModel;
  *
  * @author dragomir
  */
-@WebServlet(name = "AdminContentOptions", urlPatterns = {"/Admin/ContentOptions"})
-public class AdminContentOptions extends HttpServlet {
+@WebServlet(name = "AdminNewsOptions", urlPatterns = {"/Admin/NewsOptions"})
+public class AdminNewsOptions extends HttpServlet {
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -40,20 +41,22 @@ public class AdminContentOptions extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    
+      protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ContentModel nm = new ContentModel();
-        ArrayList<ContentStore> csAL = new ArrayList<ContentStore>();
+        NewsModel nm = new NewsModel();
+        ArrayList<NewsStore> csAL = new ArrayList<NewsStore>();
         try {
-            csAL = nm.fetchAllContent();
+            csAL = nm.fetchNews();
         } catch (Exception e) {
             Message.message("Database error. " + e.toString(), request, response);
             return;
         }
-        request.setAttribute("allContentForEdit", csAL);
-        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/allEditableContent.jsp");
+        request.setAttribute("allNewsForEdit", csAL);
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editAllNews.jsp");
         view.include(request, response);
     }
+    
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -67,14 +70,13 @@ public class AdminContentOptions extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        ContentStore cs = (ContentStore) session.getAttribute("editContent");
-        String path = (String) request.getParameter("path");
+        NewsStore cs = (NewsStore) session.getAttribute("editNews");
+        
+        String tempstring = cs.getContent().getContentPath();
 
-        String tempstring = cs.getContentPath();
-
-        ContentModel cm = new ContentModel();
+        NewsModel cm = new NewsModel();
         try {
-            cs = cm.fetchContent(tempstring);
+            cs = cm.fetchNews(tempstring);
         } catch (SQLException ex) {
             Logger.getLogger(ManageContent.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -85,14 +87,30 @@ public class AdminContentOptions extends HttpServlet {
             Logger.getLogger(ManageContent.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        request.setAttribute("editContentTitle", cs.getContentTitle());
-        request.setAttribute("editContentPath", cs.getContentPath());
-        request.setAttribute("editContent", cs.getContent());
-        request.setAttribute("editContentSummary", cs.getContentSummary());
-        request.setAttribute("contentID", cs.getContentID());
-
-        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editContent.jsp");
+        request.setAttribute("editContentTitle", cs.getContent().getContentTitle());
+        request.setAttribute("editContentPath", cs.getContent().getContentPath());
+        request.setAttribute("editContent", cs.getContent().getContent());
+        request.setAttribute("editContentSummary", cs.getContent().getContentSummary());
+        request.setAttribute("contentID", cs.getContent().getContentID());
+        request.setAttribute("editNewsImage", cs.getNewsImage());
+        
+        
+        
+        
+        
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editNews.jsp");
         view.include(request, response);
 
     }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
 }
