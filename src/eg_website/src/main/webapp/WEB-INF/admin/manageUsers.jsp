@@ -36,11 +36,11 @@
         <%@include file="/WEB-INF/includes/adminNav.jsp" %>
         <div id="wrapper">
             <div id="page-wrapper">
-                <form>
                     <div id="managementArea">
                         <div class="mangementOption">
+                            
                             <input type="checkbox" class="option" value="ap">Add Points
-
+                            <form>
                                 Type of Points:
                                 <select id="ptaType">
                                     <%
@@ -52,11 +52,14 @@
                                     }
                                     %>
                                 </select>
-                                Number of points: <input type="text" name="pointToAdd" id="pta">
+                                Number of points: <input type="text" name="pointToAdd" id="pta" data-validate="required,number">
                                 <input type="submit" value="Add Points to selected users" id="ap" class="action">
+                            </form>
                         </div>
                         <div class="mangementOption">
+                            
                             <input type="checkbox" class="option" value="rp">Remove Points
+                            <form>
                                 Type of Points:
                                 <select id="ptrType">
                                     <%
@@ -68,8 +71,9 @@
                                     }
                                     %>
                                 </select>
-                                Number of points: <input types="text" id="ptr">
+                                Number of points: <input types="text" id="ptr" data-validate="required,number">
                                 <input type="submit" value="Remove Points from selected users" id="rp" class="action">
+                            </form>
                         </div>
                         <div class="mangementOption">
                             <input type="checkbox" class="option" value="grp">Change Group
@@ -190,7 +194,6 @@
                             </tbody>
                         </table>
                     </div>
-            </form>
             </div>
         </div>
     </body>
