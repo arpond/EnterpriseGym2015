@@ -10,6 +10,7 @@
         String conContent = con.getContent();
         String conTitle = con.getContentTitle();
         String conPath = con.getContentPath();
+        int contId = con.getContentID();
     %>
          
 <head>

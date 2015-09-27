@@ -3,6 +3,7 @@ package uk.ac.dundee.team7.eg_website.model;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import uk.ac.dundee.team7.eg_website.Store.*;
 
@@ -91,13 +92,15 @@ public class ContentModel {
                 String contentString = content.getContent();
                 String contentPath = content.getContentPath();
                 String contentTitle = content.getContentTitle();
+                String contentSummary = content.getContentSummary();
                 int contentID = content.getContentID();
                 
-                    CallableStatement cs = conn.prepareCall("update eg_content set content=?, contentPath=?, contentTitle=? where contentID =? ");
+                    CallableStatement cs = conn.prepareCall("update eg_content set content=?, contentPath=?, contentTitle=?, contentSummary=? where contentID =? ");
                 cs.setString(1, contentString);
                 cs.setString(2, contentPath);
                 cs.setString(3, contentTitle);
-                cs.setInt(4, contentID);
+                cs.setString(4, contentSummary);
+                cs.setInt(5, contentID);
                 cs.execute();
                 conn.close();
             }
@@ -138,5 +141,31 @@ public class ContentModel {
             }
             return true;
 	}
+        
+        public ArrayList<ContentStore> fetchAllContent() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException{
+              Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        CallableStatement cs = null;        
+        
+        cs = conn.prepareCall("{call getAllContent()}");
+        cs.execute();
+        ResultSet rs = cs.getResultSet();
+        //rs.first();
+        ArrayList<ContentStore> csAL = new ArrayList<ContentStore>();        
+        while(rs.next())
+        {
+            ContentStore contentstore = new ContentStore();
+            contentstore.setContent(rs.getString("content"));
+            contentstore.setContentID(rs.getInt("contentID"));
+            contentstore.setContentPath(rs.getString("contentPath"));
+            contentstore.setContentTitle(rs.getString("contentTitle"));
+            contentstore.setContentSummary(rs.getString("contentSummary"));
+            csAL.add(contentstore);
+        }
+            
+            
+            return csAL;
+        }
 
 }

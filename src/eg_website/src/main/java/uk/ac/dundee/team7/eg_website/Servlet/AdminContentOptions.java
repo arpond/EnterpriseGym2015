@@ -6,7 +6,9 @@
 package uk.ac.dundee.team7.eg_website.Servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -17,45 +19,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.team7.eg_website.Store.ContentStore;
-import uk.ac.dundee.team7.eg_website.Store.UserDetails;
+import uk.ac.dundee.team7.eg_website.Store.NewsStore;
 import uk.ac.dundee.team7.eg_website.model.ContentModel;
+import uk.ac.dundee.team7.eg_website.model.NewsModel;
 
 /**
  *
- * @author Andrew
+ * @author dragomir
  */
-@WebServlet(name = "EditContent", urlPatterns = {
-    "/Admin/editContent",
-    "/Admin/changeContent"
-})
-public class EditContent extends HttpServlet {
+@WebServlet(name = "AdminContentOptions", urlPatterns = {"/Admin/ContentOptions"})
+public class AdminContentOptions extends HttpServlet {
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
-        ContentModel cm = new ContentModel();
-        ContentStore cs = new ContentStore();
-        String contentTitle = request.getParameter("editContentTitle");
-        String contentPath = request.getParameter("editContentPath");
-        String contentSummary = request.getParameter("editContentSummary");
-        String content = request.getParameter("editContent");
-        String contentID = request.getParameter("contentID");
-        
-        int tempContID = Integer.parseInt(contentID);
-        cs.setContent(content);
-        cs.setContentID(tempContID);
-        cs.setContentPath(contentPath);
-        cs.setContentSummary(contentSummary);
-        cs.setContentTitle(contentTitle);
-
-        try {
-            cm.updateContent(cs);
-        } catch (SQLException ex) {
-            Logger.getLogger(EditContent.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editContent.jsp");
-
-    }
+   
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -69,10 +44,38 @@ public class EditContent extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        ContentStore cs = new ContentStore();
-        String tempstring = (String) request.getSession().getAttribute("SUBFAMILY");
-       // String tempstring = subFam.getContentPath();
+        ContentModel nm = new ContentModel();
+        ArrayList<ContentStore> csAL = new ArrayList<ContentStore>();
+        try
+        {
+            csAL = nm.fetchAllContent();
+        }
+        catch (Exception e)
+        {
+            Message.message("Database error. " + e.toString(), request, response);
+            return;
+        }
+        request.setAttribute("allContentForEdit", csAL);
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/allEditableContent.jsp");
+        view.include(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+       HttpSession session = request.getSession();
+        ContentStore cs = (ContentStore) session.getAttribute("editContent");
+        
+        String tempstring = cs.getContentPath();
+       
         ContentModel cm = new ContentModel();
         try {
             cs = cm.fetchContent(tempstring);
@@ -96,5 +99,5 @@ public class EditContent extends HttpServlet {
         view.include(request, response);
 
     }
+    }
 
-}
