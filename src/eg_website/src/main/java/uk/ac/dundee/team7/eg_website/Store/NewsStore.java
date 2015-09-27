@@ -20,6 +20,10 @@ public class NewsStore {
         this.content = content;
     }
 
+    public NewsStore() {
+
+    }
+
     public int getNewsID() {
         return newsID;
     }
