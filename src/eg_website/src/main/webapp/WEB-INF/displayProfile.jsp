@@ -38,8 +38,9 @@
         <% HashMap points = ud.getPoints();
 
         %>
-        <h1>Your Profile</h1>
+
         <div class="details">
+            <h1>Your Profile - <%=ud.getUsername()%> </h1>
             <p><%out.println("First name: " + firstName);%></p>
             <p><%out.println("Last name: " + lastName);%></p>
             <p><% out.println("Mobile: " + mobile);%></p>
@@ -52,29 +53,37 @@
             <p><% out.println("College: " + college);%></p>
             <p><% out.println("Degree: " + degree);%></p>
             <style>
-                table,tr,th{
+                table,tr,th,td{
                     border: 2px solid black;
-                    padding: 10px;
+                    padding: 20px;
+                    table-layout: auto;
                 }
             </style>
+            <h2>Your Points</h2>
             <div class="pointsTable" >
-            <table>
-                <%
-                    Set set = points.entrySet();
-                    Iterator i = set.iterator();
-                    while (i.hasNext()) {
-                        Map.Entry me = (Map.Entry) i.next();
+                <table>
+                    <tr>
+                    <u><th><b><h3>Category</h3></b></th></u>
+                    <u><th><h3>Points</h3></th></u>
+                    </tr>
+                    <tr>
+                        <%
+                            Set set = points.entrySet();
+                            Iterator i = set.iterator();
+                            while (i.hasNext()) {
+                                Map.Entry me = (Map.Entry) i.next();
 
-                %>                 
-                <tr>
-                    <td><b><h5><%out.println(me.getKey());%>   </h5></b></td>
-                    <td><h5> <%out.println(me.getValue());%></h5></td>
-                </tr>
-                <%
-                    }
-                %>
+                        %>                 
+                        <th><b><h5><%out.println(me.getKey());%>   </h5></b></th>
+                        <th><h5> <%out.println(me.getValue());%></h5></th>
+                    </tr>
+                    <%
+                        }
+                    %>
 
-            </table>
+
+
+                </table>
             </div>
         </div>
         <%@include file="/WEB-INF/includes/normalFooter.jsp" %>
