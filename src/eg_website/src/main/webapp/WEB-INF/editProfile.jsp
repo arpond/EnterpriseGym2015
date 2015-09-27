@@ -78,18 +78,18 @@
                             %>
                         </select>
                     </li>
-                    <li id='colleges' >
+                    <li id='colleges' class='hidden'>
                         <label class='input'>College:</label>
-                        <select>
+                        <select id='collegeSelector' name='collgeSelector'>
                         </select>
                     </li>
-                    <li id='degree' >
+                    <li id='degrees' class='hidden'>
                         <label class='input'>Degree:</label>
-                        <select >
+                        <select id='degreeSelector'>
                             
                         </select>
                     </li>
-                    <div id='collegeStore'>
+                    <div id='collegeStore' class='hidden'>
                         <%
                             for (int i = 0; i < is.size(); i++) {
                                 InstitutionStore inst = is.get(i);
@@ -110,7 +110,7 @@
                             }
                         %>
                     </div>
-                    <div id='degreeStore'>
+                    <div id='degreeStore' class='hidden'>
                         <% for (int i = 0; i < is.size(); i++) 
                         {
                                 InstitutionStore inst = is.get(i);

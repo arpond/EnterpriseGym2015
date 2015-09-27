@@ -1,33 +1,47 @@
 $("#instSelect").change(function () {
-        var id = this.value;
-        //$('#inst'+id).removeClass('hidden');
-        var old = $('#colleges').find("select");
-        var newC = $('#inst'+id);
-        $('#colleges').find("select").replaceWith(newC);
-        old.appendTo('#collegeStore');
-        if ($('#inst'+ id +' option').length == 0)
-        {
-            $('#colleges').addClass('hidden');
-        }
-        else
-        {
-            $('#colleges').removeClass('hidden');
-        }
+    var id = this.value;
+    var newOptions = $('#inst'+id+' option');
+    var $oldDD = $('#collegeSelector');
+    $oldDD.empty();
+    $.each(newOptions, function(i,item) {
+      $oldDD.append($('<option>', { 
+          value: item.value,
+          text : item.text 
+      }));
     });
+    $oldDD.val('');
+    $("#degrees").addClass("hidden");
+    if (newOptions.length <= 0)
+    {
+        $("#colleges").addClass("hidden");
+    }
+    else
+    {
+        $("#colleges").removeClass("hidden");
+    }
+ });
     
-$(".collSelect").change(function () {
-        var id = this.value;
-        //$('#inst'+id).removeClass('hidden');
-        var old = $('#degree').find("select");
-        var newD = $('#coll'+id);
-        $('#degree').find("select").replaceWith(newD);
-        old.appendTo('#degreeStore');
-        if ($('#coll'+ id +' option').length == 0)
-        {
-            $('#degree').addClass('hidden');
-        }
-        else
-        {
-            $('#degree').removeClass('hidden');
-        }
+$("#collegeSelector").change(function () {
+    var id = this.value;
+    var newOptions = $('#coll'+id+' option');
+    var $oldDD = $('#degreeSelector');
+    $oldDD.empty();
+    $.each(newOptions, function(i,item) {
+        $oldDD.append($('<option>', { 
+            value: item.value,
+            text : item.text 
+        }));
     });
+    $oldDD.val('');
+    if (newOptions.length <= 0)
+    {
+        $("#degrees").addClass("hidden");
+    }
+    else
+    {
+        $("#degrees").removeClass("hidden");
+    }
+});
+    
+
+
