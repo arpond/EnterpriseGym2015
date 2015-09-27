@@ -23,53 +23,53 @@
 
         <title>All News Content</title>
 
-        <%@include file="/WEB-INF/includes/scripts.jsp" %>
-
+        <%@include file="/WEB-INF/includes/adminScripts.jsp" %>
+        <script src="/eg_website/js/tables.js"></script>
     </head>
     <body>
-        <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
-
-        <%
-            ArrayList<NewsStore> nsL = new ArrayList();
-            
-            nsL = (ArrayList<NewsStore>) request.getAttribute("allNewsForEdit");
-            Iterator i1 = nsL.iterator();
-      
-            
-            
-            
-            while (i1.hasNext()) {
-              
-                NewsStore es = (NewsStore) i1.next();
-
-        %>
-        <form method="GET"  action="editNews" id="editNews">
-            <div class="newsItem">
-                <%            
-                
-                
-                %>
-                <h2><a href="/eg_website<%=es.getContent().getContentPath()%>"><%=es.getContent().getContentTitle()%></a></h2>
-
-                <div class="Content">
-
-                    <p><%=es.getContent().getContentSummary()%></p>
-                   
-                    <a href="/eg_website<%=es.getContent().getContentPath()%>">Read more...</a>
-                   <input hidden name="path" value="<%=es.getContent().getContentPath()%>">
-                    <input type="submit" value="Edit Content" class="button" id="editNews" name="${buttonID}">
-                    </form>
+        <%@include file="/WEB-INF/includes/adminNav.jsp" %>
+        <div id="wrapper">
+            <div id="page-wrapper">
+                <div id="filterArea">
+                    <label for="filter">Filter</label>
+                    <input type="text" name="filter" value="" id="filter" />
                 </div>
-            </div>
-            <%
-           
-           
-                }
-            
-           
-            %>
+                <table cellpadding="1" cellspacing="1" id="resultTable" class="table table-bordered table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th class="grp">News Title</th>
+                            <th class="un">News Path</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                            ArrayList<NewsStore> nsL = new ArrayList();
 
-            <%@include file="/WEB-INF/includes/normalFooter.jsp" %>
+                            nsL = (ArrayList<NewsStore>) request.getAttribute("allNewsForEdit");
+                            Iterator i1 = nsL.iterator();
+
+                            while (i1.hasNext()) {
+                                NewsStore es = (NewsStore) i1.next();
+                        %>
+                        <tr>
+                            <td><%=es.getContent().getContentTitle()%></td>
+                            <td>/eg_website<%=es.getContent().getContentPath()%>"</td>
+                            <td>
+                                <form method="GET"  action="editNews" id="editNews">
+                                    <input hidden name="path" value="<%=es.getContent().getContentPath()%>">
+                                    <input type="submit" value="Edit Content" class="button" id="editNews">
+                                </form>
+                            </td>
+                        </tr>
+
+                        <%
+                            }
+                        %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </body>
 
 </html>
