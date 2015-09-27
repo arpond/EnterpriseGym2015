@@ -10,8 +10,10 @@
 <html>
     <%
         ArrayList<UserStore> users = (ArrayList<UserStore>) request.getAttribute("users");
-        ArrayList<String> types = (ArrayList<String>) request.getAttribute("pointTypes");
+        HashMap types = (HashMap) request.getAttribute("pointTypes");
+        Object[] typeIDs = types.keySet().toArray();
         HashMap groups = (HashMap) request.getAttribute("groups");
+        Object[] groupIDs = groups.keySet().toArray();
     %>
     <head>
         <%@include file="/WEB-INF/includes/adminScripts.jsp" %>
@@ -32,165 +34,162 @@
     <body>
         <%@include file="/WEB-INF/includes/adminNav.jsp" %>
         <div id="wrapper">
-
             <div id="page-wrapper">
-                
-                <div id="managementArea">
-                    <div class="mangementOption">
-                        <input type="checkbox" class="option" value="ap">Add Points
-                        <form class="ap" action="addPoints">
-                            Type of Points:
-                            <select>
-                                <%
-                                for (int j=0; j < types.size(); j++)
-                                {
-                                    %>
-                                    <option value="<%=types.get(j)%>"><%=types.get(j)%></option>
+                <form>
+                    <div id="managementArea">
+                        <div class="mangementOption">
+                            <input type="checkbox" class="option" value="ap">Add Points
+
+                                Type of Points:
+                                <select id="ptaType">
                                     <%
-                                }
-                                %>
-                            </select>
-                            Number of points: <input types="text">
-                        </form>
-                    </div>
-                    <div class="mangementOption">
-                        <input type="checkbox" class="option" value="grp">Remove Points
-                        <form class="rp" action="removePoints">
-                            Type of Points:
-                            <select>
-                                <%
-                                for (int j=0; j < types.size(); j++)
-                                {
+                                    for (int j=0; j < typeIDs.length; j++)
+                                    {
+                                        %>
+                                        <option value="<%=typeIDs[j]%>"><%=types.get(typeIDs[j])%></option>
+                                        <%
+                                    }
                                     %>
-                                    <option value="<%=types.get(j)%>"><%=types.get(j)%></option>
+                                </select>
+                                Number of points: <input type="text" name="pointToAdd" id="pta">
+                                <input type="submit" value="Add Points to selected users" id="ap" class="action">
+                        </div>
+                        <div class="mangementOption">
+                            <input type="checkbox" class="option" value="rp">Remove Points
+                                Type of Points:
+                                <select id="ptrType">
                                     <%
-                                }
-                                %>
-                            </select>
-                            Number of points: <input types="text">
-                        </form>
-                    </div>
-                    <div class="mangementOption">
-                        <input type="checkbox" class="option" value="grp">Change Group
-                        <form class="ap" action="addPoints">
-                            Group:
-                            <select>
-                                <%
-                                Object[] grpNames = groups.values().toArray();
-                                for (int j=0; j < groups.keySet().size(); j++)
-                                {
+                                    for (int j=0; j < types.size(); j++)
+                                    {
+                                        %>
+                                        <option value="<%=typeIDs[j]%>"><%=types.get(typeIDs[j])%></option>
+                                        <%
+                                    }
                                     %>
-                                    <option value="<%=grpNames[j]%>"><%=grpNames[j]%></option>
+                                </select>
+                                Number of points: <input types="text" id="ptr">
+                                <input type="submit" value="Remove Points from selected users" id="rp" class="action">
+                        </div>
+                        <div class="mangementOption">
+                            <input type="checkbox" class="option" value="grp">Change Group
+                                Group:
+                                <select id="newgroup">
                                     <%
-                                }
-                                %>
-                            </select>
-                        </form>
+                                    for (int j=0; j < groups.size(); j++)
+                                    {
+                                        %>
+                                        <option value="<%=groupIDs[j]%>"><%=groups.get(groupIDs[j])%></option>
+                                        <%
+                                    }
+                                    %>
+                                </select>
+                                <input type="submit" value="Change selected users groups" id="chgrp" class="action">
+                        </div>
                     </div>
-                </div>
-                <div id="displayManagement">
-                    <input type="checkbox" class="displayCheckBox" value="grp" checked>User Group
-                    <input type="checkbox" class="displayCheckBox" value="un" checked>Username
-                    <input type="checkbox" class="displayCheckBox" value="fn" checked>First Name
-                    <input type="checkbox" class="displayCheckBox" value="ln" checked>Last Name
-                    <input type="checkbox" class="displayCheckBox" value="em" checked>Email
-                    <input type="checkbox" class="displayCheckBox" value="mob" checked>Mobile
-                    <input type="checkbox" class="displayCheckBox" value="cn" checked>Contact Number
-                    <input type="checkbox" class="displayCheckBox" value="cou" checked>Country
-                    <input type="checkbox" class="displayCheckBox" value="st" checked>Status
-                    <input type="checkbox" class="displayCheckBox" value="inst" checked>Institution
-                    <input type="checkbox" class="displayCheckBox" value="coll" checked>College
-                    <input type="checkbox" class="displayCheckBox" value="deg" checked>Degree
-                    <input type="checkbox" class="displayCheckBox" value="yos" checked>Year Of Study
-                    <input type="checkbox" class="displayCheckBox" value="yes" checked>Young ES Member
-                    
-                    <%
-                    for (int i=0; i<types.size(); i++)
-                    {
-                        %>
-                    <input type="checkbox" class="displayCheckBox" value="<%=types.get(i)%>" checked><%=types.get(i)%>   
+                    <div id="displayManagement">
+                        <input type="checkbox" class="displayCheckBox" value="grp" checked>User Group
+                        <input type="checkbox" class="displayCheckBox" value="un" checked>Username
+                        <input type="checkbox" class="displayCheckBox" value="fn" checked>First Name
+                        <input type="checkbox" class="displayCheckBox" value="ln" checked>Last Name
+                        <input type="checkbox" class="displayCheckBox" value="em" checked>Email
+                        <input type="checkbox" class="displayCheckBox" value="mob" checked>Mobile
+                        <input type="checkbox" class="displayCheckBox" value="cn" checked>Contact Number
+                        <input type="checkbox" class="displayCheckBox" value="cou" checked>Country
+                        <input type="checkbox" class="displayCheckBox" value="st" checked>Status
+                        <input type="checkbox" class="displayCheckBox" value="inst" checked>Institution
+                        <input type="checkbox" class="displayCheckBox" value="coll" checked>College
+                        <input type="checkbox" class="displayCheckBox" value="deg" checked>Degree
+                        <input type="checkbox" class="displayCheckBox" value="yos" checked>Year Of Study
+                        <input type="checkbox" class="displayCheckBox" value="yes" checked>Young ES Member
+
                         <%
-                    }
-                    %>
-                    <input type="checkbox" class="displayCheckBox" value="tot" checked>Total Points
-                    
-                </div>
-                <div id="filterArea">
-                    <label for="filter">Filter</label>
-                    <input type="text" name="filter" value="" id="filter" />
-                </div>
-                <div class="table-responsive">
-                    <table cellpadding="1" cellspacing="1" id="resultTable" class="table table-bordered table-hover table-striped">
-                        <thead>
-                            <tr>
-                                <th>Manage</th>
-                                <th class="grp">User Group</th>
-                                <th class="un">Username</th>
-                                <th class="fn">First Name</th>
-                                <th class="ln">Last Name</th>
-                                <th class="em">Email</th>
-                                <th class="mob">Mobile</th>
-                                <th class="cn">Contact Number</th>
-                                <th class="cou">Country</th>
-                                <th class="st">Status</th>
-                                <th class="inst">Institution</th>
-                                <th class="coll">College</th>
-                                <th class="deg">Degree</th>
-                                <th class="yos">Year Of Study</th>
-                                <th class="yes">Young ES Member</th>
-                                <%
-                    for (int i=0; i<types.size(); i++)
-                    {
-                        %>
-                                <th class="<%=types.get(i)%>"><%=types.get(i)%></th>
-                        <%
-                    }
-                                %>
-                                <th class="tot">Total Points</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <%                                
-                            for (int i = 0; i < users.size(); i++) 
-                            {
-                                UserDetails ud = users.get(i).getUd();
-                                UserProfile up = users.get(i).getUp();
-                                HashMap points = ud.getPoints();
-                                int total = 0;
+                        for (int i=0; i<typeIDs.length; i++)
+                        {
                             %>
-                            <tr>
-                                <td><input type="checkbox" value="<%=ud.getUserID()%>"></td>
-                                <td class="grp"><%=groups.get(ud.getGroupID())%></td>
-                                <td class="un"><%=ud.getUsername()%></td>
-                                <td class="fn"><%=up.getFirstName()%></td>
-                                <td class="ln"><%=up.getLastName()%></td>
-                                <td class="em"><%=ud.getEmail()%></td>
-                                <td class="mob"><%=up.getMobile()%></td>
-                                <td class="cn"><%=up.getContactNumber()%></td>
-                                <td class="cou"><%=up.getCountry()%></td>
-                                <td class="st"><%=up.getStatus()%></td>
-                                <td class="inst"><%=up.getInstitution()%></td>
-                                <td class="coll"><%=up.getCollege()%></td>
-                                <td class="deg"><%=up.getDegree()%></td>
-                                <td class="yos"><%=up.getYearOfStudy()%></td>
-                                <td class="yes"><%=up.getYoungES_FLAG()%></td>
-                                <%
-                                for (int k=0; k < types.size(); k++)
-                                {
-                                    total +=(int) points.get(types.get(k));
-                                %>
-                                <td class="<%=types.get(k)%>"><%=points.get(types.get(k))%></td>
-                                <%
-                                }
-                                %>
-                                <td class="tot"><%=total%></td>
-                            </tr>
+                        <input type="checkbox" class="displayCheckBox" value="<%=types.get(typeIDs[i])%>" checked><%=types.get(typeIDs[i])%>   
                             <%
-                            }
+                        }
+                        %>
+                        <input type="checkbox" class="displayCheckBox" value="tot" checked>Total Points
+
+                    </div>
+                    <div id="filterArea">
+                        <label for="filter">Filter</label>
+                        <input type="text" name="filter" value="" id="filter" />
+                    </div>
+                    <div class="table-responsive">
+                        <table cellpadding="1" cellspacing="1" id="resultTable" class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Manage</th>
+                                    <th class="grp">User Group</th>
+                                    <th class="un">Username</th>
+                                    <th class="fn">First Name</th>
+                                    <th class="ln">Last Name</th>
+                                    <th class="em">Email</th>
+                                    <th class="mob">Mobile</th>
+                                    <th class="cn">Contact Number</th>
+                                    <th class="cou">Country</th>
+                                    <th class="st">Status</th>
+                                    <th class="inst">Institution</th>
+                                    <th class="coll">College</th>
+                                    <th class="deg">Degree</th>
+                                    <th class="yos">Year Of Study</th>
+                                    <th class="yes">Young ES Member</th>
+                                    <%
+                        for (int i=0; i<typeIDs.length; i++)
+                        {
                             %>
-                        </tbody>
-                    </table>
-                </div>
+                                    <th class="<%=types.get(typeIDs[i])%>"><%=types.get(typeIDs[i])%></th>
+                            <%
+                        }
+                                    %>
+                                    <th class="tot">Total Points</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%                                
+                                for (int i = 0; i < users.size(); i++) 
+                                {
+                                    UserDetails ud = users.get(i).getUd();
+                                    UserProfile up = users.get(i).getUp();
+                                    HashMap points = ud.getPoints();
+                                    int total = 0;
+                                %>
+                                <tr>
+                                    <td><input type="checkbox" value="<%=ud.getUserID()%>"></td>
+                                    <td class="grp"><%=groups.get(ud.getGroupID())%></td>
+                                    <td class="un"><%=ud.getUsername()%></td>
+                                    <td class="fn"><%=up.getFirstName()%></td>
+                                    <td class="ln"><%=up.getLastName()%></td>
+                                    <td class="em"><%=ud.getEmail()%></td>
+                                    <td class="mob"><%=up.getMobile()%></td>
+                                    <td class="cn"><%=up.getContactNumber()%></td>
+                                    <td class="cou"><%=up.getCountry()%></td>
+                                    <td class="st"><%=up.getStatus()%></td>
+                                    <td class="inst"><%=up.getInstitution()%></td>
+                                    <td class="coll"><%=up.getCollege()%></td>
+                                    <td class="deg"><%=up.getDegree()%></td>
+                                    <td class="yos"><%=up.getYearOfStudy()%></td>
+                                    <td class="yes"><%=up.getYoungES_FLAG()%></td>
+                                    <%
+                                    for (int k=0; k < typeIDs.length; k++)
+                                    {
+                                        total +=(int) points.get(types.get(typeIDs[k]));
+                                    %>
+                                    <td class="<%=types.get(typeIDs[k])%>"><%=points.get(types.get(typeIDs[k]))%></td>
+                                    <%
+                                    }
+                                    %>
+                                    <td class="tot"><%=total%></td>
+                                </tr>
+                                <%
+                                }
+                                %>
+                            </tbody>
+                        </table>
+                    </div>
+            </form>
             </div>
         </div>
     </body>
