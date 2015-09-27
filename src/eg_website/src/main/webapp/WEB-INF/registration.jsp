@@ -18,10 +18,10 @@
                         <h3>Register</h3>
                         <form method="POST"  action="Register" id="register">
                             <ul>
-                                <br><label class="input">User Name </label> <input type="text" name="username"></br>
-                                <br><label class="input">Password</label> <input type="password" name="password"></br>
-                                <br><label class="input">Password</label> <input type="password" name="verification"></br>
-                                <br><label class="input">email</label> <input type="text" name="email"></br>
+                                <br><label class="input">User Name </label> <input type="text" name="username" data-validate="required,divisibleByThree"></br>
+                                <br><label class="input">Password</label> <input type="password" name="password" data-validate="required,matching#first"></br>
+                                <br><label class="input">Password</label> <input type="password" name="verification" data-validate="required,matching#second"></br>
+                                <br><label class="input">email</label> <input type="text" name="email" data-validate="required,email"></br>
                             </ul>
                             <br/>
                             <input type="submit" value="Register" class="button" id="registerButton"> 
