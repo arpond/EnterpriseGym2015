@@ -19,13 +19,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.team7.eg_website.Store.ContentStore;
 import uk.ac.dundee.team7.eg_website.Store.NewsStore;
+import uk.ac.dundee.team7.eg_website.model.ContentModel;
 import uk.ac.dundee.team7.eg_website.model.NewsModel;
 
 /**
  *
  * @author dragomir
  */
-@WebServlet(name = "EditNews", urlPatterns = {"/Admin/editNews"})
+@WebServlet(name = "EditNews", urlPatterns = {"/Admin/changeNews",
+"/Admin/editNews"})
 public class EditNews extends HttpServlet {
 
    
@@ -84,7 +86,38 @@ public class EditNews extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        NewsModel cm = new NewsModel();
+        ContentStore cs = new ContentStore();
+        NewsStore ns = new NewsStore();
+        String contentTitle = request.getParameter("editContentTitle");
+        String contentPath = request.getParameter("editContentPath");
+        String contentSummary = request.getParameter("editContentSummary");
+        String content = request.getParameter("editContent");
+        String contentID = request.getParameter("contentID");
+        String imagePath = request.getParameter("editImagePath");
 
+        int tempContID = Integer.parseInt(contentID);
+        
+        cs.setContent(content);
+        cs.setContentID(tempContID);
+        cs.setContentPath(contentPath);
+        cs.setContentSummary(contentSummary);
+        cs.setContentTitle(contentTitle);
+        ns.setNewsImage(imagePath);
+        ns.setContent(cs);
+        try {
+            cm.updateContent(ns);
+        } catch (SQLException ex) {
+            Logger.getLogger(EditContent.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(EditNews.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(EditNews.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(EditNews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editNews.jsp");
     }
 
     /**

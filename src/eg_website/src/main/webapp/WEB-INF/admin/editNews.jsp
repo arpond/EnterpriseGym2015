@@ -35,6 +35,9 @@
                             <p></p>
                             <label class="input">News Content Path</label> <input type="text" name="editContentPath" value="${editContentPath}" >
                             <p></p>
+                            <p></p>
+                            <label class="input">News Image Path</label> <input type="text" name="editNewsImage" value="${editNewsImage}" >
+                            <p></p>
                             <label>Content Summary</label> 
                             <p></p>
                             <textarea cols="80" placeholder="Content Summary" class="input" rows="5" id="editContentSummary" name="editContentSummary" >   
