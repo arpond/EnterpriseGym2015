@@ -156,14 +156,14 @@ public class ViewQuiz extends HttpServlet {
 
     private void startNewQuiz(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        
-        int quizID, attemptNumber;
+        int quizID;
         HttpSession session = request.getSession();
         UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
         
         try
         {
             quizID = Integer.parseInt(request.getParameter("quizID"));
-            attemptNumber = Integer.parseInt(request.getParameter("attemptNumber"));            
+            //attemptNumber = Integer.parseInt(request.getParameter("attemptNumber"));            
         }
         catch (Exception e)
         {
@@ -175,8 +175,8 @@ public class ViewQuiz extends HttpServlet {
         QuestionStore qs;
         try
         {
-            qm.startQuiz(quizID, ud.getUserID(), attemptNumber);
             qs = qm.FetchQuestion(quizID, 1);
+            qm.startQuiz(quizID, ud.getUserID());
         }
         catch(Exception e)
         {

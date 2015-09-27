@@ -9,6 +9,7 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import uk.ac.dundee.team7.eg_website.Store.CollegeStore;
 import uk.ac.dundee.team7.eg_website.Store.CountryStore;
 import uk.ac.dundee.team7.eg_website.Store.DegreeStore;
 import uk.ac.dundee.team7.eg_website.Store.InstitutionStore;
@@ -26,17 +27,56 @@ public class DemographicModel {
         java.sql.Connection conn = dbc.connectToDB();
         CallableStatement cs = null;        
         ArrayList<InstitutionStore> instList = new ArrayList<InstitutionStore>(); 
-        cs = conn.prepareCall("{call getInstitutions()}");
+        cs = conn.prepareCall("{call getInstitutionsAll()}");
         cs.execute();
         ResultSet rs = cs.getResultSet();
         rs.first();
-        while(rs.next())
+        do
         {
             InstitutionStore instStore = new InstitutionStore();
             instStore.setInstitutionID(rs.getInt("institutionID"));
             instStore.setInstitutionName(rs.getString("institutionName"));
+            ArrayList<CollegeStore> colleges = new ArrayList<CollegeStore>();
+            rs.getInt("collegeID");
+            if (!rs.wasNull())
+            {
+                do
+                {
+                    if (instStore.getInstitutionID() != rs.getInt("institutionID"))
+                    {
+                        rs.previous();
+                        break;
+                    }
+                    
+                    CollegeStore college = new CollegeStore();
+                    college.setCollegeID(rs.getInt("collegeID"));
+                    college.setCollegeName(rs.getString("collegeName"));
+                    ArrayList<DegreeStore> degrees = new ArrayList<DegreeStore>();
+                    rs.getInt("degreeID");
+                    if (!rs.wasNull())
+                    {
+                        do
+                        {    
+                            if (college.getCollegeID() != rs.getInt("collegeID"))
+                            {
+                                rs.previous();
+                                break;
+                            }
+                            
+                            DegreeStore degree = new DegreeStore();
+                            degree.setDegreeID(rs.getInt("degreeID"));
+                            degree.setDegreeName(rs.getString("degreeName"));
+                            degrees.add(degree);
+                        } while (rs.next());
+                    }
+                    college.setDegrees(degrees);
+                    colleges.add(college);
+                } while (rs.next());
+            }
+            instStore.setColleges(colleges);
             instList.add(instStore);
-        }
+        } while (rs.next());
+        
         conn.close();
         return instList;
     }

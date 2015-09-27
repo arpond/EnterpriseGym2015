@@ -4,6 +4,7 @@
     Author     : williamneal
 --%>
 
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="org.joda.time.DateTime"%>
 <%@page import="uk.ac.dundee.team7.eg_website.Store.*" %>
@@ -19,6 +20,26 @@
     </head>
     <body>
         <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
+       <div class="container">
+        
+           
+            <!-- Page Heading/Breadcrumbs -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">News
+                        <small>by <a href="#">Enterprise Gym</a>
+                        </small>
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="index.html">Home</a>
+                        </li>
+                        <li class="active">News></li>
+                    </ol>
+                </div>
+            </div>
+                    
+       <div class="row">      
+           
         <%
             //Get arraylist here
             
@@ -31,18 +52,37 @@
                 NewsStore ns = (NewsStore) i1.next();
                 %>
     <div class="newsItem">
-        <h2><a href="/eg_website/<%=ns.getContent().getContentPath()%>"><%=ns.getContent().getContentTitle()%></a></h2>
+        <div class="col-md-1 text-center">
+                <p><i class="fa fa-camera fa-4x"></i>
+                </p>
+                <p>June 17, 2014</p>
+            </div>
+       
         <div class="newsContent">
-            <img src=<%=ns.getNewsImage()%> ></img>
+         <div class="col-md-5">
+            <img src=<%=ns.getNewsImage()%> width="300" height="100" > </img>
+            
+         </div>
+            
+            <div class="col-md-6">
+                 <h2><a href="/eg_website/<%=ns.getContent().getContentPath()%>"><%=ns.getContent().getContentTitle()%></a></h2>
+        
             <p><%=ns.getContent().getContentSummary()%></p>
             <%-- <p class="posted"><%=ns.getPostedTime().toString()%></p>
             <p class="category"><%=ns.getCategoryName()%></p> --%>
             <a href="/eg_website/<%=ns.getContent().getContentPath()%>">Read More..</a>
+            </div>
+            
         </div>
     </div>
                 <%                            
             }
         %>
+        </div>
+        
+        
+        
+    </div>
         <%@include file="/WEB-INF/includes/normalFooter.jsp" %>
     </body>
 </html>

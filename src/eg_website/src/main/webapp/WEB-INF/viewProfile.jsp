@@ -36,7 +36,6 @@
 <h2>Student Profile</h2>                
 				
 <%  UserProfile up = (UserProfile) request.getAttribute("profile");
-    UserDetails ud = (UserDetails) request.getAttribute("content");
        String fname = up.getFirstName();
        String sname = up.getLastName();
        String mobile = up.getMobile();

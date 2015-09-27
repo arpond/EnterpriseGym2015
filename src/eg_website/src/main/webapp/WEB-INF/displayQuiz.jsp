@@ -25,8 +25,9 @@
         <p>Question: <%=quiz.getQuestionsArray().size()%></p>
         <p>Attempts allowed: <%=quiz.getQuizAttemptsAllowed()%> </p>
         <p>Pass Rate: <%=quiz.getQuizPassRate()%>%</p>
-        <form method="POST"  action="Quiz" id="quiz">
+        <form method="POST"  action="" id="quiz">
             <input type="hidden" name="mode" value="0">
+            <input type="hidden" name="quizID" value="<%=quiz.getQuizId()%>">
             <div class="right"><input type="submit" value="Start Quiz" class="button" id="quizButton"></div>
         </form>
         <%@include file="/WEB-INF/includes/normalFooter.jsp" %>

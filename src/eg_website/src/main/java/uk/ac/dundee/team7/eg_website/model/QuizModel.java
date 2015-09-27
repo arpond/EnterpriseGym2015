@@ -14,35 +14,29 @@ public class QuizModel {
 	 */
 	public QuizStore fetchQuiz(int quizID) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
 		
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
-        DatabaseConnection dbc = new DatabaseConnection();
-        java.sql.Connection conn = dbc.connectToDB();
-        CallableStatement cs = null;
-        cs = conn.prepareCall("{call getQuiz(?)}");
-        cs.setInt(1, quizID);
-        cs.execute();
-        ResultSet rs = cs.getResultSet();
-        ArrayList<QuestionStore> questionsArray = new ArrayList<QuestionStore>();
-        rs.first();
-        while(rs.next())
-        {            
-            ArrayList<AnswerStore> answersArray = new ArrayList<AnswerStore>();
-            CallableStatement answers = conn.prepareCall("select * from eg_question,eg_answers where eg_question.questionID=eg_answers.eg_question_questionID eg_question.questionID = ?");
-            answers.setInt(1, rs.getInt("questionID"));
-            answers.execute();
-            ResultSet rs1 = answers.getResultSet();
-            while(rs1.next())
-            {
-                Boolean correct = rs1.getBoolean("correct");
-                AnswerStore answerToAdd = new AnswerStore(rs1.getInt("answerID"),rs1.getString("answerText"),correct);
-                answersArray.add(answerToAdd);
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            DatabaseConnection dbc = new DatabaseConnection();
+            java.sql.Connection conn = dbc.connectToDB();
+            CallableStatement cs = null;
+            cs = conn.prepareCall("{call getQuiz(?)}");
+            cs.setInt(1, quizID);
+            cs.execute();
+            ResultSet rs = cs.getResultSet();
+            ArrayList<QuestionStore> questionsArray = new ArrayList<QuestionStore>();
+            while(rs.next())
+            {   
+                ArrayList<AnswerStore> answersArray = new ArrayList<AnswerStore>();
+                QuestionStore questionToAdd = new QuestionStore(rs.getInt("questionID"),rs.getInt("questionNumber")
+                        ,rs.getString("questionText"),rs.getInt("questionType"),rs.getInt("questionValue"),answersArray);
+                questionsArray.add(questionToAdd);
             }
-            QuestionStore questionToAdd = new QuestionStore(rs.getInt("questionID"),rs.getInt("questionNumber"),rs.getString("questionText"),rs.getInt("questionType"),rs.getInt("questionValue"),answersArray);
-            questionsArray.add(questionToAdd);
-        }
-        QuizStore qs = new QuizStore(rs.getInt("quizID"),rs.getString("quizName"), rs.getInt("quizOrder"),rs.getInt("attemptID "),rs.getInt("quizPassRate"), rs.getInt("quizPointsValue"),rs.getInt("typeID"),questionsArray,rs.getInt("status"),rs.getInt("attemptID"));
-        conn.close();
-        return qs;
+            rs.first();
+
+            QuizStore qs = new QuizStore(rs.getInt("quizID"),rs.getString("quizName")
+                    , rs.getInt("quizOrder"),rs.getInt("quizAttemptsAllowed"),rs.getInt("quizPassRate")
+                    , rs.getInt("quizPointsValue"),rs.getInt("eg_pointTypes_typeId"), questionsArray);
+            conn.close();
+            return qs;
 	}
 
         
@@ -110,7 +104,7 @@ public class QuizModel {
            quizzes.add(tempQuiz);
         }
         
-        
+        conn.close();
         return quizzes;
 	}
 
@@ -165,6 +159,7 @@ public class QuizModel {
         cs.setInt(2,userID);
         cs.setInt(3,attempt.getAttemptID());
         cs.execute();
+        conn.close();
         return true;
 	}
 
@@ -231,16 +226,15 @@ public class QuizModel {
      * @param userID
      * @param attemptID 
      */
-    public void startQuiz(int quizID, int userID, int attemptID) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+    public void startQuiz(int quizID, int userID) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         Class.forName("com.mysql.jdbc.Driver").newInstance();
         DatabaseConnection dbc = new DatabaseConnection();
         java.sql.Connection conn = dbc.connectToDB();
         CallableStatement cs = null;
         ArrayList<AnswerStore> emptyAS = new ArrayList<AnswerStore>();
-        cs= conn.prepareCall("insert into eg_users_has_quiz (eg_quiz_quizID,eg_users_userID,attemptID) Values(?,?,?)");
+        cs= conn.prepareCall("insert into eg_users_has_eg_quiz (eg_quiz_quizID,eg_users_userID,status) Values(?,?,1)");
         cs.setInt(1,quizID);
         cs.setInt(2,userID);
-        cs.setInt(3,attemptID);
         cs.execute();
         conn.close();
     }
@@ -255,13 +249,27 @@ public class QuizModel {
         DatabaseConnection dbc = new DatabaseConnection();
         java.sql.Connection conn = dbc.connectToDB();
         CallableStatement cs = null;
-        ArrayList<AnswerStore> emptyAS = new ArrayList<AnswerStore>();
-        cs= conn.prepareCall("select * eg_question,eg_quiz where eg_quiz.quizID=? and eg_quiz.quizID=eg_question.quizID and eg_question.questionNumber=?");
+        ArrayList<AnswerStore> answersArray = new ArrayList<AnswerStore>();
+        cs=conn.prepareCall("select * from eg_question,eg_quiz,eg_answers " +
+                            "where eg_quiz.quizID=? " +
+                            "and eg_quiz.quizID=eg_question.eg_quiz_quizID " +
+                            "and eg_question.questionNumber=? " +
+                            "and eg_answers.eg_question_questionID = eg_question.questionID");
         cs.setInt(1, quizID);
         cs.setInt(2,questionNumber);
         cs.execute();
         ResultSet rs = cs.getResultSet();
-        QuestionStore fetchedQuestion = new QuestionStore(rs.getInt("questionID"),rs.getInt("questionNumber"),rs.getString("questionText"),rs.getInt("questionType"),rs.getInt("questionValue"),emptyAS);
+        while(rs.next())
+        {   
+           AnswerStore as = new AnswerStore();
+           as.setAnswerId(rs.getInt("answerID"));
+           as.setAnswerText(rs.getString("answerText"));
+           as.setCorrect(rs.getBoolean("correct"));
+           answersArray.add(as);
+        }
+        rs.first();
+        QuestionStore fetchedQuestion =new QuestionStore(rs.getInt("questionID"),rs.getInt("questionNumber")
+                        ,rs.getString("questionText"),rs.getInt("questionType"),rs.getInt("questionValue"),answersArray);
         conn.close();
         return fetchedQuestion;
         
