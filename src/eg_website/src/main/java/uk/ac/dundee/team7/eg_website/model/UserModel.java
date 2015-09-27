@@ -149,10 +149,10 @@ public class UserModel {
         String ln = up.getLastName();
         String mobile = up.getMobile();
         String contactNum = up.getContactNumber();
-        String YearOfStudy = "";//up.getYearOfStudy();
+        String YearOfStudy = up.getYearOfStudy();
         String matricNum = up.getMatricNumber();
-        Boolean youngES = false;//up.getYoungES_FLAG();
-        String username = "babak";//ud.getUsername();
+        Boolean youngES = up.getYoungES_FLAG();
+        String username = ud.getUsername();
         String email = ud.getEmail();
         try {
             cs = conn.prepareCall("{call updateProfile(?,?,?,?,?,?,?,?,?,?)}");
