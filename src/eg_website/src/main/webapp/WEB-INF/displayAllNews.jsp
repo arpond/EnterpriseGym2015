@@ -22,7 +22,7 @@
         <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
        <div class="container">
         
-           
+         
             <!-- Page Heading/Breadcrumbs -->
             <div class="row">
                 <div class="col-lg-12">
@@ -51,8 +51,9 @@
             {
                 NewsStore ns = (NewsStore) i1.next();
                 %>
-    <div class="newsItem">
-        <div class="col-md-1 text-center">
+    <div class="container">
+          <hr>
+        <div class="col-md-1">
                 <p><i class="fa fa-camera fa-4x"></i>
                 </p>
                 <p>June 17, 2014</p>
@@ -65,8 +66,9 @@
          </div>
             
             <div class="col-md-6">
-                 <h2><a href="/eg_website/<%=ns.getContent().getContentPath()%>"><%=ns.getContent().getContentTitle()%></a></h2>
-        
+            <p>
+                 <h4><a href="/eg_website/<%=ns.getContent().getContentPath()%>"><%=ns.getContent().getContentTitle()%></a></h4>
+            </p>
             <p><%=ns.getContent().getContentSummary()%></p>
             <%-- <p class="posted"><%=ns.getPostedTime().toString()%></p>
             <p class="category"><%=ns.getCategoryName()%></p> --%>
