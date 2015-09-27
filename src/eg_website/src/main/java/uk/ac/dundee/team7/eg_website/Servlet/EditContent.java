@@ -39,7 +39,7 @@ public class EditContent extends HttpServlet {
         String contentSummary = request.getParameter("editContentSummary");
         String content = request.getParameter("editContent");
         String contentID = request.getParameter("contentID");
-        
+
         int tempContID = Integer.parseInt(contentID);
         cs.setContent(content);
         cs.setContentID(tempContID);
@@ -52,7 +52,7 @@ public class EditContent extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(EditContent.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editContent.jsp");
 
     }
@@ -72,7 +72,7 @@ public class EditContent extends HttpServlet {
         HttpSession session = request.getSession();
         ContentStore cs = new ContentStore();
         String tempstring = (String) request.getSession().getAttribute("SUBFAMILY");
-       // String tempstring = subFam.getContentPath();
+        // String tempstring = subFam.getContentPath();
         ContentModel cm = new ContentModel();
         try {
             cs = cm.fetchContent(tempstring);

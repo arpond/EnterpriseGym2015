@@ -30,8 +30,6 @@ import uk.ac.dundee.team7.eg_website.model.NewsModel;
 @WebServlet(name = "AdminContentOptions", urlPatterns = {"/Admin/ContentOptions"})
 public class AdminContentOptions extends HttpServlet {
 
-   
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -46,12 +44,9 @@ public class AdminContentOptions extends HttpServlet {
             throws ServletException, IOException {
         ContentModel nm = new ContentModel();
         ArrayList<ContentStore> csAL = new ArrayList<ContentStore>();
-        try
-        {
+        try {
             csAL = nm.fetchAllContent();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             Message.message("Database error. " + e.toString(), request, response);
             return;
         }
@@ -71,11 +66,11 @@ public class AdminContentOptions extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
         ContentStore cs = (ContentStore) session.getAttribute("editContent");
-        
+
         String tempstring = cs.getContentPath();
-       
+
         ContentModel cm = new ContentModel();
         try {
             cs = cm.fetchContent(tempstring);
@@ -99,5 +94,4 @@ public class AdminContentOptions extends HttpServlet {
         view.include(request, response);
 
     }
-    }
-
+}
