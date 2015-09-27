@@ -90,7 +90,7 @@ public class DemographicModel {
         cs = conn.prepareCall("{call getCountries()}");
         cs.execute();
         ResultSet rs = cs.getResultSet();
-        rs.first();
+        //rs.first();
         while(rs.next())
         {
             CountryStore contrStore = new CountryStore();
@@ -111,12 +111,12 @@ public class DemographicModel {
         cs = conn.prepareCall("{call getStatuses()}");
         cs.execute();
         ResultSet rs = cs.getResultSet();
-        rs.first();
+        //rs.first();
         while(rs.next())
         {
             StatusStore statusStore = new StatusStore();
             statusStore.setStatusID(rs.getInt("statusID"));
-            statusStore.setStautsName(rs.getString("statusName"));
+            statusStore.setStatusName(rs.getString("statusName"));
             statusList.add(statusStore);
         }
         conn.close();
@@ -132,7 +132,7 @@ public class DemographicModel {
         cs = conn.prepareCall("{call getDegrees()}");
         cs.execute();
         ResultSet rs = cs.getResultSet();
-        rs.first();
+        //rs.first();
         while(rs.next())
         {
             DegreeStore degreeStore = new DegreeStore();
