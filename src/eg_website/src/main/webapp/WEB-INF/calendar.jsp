@@ -44,6 +44,7 @@
         toParse = gson.toJson(toParse);
     %>
 
+    
     <body onload="init();">
         <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
         <article>
@@ -62,13 +63,38 @@
                 <div class="dhx_cal_header"></div>
                 <div class="dhx_cal_data"></div>  
 
+                <script type="application/javascript" charset="utf-8">
+    
+
+function getUrlVars(url) {
+    var hash;
+    var myJson = {};
+    var hashes = url.slice(url.indexOf('?') + 1).split('&');
+    for (var i = 0; i < hashes.length; i++) {
+        hash = hashes[i].split('=');
+        myJson[hash[0]] = hash[1];
+    }
+    return myJson;
+}
+                </script>
+
                 <script type="text/javascript" charset="utf-8">
                     function init() {
-
-                        scheduler.config.xml_date = "%Y-%m-%d %H:%i";
+                        var params = getUrlVars('text=You and Your Team&eventStartTime=11/11/2015 14:00&eventEndTime=12/11/2015 18:00');
+                        console.log(params);
+                        //scheduler.config.xml_date = "%Y-%m-%d %H:%i";
                         scheduler.init('scheduler_here', new Date(2015, 0, 10), "week");
-                        scheduler.parse(<%=toParse%> 
-                        , "json");
+                        scheduler.parse([
+    {text:"Fun Enterprise Event",    start_date:"09/11/2015 14:00", end_date:"09/11/2015 17:00"},
+    {text:"Virtual Revision Class", start_date:"09/15/2015 12:00", end_date:"09/18/2015 19:00"},
+    {text:"Project Deadline",  start_date:"09/24/2015 09:00", end_date:"09/24/2015 10:00"},
+    {text:"Fun Enterprise Event",    start_date:"09/12/2015 14:00", end_date:"09/12/2015 17:00"},
+    {text:"Virtual Revision Class", start_date:"09/13/2015 12:00", end_date:"09/13/2015 19:00"},
+    {text:"Project Deadline",  start_date:"09/27/2015 09:00", end_date:"09/27/2015 10:00"},
+    {text:"Fun Enterprise Event",    start_date:"09/20/2015 14:00", end_date:"09/21/2015 17:00"},
+    {text:"Virtual Revision Class", start_date:"09/16/2015 12:00", end_date:"09/19/2015 19:00"},
+    {text:"Project Deadline",  start_date:"09/24/2015 09:00", end_date:"09/25/2015 10:00"},
+],"json");
                     }
                     // scheduler.load("connector/Connector.php");
                 </script>
