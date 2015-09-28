@@ -26,12 +26,12 @@
                 <li class="dropdown"> 
                 <a href="/eg_website/Event" class="dropdown-toggle" data-toggle="dropdown">Events <b class="caret"></b></a>
                    <ul class="dropdown-menu">
-                      <li> <a href="/eg_website/Event/trainingWorkshops">The Enterprise Challenge and Training Workshops</a> </li>
-                        <li> <a href="/eg_website/Event/bestSeries">Learn from the Best Series </a> </li>
-                        <li> <a href="/eg_website/Event/sucessWorkshops">Training for Success Workshops</a> </li>
-                        <li> <a href="/eg_website/Event/businessSurgeries">Business Surgeries</a> </li>
-                        <li> <a href="/eg_website/Event/networking">Networking</a> </li>
-                        <li> <a href="/eg_website/Event/bootCamp">Summer Boot Camp</a>  </li>
+                      <li> <a href="/eg_website/Event/You_and_Your_Team">You and your team</a> </li>
+                        <li> <a href="/eg_website/Event/Open_day">Open day</a> </li>
+                        <li> <a href="/eg_website/Event/Fair_scotland">Fair Scotland</a> </li>
+                        <li> <a href="/eg_website/Event/Nick_frost">Nick Frost Event</a> </li>
+                        <li> <a href="/eg_website/Event/Lego_architecture">LEGO!</a> </li>
+                        <li> <a href="/eg_website/Event/This-is-Buisness">20:20 Vision</a>  </li>
                    </ul>
                 </li>
 
