@@ -83,12 +83,14 @@ public class Calendar extends HttpServlet {
         }
         int userID = 3;//ud.getUserID();
         int categoryID = 1;
+        int pointTypeID = 1;
+        int points = 1;
         eventStartTime = new DateTime(sqlStartDate);
         DateTime eventEndTime = new DateTime(sqlStartDate);
 
                         //java.sql.Date sqlStartDate = new java.sql.Date(newsStartTime.getMillis());                
         try {
-            em.addEvent(eventPath, eventTitle, event, eventStartTime,eventEndTime, eventImageURL,3,3,3,3,"bob");
+            em.addEvent(eventPath, eventTitle, event, eventStartTime,eventEndTime, eventImageURL,pointTypeID,points,userID,categoryID,eventSummary);
 
         } catch (SQLException ex) {
             Logger.getLogger(ManageContent.class.getName()).log(Level.SEVERE, null, ex);

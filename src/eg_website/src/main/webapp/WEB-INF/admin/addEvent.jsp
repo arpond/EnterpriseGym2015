@@ -51,6 +51,7 @@
                     </div>
                         <form method="POST"  action="addEvent" id="addEvent">
                         <div class="left">
+                            <h2>Add an Event</h2>
                         <ul>
                         <p></p>
                         <label class="input">Event Title</label> <input type="text" name="eventTitle">
@@ -69,8 +70,9 @@
                         <textarea cols="80" placeholder="Content" class="input" rows="10" id="eventContent" name="eventContent" >   
                         </textarea>
                         <p></p>
+                        <label>Event Start Date</label> 
                         <input type="text" name="daterange" class="input" value="01/01/2015" />
-
+                        <label>Event Start Time (HH:MM)</label> 
                         <script type="text/javascript">
                             $(function() {
                                 $('input[name="daterange"]').daterangepicker({
