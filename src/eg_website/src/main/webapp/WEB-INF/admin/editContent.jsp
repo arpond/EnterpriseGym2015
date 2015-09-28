@@ -35,7 +35,7 @@
                             <label class="input">Content Path</label> <input type="text" name="editContentPath" value="${editContentPath}" >
                             <p></p>
                             <label>Content Summary</label> 
-                            <textarea cols="80" placeholder="Content Summary" class="input" rows="5" id="editContentSummary" name="editContentSummary" >   
+                            <textarea cols="890" placeholder="Content Summary" class="input" rows="5" id="editContentSummary" name="editContentSummary" >   
                                 ${editContentSummary}
                             </textarea>
 

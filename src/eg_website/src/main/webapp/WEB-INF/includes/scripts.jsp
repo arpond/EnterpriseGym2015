@@ -30,6 +30,8 @@
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.timepicker/1.3.7/jquery.timepicker.css"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.timepicker/1.3.7/jquery.timepicker.js"/>
 <!-- Include Verification -->
 <script src="/eg_website/js/notify.min.js"></script>
 <script src="/eg_website/js/verify.notify.js"></script>

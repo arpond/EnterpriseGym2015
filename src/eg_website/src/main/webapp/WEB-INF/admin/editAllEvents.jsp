@@ -54,11 +54,18 @@
                         %>
                         <tr>
                             <td><%=es.getContent().getContentTitle()%></td>
-                            <td>/eg_website<%=es.getContent().getContentPath()%>"</td>
+                            <td>/eg_website<%=es.getContent().getContentPath()%></td>
                             <td>
                                 <form method="GET"  action="EditUsersInEvent" id="EditUsersInEvent">
                                     <input hidden name="eventID" value="<%=es.getEventID()%>">
                                     <input type="submit" value="View Attendees" class="button" id="EditUsersInEvent">
+                                    </form>
+                                    </td>
+                                    
+                                    <td>
+                                    <form method="GET"  action="EditEvent" id="EditEvent">
+                                    <input hidden name="eventPath" value="<%=es.getContent().getContentPath()%>">
+                                    <input type="submit" value="Edit Event" class="button" id="EditEvent">
                                 </form>
                             </td>
                         </tr>

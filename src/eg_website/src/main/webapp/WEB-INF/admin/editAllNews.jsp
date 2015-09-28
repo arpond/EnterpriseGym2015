@@ -54,7 +54,7 @@
                         %>
                         <tr>
                             <td><%=es.getContent().getContentTitle()%></td>
-                            <td>/eg_website<%=es.getContent().getContentPath()%>"</td>
+                            <td>/eg_website<%=es.getContent().getContentPath()%></td>
                             <td>
                                 <form method="GET"  action="editNews" id="editNews">
                                     <input hidden name="path" value="<%=es.getContent().getContentPath()%>">
