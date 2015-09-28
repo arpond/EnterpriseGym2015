@@ -57,7 +57,7 @@
          out.println( "Mobile no:" + mobile + " Phone no: " + number);
          out.println( "Year of Study:" + year + " Matric No: " + matric);
          out.println( "Country: " + country + " Institution: " + institution);
-         out.println( "College: " + college + " Degree: " + degree);
+         out.println( "School: " + college + " Degree: " + degree);
          out.println( "Username: " + userName + " Email: " + email);
       %>
      </ul>
