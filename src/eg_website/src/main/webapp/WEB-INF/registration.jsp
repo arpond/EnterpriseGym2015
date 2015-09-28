@@ -3,34 +3,54 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Register</title>
-        <%@include file="/WEB-INF/includes/scripts.jsp" %>
-
-    </head>
-    <body>
+        <%@include file="/WEB-INF/includes/scripts.jsp" %> 
         <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
-        <div id="big_wrapper">
-           
-         
-            <div id="main_wrapper">
-                <section id="main_section">
 
-                        <article>
-                        <h3>Register</h3>
-                        <form method="POST"  action="Register" id="register">
-                            <ul>
-                                <br><label class="input">User Name </label> <input type="text" name="username" data-validate="required"></br>
-                                <br><label class="input">Password</label> <input type="password" name="password" data-validate="required,matching#first"></br>
-                                <br><label class="input">Password</label> <input type="password" name="verification" data-validate="required,matching#second"></br>
-                                <br><label class="input">email</label> <input type="text" name="email" data-validate="required,email"></br>
-                            </ul>
-                            <br/>
-                            <input type="submit" value="Register" class="button" id="registerButton"> 
-                        </form>
-                        </article> 
-                    </section>    
-            </div> 
-         
+        <title>Register</title>
+    </head> 
+
+    <body>
+        <div class="container">
+            <!-- Page Heading/Breadcrumbs -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Register
+
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="index.html">Home</a>
+                        </li>
+                        <li class="active">Register</li>
+                    </ol>
+                </div>
+            </div>   
         </div>
-        <%@include file="/WEB-INF/includes/normalFooter.jsp" %>
+
+        <div class="container" style="border:20px transparent; max-width:600px">
+
+            <form class="registerForm" method="POST"  action="View" >
+                <div class="form-group">
+                    <ul>
+                        <label for="input">Username </label>
+                        <input type="text" class="form-control" name="username" data-validate="required">
+
+                        <label for="input">Password </label>
+                        <input type="password1" class="form-control" name="password" data-validate="required,matching#first">
+
+                        <label for="input">Password</label>
+                        <input type="password2" class="form-control" name="password" data-validate="required,matching#second">
+
+                        <label for="input">Email</label>
+                        <input type="text" class="form-control" name="email" data-validate="required,email">
+
+                    </ul>
+                    <button type="submit" id="updateButton" class="btn btn-default" style="display:block;margin: 0 auto;" value="Register" name="action">Register</button> 
+                </div>
+            </form>
+        </div>  
     </body>
+
+    <footer>
+        <%@include file="/WEB-INF/includes/normalFooter.jsp" %> 
+    </footer>
 </html>
