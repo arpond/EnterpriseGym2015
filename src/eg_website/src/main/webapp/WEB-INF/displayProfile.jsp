@@ -82,6 +82,17 @@
                     <h2>Your Points</h2>
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
+                            <tr>
+                                <th>
+                                    Points Type
+                                </th>
+                                <th>
+                                    Points Earned
+                                </th>
+                                <th>
+                                    Progress
+                                </th>
+                            </tr>
 
                             <%
                                 Set set = points.entrySet();
@@ -114,11 +125,13 @@
                                     }
                                 %>
                                 </h5>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="<%=percentComplete%>"
-                                    aria-valuemin="0" aria-valuemax="100" style="width:<%=percentComplete%>%">
-                                    </div>
-                                  </div>
+                            </td>
+                            <td width="40%">
+                              <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="<%=percentComplete%>"
+                                aria-valuemin="0" aria-valuemax="100" style="width:<%=percentComplete%>%">
+                                </div>
+                              </div>
                             </td>
                             </tr>
                             <%
