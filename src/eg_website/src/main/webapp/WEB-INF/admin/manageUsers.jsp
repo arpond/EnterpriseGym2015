@@ -39,7 +39,7 @@
                     <div id="managementArea" class="col-md-6">
                         <div class="mangementOption">
                             
-                            <h4>Add Points</h4>
+                            <h5>Add Points</h5>
                             <form>
                                 Type of Points:
                                 <select id="ptaType">
@@ -57,8 +57,7 @@
                             </form>
                         </div>
                         <div class="mangementOption">
-                            
-                            <input type="checkbox" class="option" value="rp">Remove Points
+                            <h5>Remove Points</h5>
                             <form>
                                 Type of Points:
                                 <select id="ptrType">
@@ -76,7 +75,7 @@
                             </form>
                         </div>
                         <div class="mangementOption">
-                            <input type="checkbox" class="option" value="grp">Change Group
+                            <h5>Change Group</h5>
                                 Group:
                                 <select id="newgroup">
                                     <%

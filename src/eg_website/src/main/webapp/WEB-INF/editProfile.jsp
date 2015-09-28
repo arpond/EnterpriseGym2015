@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
     <%  UserProfile up = (UserProfile) request.getAttribute("profile");
-        UserDetails ud = (UserDetails) request.getAttribute("details");
+        //UserDetails ud = (UserDetails) request.getAttribute("details");
     %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

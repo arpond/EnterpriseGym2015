@@ -76,7 +76,7 @@
                         
                     <div class="col-md-6">  
                         <p>
-                        <h4 href="/eg_website<%=es.getContent().getContentPath()%>"><%=es.getContent().getContentTitle()%></h4>
+                        <h4><a href="/eg_website<%=es.getContent().getContentPath()%>"><%=es.getContent().getContentTitle()%></a></h4>
                         </p>
                         
                         <p>Event Type: <%=es.getEventPointType()%></p>

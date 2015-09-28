@@ -25,9 +25,6 @@
                           <label>Content Summary</label> 
                           <textarea cols="80" placeholder="Content Summary" class="input" rows="5" id="contentSummary" name="contentSummary" >   
                           </textarea>
-                          <script type="text/javascript">
-                          CKEDITOR.replace( 'contentSummary' );
-                          </script>
                           <label>Content</label> 
                           <textarea cols="80" placeholder="Content" class="input" rows="10" id="content" name="content" >   
                           </textarea>
