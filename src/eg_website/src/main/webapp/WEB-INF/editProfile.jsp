@@ -20,7 +20,7 @@
     </head> 
 
     <body>
-
+        <%@include file="/WEB-INF/includes/normalHeader.jsp" %> 
         <div class="container">
             <!-- Page Heading/Breadcrumbs -->
             <div class="row">

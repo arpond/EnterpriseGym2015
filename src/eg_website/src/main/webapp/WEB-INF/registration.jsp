@@ -4,12 +4,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Register</title>
         <%@include file="/WEB-INF/includes/scripts.jsp" %> 
-        <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
 
         <title>Register</title>
     </head> 
 
     <body>
+        <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
         <div class="container">
             <!-- Page Heading/Breadcrumbs -->
             <div class="row">
@@ -38,7 +38,7 @@
                         <input type="password1" class="form-control" name="password" data-validate="required,matching#first">
 
                         <label for="input">Password</label>
-                        <input type="password2" class="form-control" name="password" data-validate="required,matching#second">
+                        <input type="password2" class="form-control" name="verification" data-validate="required,matching#second">
 
                         <label for="input">Email</label>
                         <input type="text" class="form-control" name="email" data-validate="required,email">

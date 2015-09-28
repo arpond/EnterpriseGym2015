@@ -12,12 +12,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
         <%@include file="/WEB-INF/includes/scripts.jsp" %>
-        <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
 
         <title>Log In</title>
     </head> 
 
     <body>
+        <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
         <div class="container">
             <!-- Page Heading/Breadcrumbs -->
             <div class="row">
