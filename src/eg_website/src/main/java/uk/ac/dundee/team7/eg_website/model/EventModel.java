@@ -1,6 +1,7 @@
 package uk.ac.dundee.team7.eg_website.model;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import java.sql.Array;
 import java.sql.CallableStatement;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -13,7 +14,26 @@ import org.joda.time.DateTime;
 import uk.ac.dundee.team7.eg_website.Store.*;
 
 public class EventModel {
-
+    public ArrayList<String> fetchPointTypes() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException{
+        
+        CallableStatement cs = null;
+        ArrayList<String> pointTypeArray = new ArrayList();
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        ResultSet rs = null;
+             cs = conn.prepareCall("{call getPointTypes()}");
+            cs.execute();
+            rs = cs.getResultSet();
+            int i = 0;
+            while(rs.next()){
+                pointTypeArray.add(rs.getString("typeName"));
+                i++;
+            }
+            conn.close();
+            return pointTypeArray;
+        
+    }
     /**
      *
      * @param eventPath
@@ -24,10 +44,14 @@ public class EventModel {
         DatabaseConnection dbc = new DatabaseConnection();
         java.sql.Connection conn = dbc.connectToDB();
         CallableStatement cs = null;
+        CallableStatement cs1 = null;
         EventStore evStore = new EventStore();
         ContentStore conStore = new ContentStore();
+        String[] pointTypeArray = new String[20];
+        
         System.out.println("123");
         ResultSet rs = null;
+        ResultSet rs1 = null;
         try {
             System.out.println("321");
             cs = conn.prepareCall("{call getEventsOne(?)}");
@@ -69,6 +93,7 @@ public class EventModel {
             conn.close();
             return evStore;
         }
+         
         conn.close();
         return evStore;
 
