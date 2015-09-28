@@ -36,10 +36,10 @@
         <%@include file="/WEB-INF/includes/adminNav.jsp" %>
         <div id="wrapper">
             <div id="page-wrapper">
-                    <div id="managementArea">
+                    <div id="managementArea" class="col-md-6">
                         <div class="mangementOption">
                             
-                            <input type="checkbox" class="option" value="ap">Add Points
+                            <h4>Add Points</h4>
                             <form>
                                 Type of Points:
                                 <select id="ptaType">
@@ -91,31 +91,67 @@
                                 <input type="submit" value="Change selected users groups" id="chgrp" class="action">
                         </div>
                     </div>
-                    <div id="displayManagement">
-                        <input type="checkbox" class="displayCheckBox" value="grp" checked>User Group
-                        <input type="checkbox" class="displayCheckBox" value="un" checked>Username
-                        <input type="checkbox" class="displayCheckBox" value="fn" checked>First Name
-                        <input type="checkbox" class="displayCheckBox" value="ln" checked>Last Name
-                        <input type="checkbox" class="displayCheckBox" value="em" checked>Email
-                        <input type="checkbox" class="displayCheckBox" value="mob" checked>Mobile
-                        <input type="checkbox" class="displayCheckBox" value="cn" checked>Contact Number
-                        <input type="checkbox" class="displayCheckBox" value="cou" checked>Country
-                        <input type="checkbox" class="displayCheckBox" value="st" checked>Status
-                        <input type="checkbox" class="displayCheckBox" value="inst" checked>Institution
-                        <input type="checkbox" class="displayCheckBox" value="coll" checked>College
-                        <input type="checkbox" class="displayCheckBox" value="deg" checked>Degree
-                        <input type="checkbox" class="displayCheckBox" value="yos" checked>Year Of Study
-                        <input type="checkbox" class="displayCheckBox" value="yes" checked>Young ES Member
+                    <div id="displayManagement" class="form-group col-md-3">
+                        <div class="checkbox">
+                            <label><input type="checkbox" class="displayCheckBox" value="grp" checked>User Group</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" class="displayCheckBox" value="un" checked>Username</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" class="displayCheckBox" value="fn" checked>First Name</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" class="displayCheckBox" value="ln" checked>Last Name</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" class="displayCheckBox" value="em" checked>Email</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" class="displayCheckBox" value="mob" checked>Mobile</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" class="displayCheckBox" value="cn" checked>Contact Number</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" class="displayCheckBox" value="cou" checked>Country</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" class="displayCheckBox" value="st" checked>Status</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" class="displayCheckBox" value="inst" checked>Institution</label>
+                        </div>
+                    </div>
+                    <div id="displayManagement2" class="form-group col-md-3">    
+                        <div class="checkbox">
+                            <label><input type="checkbox" class="displayCheckBox" value="coll" checked>College</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" class="displayCheckBox" value="deg" checked>Degree</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" class="displayCheckBox" value="yos" checked>Year Of Study</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" class="displayCheckBox" value="yes" checked>Young ES Member</label>
+                        </div>
 
                         <%
                         for (int i=0; i<typeIDs.length; i++)
                         {
                             %>
-                        <input type="checkbox" class="displayCheckBox" value="<%=types.get(typeIDs[i])%>" checked><%=types.get(typeIDs[i])%>   
+                        <div class="checkbox">
+                            <label><input type="checkbox" class="displayCheckBox" value="<%=types.get(typeIDs[i])%>" checked><%=types.get(typeIDs[i])%></label>
+                        </div>
+                           
                             <%
                         }
                         %>
-                        <input type="checkbox" class="displayCheckBox" value="tot" checked>Total Points
+                        <div class="checkbox">
+                            <label><input type="checkbox" class="displayCheckBox" value="tot" checked>Total Points</label>
+                        </div>
+                        
 
                     </div>
                     <div id="filterArea">
