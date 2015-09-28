@@ -43,7 +43,8 @@
                             <th class="grp">Last Name</th>
                             <th class="un">Email</th>
                             <th class="un">Year Of Study</th>
-                            <th></th>
+                            <th class="un">Attended</th>
+                            
                         </tr>
                     </thead>
                     <tbody>

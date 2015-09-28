@@ -127,7 +127,7 @@
                         </div>
                         <div class="panel panel-danger">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><a href="/eg_website/Admin/">Manage Users</a></h3>
+                                <h3 class="panel-title"><a href="/eg_website/Admin/manageUsers">Manage Users</a></h3>
                             </div>
                             <div class="panel-body">
                                 Edit an existing event.
