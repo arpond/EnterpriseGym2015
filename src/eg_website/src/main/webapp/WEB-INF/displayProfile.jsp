@@ -71,7 +71,7 @@
                             <p><% out.println("Country: " + country);%></p>
                             <p><% out.println("Institution: " + institution);%></p>
                             <p><% out.println("Status: " + status);%></p>
-                            <p><% out.println("College: " + college);%></p>
+                            <p><% out.println("School: " + college);%></p>
                             <p><% out.println("Degree: " + degree);%></p>
 
                         </table>
