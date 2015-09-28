@@ -15,7 +15,7 @@ import uk.ac.dundee.team7.eg_website.lib.Utils;
 import uk.ac.dundee.team7.eg_website.model.EventModel;
 
 @WebServlet(urlPatterns = {
-    "/Calendar"
+    "/Admin/Calendar"
 })
 public class Calendar extends HttpServlet{
 
@@ -79,7 +79,7 @@ public class Calendar extends HttpServlet{
             return;
         }
         request.setAttribute("events", events);
-        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/calendar.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/addEvent.jsp");
         view.include(request, response);
     }
 
