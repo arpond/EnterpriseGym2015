@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -20,6 +21,7 @@ import uk.ac.dundee.team7.eg_website.Store.EventStore;
 import uk.ac.dundee.team7.eg_website.Store.NewsStore;
 import uk.ac.dundee.team7.eg_website.Store.UserDetails;
 import uk.ac.dundee.team7.eg_website.lib.Utils;
+import uk.ac.dundee.team7.eg_website.model.AdminModel;
 import uk.ac.dundee.team7.eg_website.model.EventModel;
 import uk.ac.dundee.team7.eg_website.model.NewsModel;
 
@@ -39,9 +41,24 @@ public class Calendar extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-            //ContentStore cs = (ContentStore) session.getAttribute("getContentToEdit");
-            RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/addEvent.jsp");
-            view.include(request, response);
+        HashMap types = new HashMap();
+
+        AdminModel am = new AdminModel();
+        try {
+            types = am.fetchPointTypes();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Calendar.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Calendar.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Calendar.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Calendar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        request.setAttribute("pointTypes", types);
+        //ContentStore cs = (ContentStore) session.getAttribute("getContentToEdit");
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/addEvent.jsp");
+        view.include(request, response);
 
     }
 
@@ -63,6 +80,8 @@ public class Calendar extends HttpServlet {
         //String displayDateTime=request.getParameter("newsDisplayTime");
         String realDisplayTime = request.getParameter("daterange");
         String realDisplayTime1 = request.getParameter("time");
+       
+        int pointTypeID = Integer.parseInt( request.getParameter("ptTypes"));
         DateTime eventStartTime;
 
         System.out.println("date");
@@ -83,14 +102,17 @@ public class Calendar extends HttpServlet {
         }
         int userID = 3;//ud.getUserID();
         int categoryID = 1;
-        int pointTypeID = 1;
+        
         int points = 1;
         eventStartTime = new DateTime(sqlStartDate);
         DateTime eventEndTime = new DateTime(sqlStartDate);
+HashMap types = new HashMap();
 
-                        //java.sql.Date sqlStartDate = new java.sql.Date(newsStartTime.getMillis());                
+        AdminModel am = new AdminModel();
+        //java.sql.Date sqlStartDate = new java.sql.Date(newsStartTime.getMillis());                
         try {
-            em.addEvent(eventPath, eventTitle, event, eventStartTime,eventEndTime, eventImageURL,pointTypeID,points,userID,categoryID,eventSummary);
+            types = am.fetchPointTypes();
+            em.addEvent(eventPath, eventTitle, event, eventStartTime, eventEndTime, eventImageURL, pointTypeID, points, userID, categoryID, eventSummary);
 
         } catch (SQLException ex) {
             Logger.getLogger(ManageContent.class.getName()).log(Level.SEVERE, null, ex);
@@ -101,9 +123,9 @@ public class Calendar extends HttpServlet {
         } catch (IllegalAccessException ex) {
             Logger.getLogger(ManageNews.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        // RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/addEvent.jsp");
+        request.setAttribute("pointTypes", types);
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/addEvent.jsp");
+        view.include(request, response);
     }
 
-    
 }

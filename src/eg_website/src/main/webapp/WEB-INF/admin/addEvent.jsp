@@ -1,4 +1,5 @@
 
+<%@page import="java.util.HashMap"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.sql.Date"%>
 <%@page import="com.google.gson.Gson"%>
@@ -22,6 +23,9 @@
         <script src="/eg_website/js/dxhtmlxscheduler/dhtmlxscheduler_container_autoresize.js" type="text/javascript"></script>
         <link rel="stylesheet" href="/eg_website/css/dhtmlxscheduler.css" type="text/css">
     </head>
+    <%
+     HashMap types = (HashMap) request.getAttribute("pointTypes");
+        Object[] typeIDs = types.keySet().toArray();%>
 
     
     <div id="wrapper">
@@ -31,7 +35,7 @@
                 <%@include file="/WEB-INF/includes/adminNav.jsp" %>
 
                 <article>
-                    <h3>Add an Event</h3>
+                    <h3>Event Calendar</h3>
                     <div id="scheduler_here" class="dhx_cal_container" 
                          style='width:1100px; height:400px; padding:10px;'>
                         <div class="dhx_cal_navline">
@@ -51,7 +55,7 @@
                     </div>
                         <form method="POST"  action="addEvent" id="addEvent">
                         <div class="left">
-                            <h2>Add an Event</h2>
+                            <h3>Add an Event</h3>
                         <ul>
                         <p></p>
                         <label class="input">Event Title</label> <input type="text" name="eventTitle">
@@ -69,6 +73,18 @@
                         <p></p>
                         <textarea cols="80" placeholder="Content" class="input" rows="10" id="eventContent" name="eventContent" >   
                         </textarea>
+                        <p></p>
+                        <p>Type of Points:</p>
+                                <select name=ptTypes>
+                                    <%
+                                    for (int j=0; j < typeIDs.length; j++)
+                                    {
+                                        %>
+                                        <option value="<%=typeIDs[j]%>"><%=types.get(typeIDs[j])%></option>
+                                        <%
+                                    }
+                                    %>
+                                </select>
                         <p></p>
                         <label>Event Start Date</label> 
                         <input type="text" name="daterange" class="input" value="01/01/2015" />
@@ -112,12 +128,13 @@ return myJson;
     <script type="text/javascript" charset="utf-8">
         function init() {
             var params = getUrlVars('text=You and Your Team&eventStartTime=11/11/2015 14:00&eventEndTime=12/11/2015 18:00');
-            console.log(params);
+            console.log(params);           
             scheduler.config.container_autoresize = true;
             scheduler.xy.bar_height=50;
             scheduler.xy.bar_width=50;
             //scheduler.config.xml_date = "%Y-%m-%d %H:%i";
-            scheduler.init('scheduler_here', new Date(2015, 0, 10), "week");
+            var now= Date.now;
+            scheduler.init('scheduler_here', new Date(2015, 10, 10), "month");
             scheduler.parse([
                 {text: "Fun Enterprise Event", start_date: "09/11/2015 14:00", end_date: "09/11/2015 17:00"},
                 {text: "Virtual Revision Class", start_date: "09/15/2015 12:00", end_date: "09/18/2015 19:00"},
