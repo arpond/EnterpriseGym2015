@@ -11,5 +11,23 @@ package uk.ac.dundee.team7.eg_website.Store;
  */
 public class StatusStore {
     private int statusID;
-    private String stautsName;
+    private String statusName;
+
+    public int getStatusID() {
+        return statusID;
+    }
+
+    public void setStatusID(int statusID) {
+        this.statusID = statusID;
+    }
+
+    public String getStatusName() {
+        return statusName;
+    }
+
+    public void setStatusName(String stautsName) {
+        this.statusName = stautsName;
+    }
+    
+    
 }

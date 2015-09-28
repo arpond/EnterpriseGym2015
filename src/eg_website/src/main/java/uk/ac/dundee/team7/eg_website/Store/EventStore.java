@@ -11,8 +11,9 @@ public class EventStore {
 	private String eventImage;
 	private String eventPointType;
 	private ContentStore content;
+        private DateTime eventEndTime;
 
-    public EventStore(int eventID, DateTime postedTime, int eventValue, DateTime eventStartTime, String eventImage, String eventPointType, ContentStore content) {
+    public EventStore(int eventID, DateTime postedTime, int eventValue, DateTime eventStartTime, String eventImage, String eventPointType, ContentStore content, DateTime eventEndTime) {
         this.eventID = eventID;
         this.postedTime = postedTime;
         this.eventValue = eventValue;
@@ -20,6 +21,7 @@ public class EventStore {
         this.eventImage = eventImage;
         this.eventPointType = eventPointType;
         this.content = content;
+        this.eventEndTime = eventEndTime;
     }
     
     
@@ -53,9 +55,17 @@ public class EventStore {
     public DateTime getEventStartTime() {
         return eventStartTime;
     }
+    
+    public DateTime getEventEndTime() {
+        return eventEndTime;
+    }
 
     public void setEventStartTime(DateTime eventStartTime) {
         this.eventStartTime = eventStartTime;
+    }
+    
+     public void setEventEndTime(DateTime eventEndTime) {
+        this.eventEndTime = eventEndTime;
     }
 
     public String getEventImage() {

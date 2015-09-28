@@ -17,7 +17,7 @@ import uk.ac.dundee.team7.eg_website.Store.UserDetails;
 import uk.ac.dundee.team7.eg_website.Store.UserProfile;
 import uk.ac.dundee.team7.eg_website.lib.Utils;
 import uk.ac.dundee.team7.eg_website.model.DemographicModel;
-import uk.ac.dundee.team7.eg_website.model.User;
+import uk.ac.dundee.team7.eg_website.model.UserModel;
 
 @WebServlet(urlPatterns = {
     "/Profile/*"
@@ -74,13 +74,12 @@ public class Profile extends HttpServlet{
         String contactNumber = request.getParameter("contactNumber");
         String yearOfStudy = request.getParameter("yearOfStudy");
         String matricNumber = request.getParameter("matricNumber");
-        //TODO fill in other values
         Boolean youngES_FLAG = false;//Boolean.parseBoolean(request.getParameter("youngES_FLAG"));
-        String country = "unknown";//request.getParameter("country");
-        String institution = "unknown";//request.getParameter("institution");
-        String status = "unknown";//request.getParameter("status");
-        String college = "unknown";//request.getParameter("college");
-        String degree = "unknown";//request.getParameter("degree");
+        String country = request.getParameter("country");
+        String institution = request.getParameter("institution");
+        String status = request.getParameter("status");
+        String college = request.getParameter("college");
+        String degree = request.getParameter("degree");
         String email = request.getParameter("email");
         String username = request.getParameter("username");
         
@@ -105,7 +104,7 @@ public class Profile extends HttpServlet{
         up.setCollege(college);
         up.setDegree(degree);
         
-        User user = new User();
+        UserModel user = new UserModel();
         try
         {
             user.updateProfile(up, ud);
@@ -117,7 +116,7 @@ public class Profile extends HttpServlet{
         }      
         
         request.setAttribute("profile", up);
-        RequestDispatcher view = request.getRequestDispatcher("/displayProfile.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/displayProfile.jsp");
         view.include(request, response);
     }
     
@@ -126,7 +125,7 @@ public class Profile extends HttpServlet{
         HttpSession session = request.getSession();
         UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
         
-        User user = new User();
+        UserModel user = new UserModel();
         UserProfile up;
         try
         {
@@ -139,7 +138,7 @@ public class Profile extends HttpServlet{
         }
         
         request.setAttribute("profile", up);
-        RequestDispatcher view = request.getRequestDispatcher("/displayProfile.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/displayProfile.jsp");
         view.include(request, response);
     }
     
@@ -147,7 +146,7 @@ public class Profile extends HttpServlet{
         HttpSession session = request.getSession();
         UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
         
-        User user = new User();
+        UserModel user = new UserModel();
         DemographicModel dm = new DemographicModel();
         UserProfile up;
         ArrayList<InstitutionStore> is = new ArrayList<InstitutionStore>();
@@ -156,11 +155,11 @@ public class Profile extends HttpServlet{
         try
         {
             up = user.fetchUserProfile(ud.getUserID());
-            //up.setFirstName("bob");
-            //user.updateProfile(up, ud);
-           // is = dm.fetchInstitutions();
-           // cs = dm.fetchCountries();
-           // sts = dm.fetchStatuses();
+            cs = dm.fetchCountries();
+            sts = dm.fetchStatuses();
+            is = dm.fetchInstitutions();
+           
+           
         }
         catch (Exception e)
         {
@@ -173,7 +172,7 @@ public class Profile extends HttpServlet{
         request.setAttribute("countries", cs);
         request.setAttribute("statuses", sts);
         request.setAttribute("institutions", is);
-        RequestDispatcher view = request.getRequestDispatcher("/editProfile.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/editProfile.jsp");
         view.include(request, response);
     }
 

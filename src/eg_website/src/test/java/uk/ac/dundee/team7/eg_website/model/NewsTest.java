@@ -46,16 +46,17 @@ public class NewsTest {
     }
 
     /**
-     * Test of fetchNews method, of class News.
+     * Test of fetchNews method, of class NewsModel.
      */
+    /**
     @Test
     public void testFetchNews_String() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
-        News news = new News();
+        NewsModel news = new NewsModel();
         NewsStore bob = news.fetchNews("dsadas");
-    }
+    }**/
 
     /**
-     * Test of fetchNews method, of class News.
+     * Test of fetchNews method, of class NewsModel.
      */
     @Test
     public void testFetchNews_0args() {
@@ -71,24 +72,24 @@ public class NewsTest {
         //UserID must exist in the database to work.
         ContentStore test = new ContentStore();
         NewsStore testNews = new NewsStore(21,now,now,"","",test);
-        News news = new News();
+        NewsModel news = new NewsModel();
         news.addNews(2,"","","",now,"",2);
     }*/
 
     /**
-     * Test of updateContent method, of class News.
+     * Test of updateContent method, of class NewsModel.
      */
     @Test
     public void testUpdateContent() {
-        News news = new News();
+        NewsModel news = new NewsModel();
     }
 
     /**
-     * Test of deleteNews method, of class News.
+     * Test of deleteNews method, of class NewsModel.
      */
     @Test
     public void testDeleteNews() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
-        News news = new News();
+        NewsModel news = new NewsModel();
         news.deleteNews(10);
     }
     

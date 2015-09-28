@@ -8,9 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import uk.ac.dundee.team7.eg_website.Store.EventStore;
+import uk.ac.dundee.team7.eg_website.Store.UserDetails;
 import uk.ac.dundee.team7.eg_website.lib.Utils;
-import uk.ac.dundee.team7.eg_website.model.Event;
+import uk.ac.dundee.team7.eg_website.model.EventModel;
 
 @WebServlet(urlPatterns = {
     "/Event",
@@ -27,7 +29,6 @@ public class ViewEvent extends HttpServlet{
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
-        System.out.println("--------------------1-----------------------");
         String[] args = Utils.SplitRequestPath(request);
         // Args less than 2 means display all news
         if (args.length <= 2)
@@ -39,6 +40,29 @@ public class ViewEvent extends HttpServlet{
             DisplayEvent(args, request, response);
         }
     }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        
+        EventModel em = new EventModel();
+        int eventID;
+        HttpSession session = request.getSession();
+        UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
+        
+        
+        try
+        {
+            eventID = Integer.parseInt(request.getParameter("eventID"));
+            em.signUp(ud.getUserID(), eventID);
+        }
+        catch (Exception e)
+        {
+            Message.message("Event could not be found", request, response);
+            return;
+        }
+        Message.message("Thanks for signing up.", request, response);
+    }
 
     /**
      * Function which displays all the events
@@ -49,7 +73,7 @@ public class ViewEvent extends HttpServlet{
      */
     private void DisplayAllEvents(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-        Event em = new Event();
+        EventModel em = new EventModel();
         ArrayList<EventStore> events = new ArrayList<EventStore>();
         try
         {
@@ -63,7 +87,7 @@ public class ViewEvent extends HttpServlet{
             return;
         }
         request.setAttribute("events", events);
-        RequestDispatcher view = request.getRequestDispatcher("/displayAllEvents.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/displayAllEvents.jsp");
         view.include(request, response);
     }
 
@@ -77,8 +101,9 @@ public class ViewEvent extends HttpServlet{
      */
     private void DisplayEvent(String[] args, HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-                System.out.println("--------------------2-----------------------");
-
+        HttpSession session = request.getSession();
+        UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
+        
         StringBuilder sb = new StringBuilder();    
         for (int i = 1; i < args.length; i++)
         {
@@ -87,23 +112,24 @@ public class ViewEvent extends HttpServlet{
 
         String path = sb.toString();
 
-        Event em = new Event();
+        Boolean attending = false;
+        EventModel em = new EventModel();
         EventStore es;
         try
         {
              es = em.fetchEvent(path);
+             //attending = em.attending(ud.getUserID(),es.getEventID());
               System.out.println(path);
         }
         catch (Exception e)
         {
-             System.out.println("what te f");
             Message.message("Database error. " + e.toString(), request, response);
             return;
         }
-                System.out.println("--------------------3-----------------------");
 
+        request.setAttribute("attending", attending);
         request.setAttribute("event", es);
-        RequestDispatcher view = request.getRequestDispatcher("/events.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/displayEvent.jsp");
         view.include(request, response);
     }
 }

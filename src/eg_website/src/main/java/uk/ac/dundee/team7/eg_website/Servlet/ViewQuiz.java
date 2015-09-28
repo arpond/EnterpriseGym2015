@@ -14,7 +14,7 @@ import uk.ac.dundee.team7.eg_website.Store.QuestionStore;
 import uk.ac.dundee.team7.eg_website.Store.QuizStore;
 import uk.ac.dundee.team7.eg_website.Store.UserDetails;
 import uk.ac.dundee.team7.eg_website.lib.Utils;
-import uk.ac.dundee.team7.eg_website.model.Quiz;
+import uk.ac.dundee.team7.eg_website.model.QuizModel;
 
 @WebServlet(urlPatterns = {
     "/Quiz",
@@ -86,7 +86,7 @@ public class ViewQuiz extends HttpServlet {
            return; 
         }
         
-        Quiz qm = new Quiz();
+        QuizModel qm = new QuizModel();
         QuizStore quiz;
         try
         {
@@ -103,7 +103,7 @@ public class ViewQuiz extends HttpServlet {
             return;
         }
         request.setAttribute("quiz", quiz);
-        RequestDispatcher view = request.getRequestDispatcher("/displayQuiz.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/displayQuiz.jsp");
         view.include(request, response);
     }
 
@@ -129,7 +129,7 @@ public class ViewQuiz extends HttpServlet {
            return;
         }
         
-        Quiz qm = new Quiz();
+        QuizModel qm = new QuizModel();
         QuestionStore qs;
         AnswerStore as;
         try
@@ -150,20 +150,20 @@ public class ViewQuiz extends HttpServlet {
         }
         request.setAttribute("question", qs);
         request.setAttribute("answer", as);
-        RequestDispatcher view = request.getRequestDispatcher("/displayQuestion.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/displayQuestion.jsp");
         view.include(request, response);
     }
 
     private void startNewQuiz(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        
-        int quizID, attemptNumber;
+        int quizID;
         HttpSession session = request.getSession();
         UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
         
         try
         {
             quizID = Integer.parseInt(request.getParameter("quizID"));
-            attemptNumber = Integer.parseInt(request.getParameter("attemptNumber"));            
+            //attemptNumber = Integer.parseInt(request.getParameter("attemptNumber"));            
         }
         catch (Exception e)
         {
@@ -171,12 +171,12 @@ public class ViewQuiz extends HttpServlet {
            return;
         }
         
-        Quiz qm = new Quiz();
+        QuizModel qm = new QuizModel();
         QuestionStore qs;
         try
         {
-            qm.startQuiz(quizID, ud.getUserID(), attemptNumber);
             qs = qm.FetchQuestion(quizID, 1);
+            qm.startQuiz(quizID, ud.getUserID());
         }
         catch(Exception e)
         {
@@ -185,7 +185,7 @@ public class ViewQuiz extends HttpServlet {
         }
         
         request.setAttribute("question", qs);
-        RequestDispatcher view = request.getRequestDispatcher("/displayQuestion.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/displayQuestion.jsp");
         view.include(request, response);
     }
 
@@ -193,20 +193,36 @@ public class ViewQuiz extends HttpServlet {
         HttpSession session = request.getSession();
         UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
         
-        Quiz qm = new Quiz();
+        QuizModel qm = new QuizModel();
         
         ArrayList<QuizStore> quizes = new ArrayList<QuizStore>();
         try
         {
-            quizes = qm.fetchQuizes(ud.getUserID(), ud.getGroupID());
+            quizes = qm.fetchQuizzesForGroup(ud.getUserID(), ud.getGroupID());
         }
         catch (Exception e)
         {
             Message.message("Database error. " + e.toString(), request, response);
             return;
         }
-        request.setAttribute("quizes", quizes);
-        RequestDispatcher view = request.getRequestDispatcher("/displayAllQuizes.jsp");
+        
+        ArrayList<QuizStore> taken = new ArrayList<QuizStore>();
+        ArrayList<QuizStore> untaken = new ArrayList<QuizStore>();
+        
+        for(int i=0; i < quizes.size(); i++)
+        {
+            if(quizes.get(i).getStatus() == 0)
+            {
+                untaken.add(quizes.get(i));
+            }
+            else
+            {
+                taken.add(quizes.get(i));
+            }
+        }
+        request.setAttribute("untaken", untaken);
+        request.setAttribute("taken", taken);
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/displayAllQuizes.jsp");
         view.include(request, response);
     }
 
@@ -232,7 +248,7 @@ public class ViewQuiz extends HttpServlet {
            return;
         }
         
-        Quiz qm = new Quiz();
+        QuizModel qm = new QuizModel();
         QuestionStore qs;
         AnswerStore as;
         try
@@ -249,7 +265,7 @@ public class ViewQuiz extends HttpServlet {
         
         request.setAttribute("question", qs);
         request.setAttribute("answer", as); //This is the answer provided by the user previously.. if it exists.
-        RequestDispatcher view = request.getRequestDispatcher("/displayQuestion.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/displayQuestion.jsp");
         view.include(request, response);
     }
 

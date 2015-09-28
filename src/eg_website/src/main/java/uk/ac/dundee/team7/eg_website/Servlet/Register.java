@@ -8,8 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import uk.ac.dundee.team7.eg_website.Store.UserDetails;
-import uk.ac.dundee.team7.eg_website.model.User;
+import uk.ac.dundee.team7.eg_website.model.UserModel;
 
 @WebServlet(name = "Register", urlPatterns = {"/Register"})
 public class Register extends HttpServlet {
@@ -51,7 +52,7 @@ public class Register extends HttpServlet {
             return;
         }
         
-        User user = new User();
+        UserModel user = new UserModel();
         Boolean result = false;
         
         try
@@ -66,15 +67,22 @@ public class Register extends HttpServlet {
         if (result)
         {
             request.setAttribute("message", "Registration Successful");
-            RequestDispatcher view = request.getRequestDispatcher("/message.jsp");
+            RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/message.jsp");
             view.forward(request, response);
         }
         else
         {
-            request.setAttribute("error", "There was a problem with your registation - " + result );
-            RequestDispatcher view = request.getRequestDispatcher("/message.jsp");
+            request.setAttribute("message", "There was a problem with your registation - " + result );
+            RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/message.jsp");
             view.forward(request, response);
-        }        
+        }
     }
+        
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
 
+    RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/registration.jsp");
+        rd.forward(request,response); 
+    }
 }

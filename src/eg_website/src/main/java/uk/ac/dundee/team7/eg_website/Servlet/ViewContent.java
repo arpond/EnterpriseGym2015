@@ -9,12 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import uk.ac.dundee.team7.eg_website.Store.ContentStore;
 import uk.ac.dundee.team7.eg_website.lib.Utils;
-import uk.ac.dundee.team7.eg_website.model.Content;
+import uk.ac.dundee.team7.eg_website.model.ContentModel;
 
 
 @WebServlet(urlPatterns = {
     "/Content",
-    "/Content/*",
+    "/Content/*"
+    
 })
 public class ViewContent extends HttpServlet{
 
@@ -22,7 +23,12 @@ public class ViewContent extends HttpServlet{
         protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
                 
+            
+            
             String[] args = Utils.SplitRequestPath(request);
+            
+            
+            
             StringBuilder sb = new StringBuilder();    
             for (int i = 1; i < args.length; i++)
             {
@@ -30,7 +36,7 @@ public class ViewContent extends HttpServlet{
             }
             
             String path = sb.toString();
-            Content cm = new Content();
+            ContentModel cm = new ContentModel();
             ContentStore cs;
             try
             {
@@ -42,7 +48,7 @@ public class ViewContent extends HttpServlet{
                 return;
             }
             request.setAttribute("content", cs);
-            RequestDispatcher view = request.getRequestDispatcher("/displayContent.jsp");
+            RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/displayContent.jsp");
             view.include(request, response);
 	}
 
