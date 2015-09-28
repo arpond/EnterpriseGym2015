@@ -25,7 +25,10 @@
     </head>
     <%
      HashMap types = (HashMap) request.getAttribute("pointTypes");
-        Object[] typeIDs = types.keySet().toArray();%>
+        Object[] typeIDs = types.keySet().toArray();
+        
+        HashMap categoryTypes = (HashMap) request.getAttribute("categoryTypes");
+        Object[] categoryTypeIDs = categoryTypes.keySet().toArray();%>
 
     
     <div id="wrapper">
@@ -81,6 +84,18 @@
                                     {
                                         %>
                                         <option value="<%=typeIDs[j]%>"><%=types.get(typeIDs[j])%></option>
+                                        <%
+                                    }
+                                    %>
+                                </select>
+                        <p></p>
+                        <p>Category:</p>
+                                <select name=ctTypes>
+                                    <%
+                                    for (int j=0; j < categoryTypeIDs.length; j++)
+                                    {
+                                        %>
+                                        <option value="<%=categoryTypeIDs[j]%>"><%=categoryTypes.get(categoryTypeIDs[j])%></option>
                                         <%
                                     }
                                     %>

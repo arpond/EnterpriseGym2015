@@ -42,10 +42,12 @@ public class Calendar extends HttpServlet {
 
         HttpSession session = request.getSession();
         HashMap types = new HashMap();
+        HashMap categoryTypes = new HashMap();
 
         AdminModel am = new AdminModel();
         try {
             types = am.fetchPointTypes();
+            categoryTypes = am.fetchCategories();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Calendar.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -56,6 +58,7 @@ public class Calendar extends HttpServlet {
             Logger.getLogger(Calendar.class.getName()).log(Level.SEVERE, null, ex);
         }
         request.setAttribute("pointTypes", types);
+        request.setAttribute("categoryTypes", categoryTypes);
         //ContentStore cs = (ContentStore) session.getAttribute("getContentToEdit");
         RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/addEvent.jsp");
         view.include(request, response);
@@ -80,7 +83,7 @@ public class Calendar extends HttpServlet {
         //String displayDateTime=request.getParameter("newsDisplayTime");
         String realDisplayTime = request.getParameter("daterange");
         String realDisplayTime1 = request.getParameter("time");
-       
+       int categoryID = Integer.parseInt( request.getParameter("ctTypes"));
         int pointTypeID = Integer.parseInt( request.getParameter("ptTypes"));
         DateTime eventStartTime;
 
@@ -101,17 +104,19 @@ public class Calendar extends HttpServlet {
             Logger.getLogger(ManageNews.class.getName()).log(Level.SEVERE, null, ex);
         }
         int userID = 3;//ud.getUserID();
-        int categoryID = 1;
+        //int categoryID = 1;
         
         int points = 1;
         eventStartTime = new DateTime(sqlStartDate);
         DateTime eventEndTime = new DateTime(sqlStartDate);
-HashMap types = new HashMap();
+        HashMap types = new HashMap();
+        HashMap categoryTypes = new HashMap();
 
         AdminModel am = new AdminModel();
         //java.sql.Date sqlStartDate = new java.sql.Date(newsStartTime.getMillis());                
         try {
             types = am.fetchPointTypes();
+            categoryTypes=am.fetchCategories();
             em.addEvent(eventPath, eventTitle, event, eventStartTime, eventEndTime, eventImageURL, pointTypeID, points, userID, categoryID, eventSummary);
 
         } catch (SQLException ex) {
@@ -124,6 +129,7 @@ HashMap types = new HashMap();
             Logger.getLogger(ManageNews.class.getName()).log(Level.SEVERE, null, ex);
         }
         request.setAttribute("pointTypes", types);
+         request.setAttribute("categoryTypes", categoryTypes);
         RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/addEvent.jsp");
         view.include(request, response);
     }
