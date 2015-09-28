@@ -66,7 +66,7 @@
                         <li> <a href="full-width.html">Associate Initiative</a> </li>
                         <li> <a href="sidebar.html">Associate Events</a> </li>
                         <li> <a href="faq.html">Funding for Startups</a> </li>
-                        <li> <a href="faq.html">Entrepreneurial Interships</a> </li>
+                        <li> <a href="faq.html">Entrepreneurial Internships</a> </li>
                         <li> <a href="404.html">Information & Website for Startups</a> </li>
                         <li> <a href="404.html">Competitions</a> </li>
                     </ul>
@@ -76,12 +76,19 @@
     </div>
 </nav>
 
-<nav>
-    <%
-        UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
-        if (ud != null) {
-    %>              
+<style>
+    h1{
+        text-align: center;
+    }
+    
+    </style>
 
+<nav id="topToolbar"
+          <%
+          UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
+          if (ud != null) 
+          {
+          %>    
     <div class="bar1" style="display: inline-block; text-align: right; width:100%; background-color:#800020; color:white; font-size:17px;">
         <a style="font-size:16px; color:white;" href="/eg_website/Profile/View">View Profile &nbsp; </a> | &nbsp; <a style="font-size:16px; color:white;" href="/eg_website/Profile/Edit">Edit Profile</a> &nbsp;| &nbsp; <a style="font-size:16px; color:white;" href="Logout">Logout &nbsp;</a> 
     </div>

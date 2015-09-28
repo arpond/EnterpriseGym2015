@@ -74,13 +74,12 @@ public class Profile extends HttpServlet{
         String contactNumber = request.getParameter("contactNumber");
         String yearOfStudy = request.getParameter("yearOfStudy");
         String matricNumber = request.getParameter("matricNumber");
-        //TODO fill in other values
         Boolean youngES_FLAG = false;//Boolean.parseBoolean(request.getParameter("youngES_FLAG"));
-        String country = "unknown";//request.getParameter("country");
-        String institution = "unknown";//request.getParameter("institution");
-        String status = "unknown";//request.getParameter("status");
-        String college = "unknown";//request.getParameter("college");
-        String degree = "unknown";//request.getParameter("degree");
+        String country = request.getParameter("country");
+        String institution = request.getParameter("institution");
+        String status = request.getParameter("status");
+        String college = request.getParameter("college");
+        String degree = request.getParameter("degree");
         String email = request.getParameter("email");
         String username = request.getParameter("username");
         
