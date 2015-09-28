@@ -85,7 +85,7 @@
                             if (ud != null && !attending) {
                         %>
 
-                        <form method="POST"  action="Event">
+                        <form method="POST"  action="SignUpForEvent">
                             <input type="hidden" name="eventID" value="<%=ev.getEventID()%>">
                             <input type="submit" value="Sign up" class="button" id="signUpButton">
                         </form>

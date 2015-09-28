@@ -272,5 +272,49 @@ public class EventModel {
         }
 
     }
+    
+    public ArrayList<UserStore> fetchUsersForEvent(int eventID) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException{
+         Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        CallableStatement cs = null;
+       
+        ArrayList<UserStore> usrStoreList = new ArrayList<UserStore>();
+        
+        ResultSet rs = null;
+        try {
+            cs = conn.prepareCall("{call GetSignedUpUsersForEvent(?)}");
+            cs.setInt(1, eventID);
+            cs.execute();
+            rs = cs.getResultSet();
 
+
+            while (rs.next()) {
+                 UserProfile up = new UserProfile();
+                 UserDetails ud = new UserDetails();
+                 UserStore evStore = new UserStore(up,ud);
+                 
+                 ud.setUserID(rs.getInt("userID"));
+                 ud.setUsername(rs.getString("username"));
+                 ud.setEmail(rs.getString("email"));
+                 up.setFirstName(rs.getString("firstname"));
+                 up.setLastName(rs.getString("lastname"));
+                 up.setMatricNumber(rs.getString("matricNumber"));
+                 up.setYearOfStudy(rs.getString("yearOfStudy"));
+                 
+                evStore.setUd(ud);
+                evStore.setUp(up);
+                
+                usrStoreList.add(evStore);
+                
+                
+            }
+        
+    }catch (SQLException se) {
+            conn.close();
+            return usrStoreList;
+        }
+            conn.close();
+            return usrStoreList;
+    }
 }

@@ -4,6 +4,8 @@
     Author     : dragomir
 --%>
 
+<%@page import="javax.swing.text.View"%>
+<%@page import="uk.ac.dundee.team7.eg_website.Store.NewsStore"%>
 <%@page import="uk.ac.dundee.team7.eg_website.Store.ContentStore"%>
 <%@page import="org.joda.time.DateTime"%>
 <%@page import="uk.ac.dundee.team7.eg_website.Store.EventStore"%>
@@ -19,7 +21,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>All Content Edit</title>
+        <title>All News Content</title>
 
         <%@include file="/WEB-INF/includes/adminScripts.jsp" %>
         <script src="/eg_website/js/tables.js"></script>
@@ -35,39 +37,36 @@
                 <table cellpadding="1" cellspacing="1" id="resultTable" class="table table-bordered table-hover table-striped">
                     <thead>
                         <tr>
-                            <th class="grp">Content Title</th>
-                            <th class="un">Content Path</th>
+                            <th class="grp">Event Title</th>
+                            <th class="un">Event Path</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-        <%
-            ArrayList<ContentStore> csL = new ArrayList();
-            csL = (ArrayList<ContentStore>) request.getAttribute("allContentForEdit");
-            Iterator i1 = csL.iterator();
+                        <%
+                            ArrayList<EventStore> nsL = new ArrayList();
 
-            while (i1.hasNext()) {
+                            nsL = (ArrayList<EventStore>) request.getAttribute("allEvensForEdit");
+                            Iterator i1 = nsL.iterator();
 
-                ContentStore es = (ContentStore) i1.next();
-
-        %>
-     
-  
-                    <td><%=es.getContentTitle()%></td>
-                     <td>/eg_website<%=es.getContentPath()%>"</td>
-                     <td>
-                     <form method="GET"  action="editContent" id="editContent">
-                    <input hidden name="path" value="<%=es.getContentPath()%>">
-                    <input type="submit" value="Edit Content" class="button" id="editContent">
-                    </form>
-                        </td>
+                            while (i1.hasNext()) {
+                                EventStore es = (EventStore) i1.next();
+                        %>
+                        <tr>
+                            <td><%=es.getContent().getContentTitle()%></td>
+                            <td>/eg_website<%=es.getContent().getContentPath()%>"</td>
+                            <td>
+                                <form method="GET"  action="EditUsersInEvent" id="EditUsersInEvent">
+                                    <input hidden name="eventID" value="<%=es.getEventID()%>">
+                                    <input type="submit" value="View Attendees" class="button" id="EditUsersInEvent">
+                                </form>
+                            </td>
                         </tr>
-            <%
-                }
-            %>
 
-          
-               </tbody>
+                        <%
+                            }
+                        %>
+                    </tbody>
                 </table>
             </div>
         </div>
