@@ -23,27 +23,7 @@
         <link rel="stylesheet" href="/eg_website/css/dhtmlxscheduler.css" type="text/css">
     </head>
 
-    <%
-
-        ArrayList<EventStore> alEvents = new ArrayList();
-        alEvents = (ArrayList<EventStore>) request.getAttribute("events");
-        ArrayList<CalendarStore> alEventsJson = new ArrayList();
-        Iterator i1 = alEvents.iterator();
-        String toParse = "";
-        //String toParse = "[{id=\"1\",text:\"You and Your Team\",eventStartTime:\"04/11/2015 14:00\",eventEndTime:\"04/11/2015 14:00\"}]";
-        while (i1.hasNext()) {
-
-            EventStore es = (EventStore) i1.next();
-            int eventID = es.getEventID();
-            ContentStore content = es.getContent();
-
-            String date = "04/11/2015 14:00";
-            CalendarStore toStore = new CalendarStore(date, content.getContentTitle(), date);
-            alEventsJson.add(toStore);
-        }
-        Gson gson = new Gson();
-        toParse = gson.toJson(toParse);
-    %>
+    
     <div id="wrapper">
 
         <div id="page-wrapper">
@@ -69,7 +49,7 @@
 
 
                     </div>
-                        <form method="POST"  action="addNews" id="addNews">
+                        <form method="POST"  action="addEvent" id="addEvent">
                         <div class="left">
                         <ul>
                         <p></p>
@@ -108,6 +88,7 @@
                             });
                         </script>
                         </ul>
+                            <button type="submit" class="btn btn-primary" id="addEvent" >Add Event</button>
                         </div>
         </div>
     </div>

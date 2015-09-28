@@ -147,24 +147,28 @@ public class EventModel {
      * @param eventPointType
      * @param eventValue
      */
-    public boolean addEvent(String eventPath, String eventTitle, String event, DateTime startTime, String imageURL, int eventPointTypeID, int eventValue, int UserID) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+    public boolean addEvent(String eventPath, String eventTitle, String event, DateTime startTime, DateTime endTime, String imageURL, int eventPointTypeID, int eventValue, int userID, int categoryID, String contentSummary) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
 
         Class.forName("com.mysql.jdbc.Driver").newInstance();
         DatabaseConnection dbc = new DatabaseConnection();
         java.sql.Connection conn = dbc.connectToDB();
         CallableStatement cs = null;
         DateTime dateTime1 = new DateTime(startTime);
+        DateTime dateTime2 = new DateTime(endTime);
 
         try {
-            cs = conn.prepareCall("{call addEvent(?,?,?,?,?,?,?,?)}");
+            cs = conn.prepareCall("{call addEvent(?,?,?,?,?,?,?,?,?,?,?)}");
             cs.setTimestamp(1, new Timestamp(dateTime1.getMillis()));
-            cs.setString(2, imageURL);
-            cs.setString(3, event);
-            cs.setInt(4, eventValue);
-            cs.setString(5, eventPath);
-            cs.setInt(6, UserID);
-            cs.setInt(7, eventPointTypeID);
-            cs.setString(8, eventTitle);
+            cs.setTimestamp(2, new Timestamp(dateTime2.getMillis()));
+            cs.setString(3, imageURL);
+            cs.setString(4, event);
+            cs.setInt(5, eventValue);
+            cs.setInt(6,categoryID);            
+            cs.setString(7, eventPath);
+            cs.setInt(8, userID);
+            cs.setInt(9, eventPointTypeID);
+            cs.setString(10, eventTitle);
+            cs.setString(11,contentSummary);
             cs.execute();
             conn.close();
             return true;

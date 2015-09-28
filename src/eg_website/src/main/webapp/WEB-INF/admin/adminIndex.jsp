@@ -92,7 +92,7 @@
                     <div class="col-sm-3">
                         <div class="panel panel-warning">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><a href="/eg_website/Admin/Calendar">Add event</a></h3>
+                                <h3 class="panel-title"><a href="/eg_website/Admin/addEvent">Add event</a></h3>
                             </div>
                             <div class="panel-body">
                                 Add a new event
