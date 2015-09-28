@@ -15,7 +15,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/eg_website">Home</a>
+            <a class="navbar-brand" href="/eg_website">Enterprise Gym</a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -33,18 +33,19 @@
                         <li> <a href="/eg_website/Event/Lego_architecture">LEGO!</a> </li>
                         <li> <a href="/eg_website/Event/This-is-Buisness">20:20 Vision</a>  </li>
                    </ul>
+
                 </li>
 
                 <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Activity <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Activity <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li> <a href="/eg_website/Event">Events</a> </li>
                         <li> <a href="/eg_website/Content/VirtualEnterprise">Virtual Enterprise</a> </li>
                         <li> <a href="/eg_website/Content/EnterpriseTheory">Enterprise Theory</a> </li>
 
-                        <a href="/eg_website/Content/Projects">Projects</a> </li>
-                    <li> <a href="/eg_website/Content/EnterpriseModule">The Enterprise Module</a> </li>
-                          <a href="/eg_website/Content/Mentoring">Mentoring</a> </li>
+                        <li> <a href="/eg_website/Content/Projects">Projects</a> </li>
+                        <li> <a href="/eg_website/Content/EnterpriseModule">The Enterprise Module</a> </li>
+                        <li>  <a href="/eg_website/Content/Mentoring">Mentoring</a> </li>
                     </ul>
                 </li>
 
@@ -65,7 +66,7 @@
                         <li> <a href="full-width.html">Associate Initiative</a> </li>
                         <li> <a href="sidebar.html">Associate Events</a> </li>
                         <li> <a href="faq.html">Funding for Startups</a> </li>
-                             <a href="faq.html">Entrepreneurial Interships</a> </li>
+                        <li> <a href="faq.html">Entrepreneurial Interships</a> </li>
                         <li> <a href="404.html">Information & Website for Startups</a> </li>
                         <li> <a href="404.html">Competitions</a> </li>
                     </ul>
@@ -75,18 +76,24 @@
     </div>
 </nav>
 
-<nav
-          <%
-          UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
-          if (ud != null) 
-          {
-          %>    
-              <h1><a href="/eg_website/Profile/View">View Profile</a> or <a href="/eg_website/Profile/Edit">Edit Profile</a> or <a href="Logout">Logout</a> </h1>
+<nav>
+    <%
+        UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
+        if (ud != null) {
+    %>              
 
-              <%} 
-              else { %>
-             <h1> <a href="/eg_website/Login">Login</a> or <a href="/eg_website/Register">Register</a> </h1>
-                  <% }%>
+    <div class="bar1" style="display: inline-block; text-align: right; width:100%; background-color:#800020; color:white; font-size:17px;">
+        <a style="font-size:16px; color:white;" href="/eg_website/Profile/View">View Profile &nbsp; </a> | &nbsp; <a style="font-size:16px; color:white;" href="/eg_website/Profile/Edit">Edit Profile</a> &nbsp;| &nbsp; <a style="font-size:16px; color:white;" href="Logout">Logout &nbsp;</a> 
+    </div>
+    <%} else { %>
+    <div class="bar1" style="display: inline-block; text-align:center; width:100%; background-color:#800020; color:white; font-size:14px;">
+        <a style="font-size:18px; color:white;" href="/eg_website/Login">Login</a> or <a style="font-size:18px; color:white;" href="/eg_website/Register">Join Now</a>
+        <% }%>
+    </div>
 </nav>
-	
-    
+<br>   
+
+
+
+
+

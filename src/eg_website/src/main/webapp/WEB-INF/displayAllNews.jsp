@@ -7,6 +7,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="org.joda.time.DateTime"%>
+<%@page import="org.joda.time.format.*"%>
 <%@page import="uk.ac.dundee.team7.eg_website.Store.*" %>
 <%@page import="java.util.*" %>
 
@@ -47,27 +48,25 @@
             alNews = (ArrayList<NewsStore>) request.getAttribute("news");
             Iterator i1 =  alNews.iterator();
             
+            DateTimeFormatter dtfOut = DateTimeFormat.forPattern("MMMM dd, yyyy");
+            
             while (i1.hasNext())
             {
                 NewsStore ns = (NewsStore) i1.next();
                 %>
     <div class="container">
-          <hr>
-        <div class="col-md-1">
-                <p><i class="fa fa-camera fa-4x"></i>
-                </p>
-                <p>June 17, 2014</p>
-            </div>
+        <hr>
        
         <div class="newsContent">
-         <div class="col-md-5">
-            <img src=<%=ns.getNewsImage()%> width="300" height="100" > </img>
+         <div class="col-md-4">
+            <img class="img-responsive img-hover" src="<%=ns.getNewsImage()%>"/>
             
          </div>
             
-            <div class="col-md-6">
+            <div class="col-md-8">
             <p>
                  <h4><a href="/eg_website/<%=ns.getContent().getContentPath()%>"><%=ns.getContent().getContentTitle()%></a></h4>
+                 <h5><%=dtfOut.print(ns.getPostedTime())%></h5>
             </p>
             <p><%=ns.getContent().getContentSummary()%></p>
             <%-- <p class="posted"><%=ns.getPostedTime().toString()%></p>
