@@ -75,6 +75,7 @@ public class Calendar extends HttpServlet {
         UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
 
         java.sql.Date sqlStartDate = null;
+        java.sql.Date sqlEndDate = null;
         String eventTitle = request.getParameter("eventTitle");
         String eventPath = request.getParameter("eventPath");
         String eventSummary = request.getParameter("eventSummary");
@@ -83,9 +84,12 @@ public class Calendar extends HttpServlet {
         //String displayDateTime=request.getParameter("newsDisplayTime");
         String realDisplayTime = request.getParameter("daterange");
         String realDisplayTime1 = request.getParameter("time");
+        String endDisplayTime = request.getParameter("enddaterange");
+        String endDisplayTime1 = request.getParameter("endtime");
        int categoryID = Integer.parseInt( request.getParameter("ctTypes"));
         int pointTypeID = Integer.parseInt( request.getParameter("ptTypes"));
         DateTime eventStartTime;
+        DateTime eventEndTime;
 
         System.out.println("date");
         System.out.println(realDisplayTime);
@@ -99,16 +103,18 @@ public class Calendar extends HttpServlet {
             System.out.println(realDisplayTime + " " + realDisplayTime1.substring(0, realDisplayTime1.length() - 2));
             java.util.Date date = simpleDateFormat.parse(realDisplayTime + " " + realDisplayTime1.substring(0, realDisplayTime1.length() - 2) + ":00");
             // newsStartTime = new DateTime(date);
+            java.util.Date enddate = simpleDateFormat.parse(endDisplayTime + " " + endDisplayTime1.substring(0, endDisplayTime1.length() - 2) + ":00");
             sqlStartDate = new java.sql.Date(date.getTime());
+            sqlEndDate = new java.sql.Date(enddate.getTime());
         } catch (ParseException ex) {
             Logger.getLogger(ManageNews.class.getName()).log(Level.SEVERE, null, ex);
         }
-        int userID = 3;//ud.getUserID();
-        //int categoryID = 1;
+        int userID = ud.getUserID();
+       
         
-        int points = 1;
+        int points = Integer.parseInt( request.getParameter("points"));
         eventStartTime = new DateTime(sqlStartDate);
-        DateTime eventEndTime = new DateTime(sqlStartDate);
+        eventEndTime = new DateTime(sqlEndDate);
         HashMap types = new HashMap();
         HashMap categoryTypes = new HashMap();
 

@@ -89,6 +89,9 @@
                                     %>
                                 </select>
                         <p></p>
+                        <label class="input">Point Value:</label> <input type="text" name="points">
+                        <p></p>
+                        
                         <p>Category:</p>
                                 <select name=ctTypes>
                                     <%
@@ -115,6 +118,26 @@
                             });
                         </script>
                         <input type="text" class="timepicker" class="input" name="time">
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('input.timepicker').timepicker({});
+                            });
+                        </script>
+                        <p></p>
+                        <label>Event End Date</label> 
+                        <input type="text" name="enddaterange" class="input" value="01/01/2015" />
+                        <label>Event End Time (HH:MM)</label> 
+                        <script type="text/javascript">
+                            $(function() {
+                                $('input[name="enddaterange"]').daterangepicker({
+                                    singleDatePicker: true,
+                                    showDropdowns: true
+                                }
+
+                                )
+                            });
+                        </script>
+                        <input type="text" class="timepicker" class="input" name="endtime">
                         <script type="text/javascript">
                             $(document).ready(function() {
                                 $('input.timepicker').timepicker({});
