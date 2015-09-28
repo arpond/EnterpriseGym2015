@@ -16,91 +16,141 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Calendar</title>
-        <%@include file="/WEB-INF/includes/scripts.jsp" %>
+        <%@include file="/WEB-INF/includes/adminScripts.jsp" %>
         <title>How to start</title>
         <script src="/eg_website/js/dxhtmlxscheduler/dhtmlxscheduler.js" type="text/javascript"></script>
+        <script src="/eg_website/js/dxhtmlxscheduler/dhtmlxscheduler_container_autoresize.js" type="text/javascript"></script>
         <link rel="stylesheet" href="/eg_website/css/dhtmlxscheduler.css" type="text/css">
     </head>
 
     <%
-    
+
         ArrayList<EventStore> alEvents = new ArrayList();
         alEvents = (ArrayList<EventStore>) request.getAttribute("events");
         ArrayList<CalendarStore> alEventsJson = new ArrayList();
         Iterator i1 = alEvents.iterator();
-        String toParse="";
+        String toParse = "";
         //String toParse = "[{id=\"1\",text:\"You and Your Team\",eventStartTime:\"04/11/2015 14:00\",eventEndTime:\"04/11/2015 14:00\"}]";
         while (i1.hasNext()) {
-            
+
             EventStore es = (EventStore) i1.next();
             int eventID = es.getEventID();
             ContentStore content = es.getContent();
-            
+
             String date = "04/11/2015 14:00";
-            CalendarStore toStore = new CalendarStore(date,content.getContentTitle(),date);
+            CalendarStore toStore = new CalendarStore(date, content.getContentTitle(), date);
             alEventsJson.add(toStore);
         }
         Gson gson = new Gson();
         toParse = gson.toJson(toParse);
     %>
+    <div id="wrapper">
 
-    
-    <body onload="init();">
-        <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
-        <article>
-            <h3>Edit Calendar</h3>
-            <div id="scheduler_here" class="dhx_cal_container" 
-                 style='width:1250px; height:400px; padding:10px;'>
-                <div class="dhx_cal_navline">
-                    <div class="dhx_cal_prev_button">&nbsp;</div>
-                    <div class="dhx_cal_next_button">&nbsp;</div>
-                    <div class="dhx_cal_today_button"></div>
-                    <div class="dhx_cal_date"></div>
-                    <div class="dhx_cal_tab" name="day_tab" style="right:204px;"></div>
-                    <div class="dhx_cal_tab" name="week_tab" style="right:140px;"></div>
-                    <div class="dhx_cal_tab" name="month_tab" style="right:76px;"></div>
-                </div>
-                <div class="dhx_cal_header"></div>
-                <div class="dhx_cal_data"></div>  
+        <div id="page-wrapper">
+            <body onload="init();">
+                <%@include file="/WEB-INF/includes/adminNav.jsp" %>
 
-                <script type="application/javascript" charset="utf-8">
-    
+                <article>
+                    <h3>Add an Event</h3>
+                    <div id="scheduler_here" class="dhx_cal_container" 
+                         style='width:1100px; height:400px; padding:10px;'>
+                        <div class="dhx_cal_navline">
+                            <div class="dhx_cal_prev_button">&nbsp;</div>
+                            <div class="dhx_cal_next_button">&nbsp;</div>
+                            <div class="dhx_cal_today_button"></div>
+                            <div class="dhx_cal_date"></div>
+                            <div class="dhx_cal_tab" name="day_tab" style="right:204px;"></div>
+                            <div class="dhx_cal_tab" name="week_tab" style="right:140px;"></div>
+                            <div class="dhx_cal_tab" name="month_tab" style="right:76px;"></div>
+                        </div>
+                        <div class="dhx_cal_header"></div>
+                        <div class="dhx_cal_data"></div>  
+
+
+
+                    </div>
+                        <form method="POST"  action="addNews" id="addNews">
+                        <div class="left">
+                        <ul>
+                        <p></p>
+                        <label class="input">Event Title</label> <input type="text" name="eventTitle">
+                        <p></p>
+                        <label class="input">Event Path</label> <input type="text" name="eventPath">
+                        <p></p>
+                        <label class="input">Event Image link</label> <input type="text" name="eventLink">
+                        <p></p>
+                        <label>Event Summary</label> 
+                        <p></p>
+                        <textarea cols="80" placeholder="Event Summary" class="input" rows="5" id="eventSummary" name="eventSummary" >   
+                        </textarea>
+                        <p></p>
+                        <label>Event Content</label> 
+                        <p></p>
+                        <textarea cols="80" placeholder="Content" class="input" rows="10" id="eventContent" name="eventContent" >   
+                        </textarea>
+                        <p></p>
+                        <input type="text" name="daterange" class="input" value="01/01/2015" />
+
+                        <script type="text/javascript">
+                            $(function() {
+                                $('input[name="daterange"]').daterangepicker({
+                                    singleDatePicker: true,
+                                    showDropdowns: true
+                                }
+
+                                )
+                            });
+                        </script>
+                        <input type="text" class="timepicker" class="input" name="time">
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('input.timepicker').timepicker({});
+                            });
+                        </script>
+                        </ul>
+                        </div>
+        </div>
+    </div>
+    <script type="application/javascript" charset="utf-8">
+           
 
 function getUrlVars(url) {
-    var hash;
-    var myJson = {};
-    var hashes = url.slice(url.indexOf('?') + 1).split('&');
-    for (var i = 0; i < hashes.length; i++) {
-        hash = hashes[i].split('=');
-        myJson[hash[0]] = hash[1];
-    }
-    return myJson;
+var hash;
+var myJson = {};
+var hashes = url.slice(url.indexOf('?') + 1).split('&');
+for (var i = 0; i < hashes.length; i++) {
+hash = hashes[i].split('=');
+myJson[hash[0]] = hash[1];
 }
-                </script>
+return myJson;
+}
+    </script>
 
-                <script type="text/javascript" charset="utf-8">
-                    function init() {
-                        var params = getUrlVars('text=You and Your Team&eventStartTime=11/11/2015 14:00&eventEndTime=12/11/2015 18:00');
-                        console.log(params);
-                        //scheduler.config.xml_date = "%Y-%m-%d %H:%i";
-                        scheduler.init('scheduler_here', new Date(2015, 0, 10), "week");
-                        scheduler.parse([
-    {text:"Fun Enterprise Event",    start_date:"09/11/2015 14:00", end_date:"09/11/2015 17:00"},
-    {text:"Virtual Revision Class", start_date:"09/15/2015 12:00", end_date:"09/18/2015 19:00"},
-    {text:"Project Deadline",  start_date:"09/24/2015 09:00", end_date:"09/24/2015 10:00"},
-    {text:"Fun Enterprise Event",    start_date:"09/12/2015 14:00", end_date:"09/12/2015 17:00"},
-    {text:"Virtual Revision Class", start_date:"09/13/2015 12:00", end_date:"09/13/2015 19:00"},
-    {text:"Project Deadline",  start_date:"09/27/2015 09:00", end_date:"09/27/2015 10:00"},
-    {text:"Fun Enterprise Event",    start_date:"09/20/2015 14:00", end_date:"09/21/2015 17:00"},
-    {text:"Virtual Revision Class", start_date:"09/16/2015 12:00", end_date:"09/19/2015 19:00"},
-    {text:"Project Deadline",  start_date:"09/24/2015 09:00", end_date:"09/25/2015 10:00"},
-],"json");
-                    }
-                    // scheduler.load("connector/Connector.php");
-                </script>
-            </div>
-        </article> 
-        <%@include file="/WEB-INF/includes/normalFooter.jsp" %>
+    <script type="text/javascript" charset="utf-8">
+        function init() {
+            var params = getUrlVars('text=You and Your Team&eventStartTime=11/11/2015 14:00&eventEndTime=12/11/2015 18:00');
+            console.log(params);
+            scheduler.config.container_autoresize = true;
+            scheduler.xy.bar_height=50;
+            scheduler.xy.bar_width=50;
+            //scheduler.config.xml_date = "%Y-%m-%d %H:%i";
+            scheduler.init('scheduler_here', new Date(2015, 0, 10), "week");
+            scheduler.parse([
+                {text: "Fun Enterprise Event", start_date: "09/11/2015 14:00", end_date: "09/11/2015 17:00"},
+                {text: "Virtual Revision Class", start_date: "09/15/2015 12:00", end_date: "09/18/2015 19:00"},
+                {text: "Project Deadline", start_date: "09/24/2015 09:00", end_date: "09/24/2015 10:00"},
+                {text: "Fun Enterprise Event", start_date: "09/12/2015 14:00", end_date: "09/12/2015 17:00"},
+                {text: "Virtual Revision Class", start_date: "09/13/2015 12:00", end_date: "09/13/2015 19:00"},
+                {text: "Project Deadline", start_date: "09/27/2015 09:00", end_date: "09/27/2015 10:00"},
+                {text: "Fun Enterprise Event", start_date: "09/20/2015 14:00", end_date: "09/21/2015 17:00"},
+                {text: "Virtual Revision Class", start_date: "09/16/2015 12:00", end_date: "09/19/2015 19:00"},
+                {text: "Project Deadline", start_date: "09/24/2015 09:00", end_date: "09/25/2015 10:00"},
+            ], "json");
+        }
+        // scheduler.load("connector/Connector.php");
+    </script>
+</div>
+</article> 
 
-    </body>
+</body>
 </html>
