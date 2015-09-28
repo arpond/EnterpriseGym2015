@@ -86,17 +86,62 @@
                             <%
                                 Set set = points.entrySet();
                                 Iterator i = set.iterator();
+                                int numOfSilvers = 0;
+                                int totalPoints = 0;
                                 while (i.hasNext()) {
                                     Map.Entry me = (Map.Entry) i.next();
 
-                            %>                 
-                            <th><b><h5><%out.println(me.getKey());%>   </h5></b></th>
-                            <th><h5> <%out.println(me.getValue());%></h5></th>
+                            %>
+                            <tr>
+                            <td><b><h5><%out.println(me.getKey());%>   </h5></b></td>
+                            <td>
+                                <h5> 
+                                    <%out.println(me.getValue());%>
+                                <%
+                                    float percentComplete = 0.0f;
+                                    percentComplete = ((int) me.getValue() / 70.0f) * 100;
+                                    if (percentComplete > 100)
+                                    {
+                                        percentComplete = 100;
+                                    }
+                                    totalPoints += (int) me.getValue();
+                                    if ((int)me.getValue() >= 70)
+                                    {
+                                        numOfSilvers++;
+                                        %>
+                                        Silver Awarded
+                                        <%        
+                                    }
+                                %>
+                                </h5>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="<%=percentComplete%>"
+                                    aria-valuemin="0" aria-valuemax="100" style="width:<%=percentComplete%>%">
+                                    </div>
+                                  </div>
+                            </td>
                             </tr>
                             <%
                                 }
                             %>
-
+                            <tr>
+                                <td>
+                                    <h5>Total Points</h5>
+                                </td>
+                                <td>
+                                    <h5>
+                                        <%=totalPoints%>
+                                        <%
+                                        if (numOfSilvers >= 2)
+                                        {
+                                            %>
+                                            Gold awarded
+                                            <%
+                                        }
+                                        %>
+                                    </h5>
+                                </td>
+                            </tr>
                         </table>
                     </div>
                 </div>
