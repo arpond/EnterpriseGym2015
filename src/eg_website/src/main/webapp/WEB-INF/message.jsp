@@ -11,22 +11,26 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!--Needs Changing-->    <meta http-equiv="refresh" content="5; url=http://localhost:8080/eg_website/News" />
+        <!--Needs Changing-->    <meta http-equiv="refresh" content="5; url=http://localhost:8080/eg_website/News" />
         <title>Message</title>
         <%@include file="/WEB-INF/includes/scripts.jsp" %>
     </head>
     <body>
         <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
-        <article>
-            <br/>
-            <p>
-            <%
-              String message = (String) request.getAttribute("message");
-              out.print(message);
-            %>
-            </p>
-            <p>You will be redirected to the index in 5 seconds... or return to the <!--INDEX LINK HERE-->index</a></p>
-        </article>
+        <br><br><br>
+        <div class= container style="text-align:center;">
+            <article>
+                <br/>
+                <h3>
+                    <%
+                        String message = (String) request.getAttribute("message");
+                        out.print(message);
+                    %>
+                </h3>
+                <br>
+                <h3>You will be redirected to the index in 5 seconds... or return to <a href="/eg_website">Homepage</a></h3>
+            </article>
+        </div>
         <%@include file="/WEB-INF/includes/normalFooter.jsp" %>
     </body>
 </html>
