@@ -23,7 +23,7 @@ import uk.ac.dundee.team7.eg_website.model.NewsModel;
  *
  * @author dragomir
  */
-@WebServlet(name = "AdminEventManegment", urlPatterns = {"/Admin/EventManegment"})
+@WebServlet(name = "AdminEventManegment", urlPatterns = {"/Admin/EventOptions"})
 public class AdminEventManegment extends HttpServlet {
 
   
