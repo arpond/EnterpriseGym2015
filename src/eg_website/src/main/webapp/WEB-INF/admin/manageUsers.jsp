@@ -36,7 +36,7 @@
         <%@include file="/WEB-INF/includes/adminNav.jsp" %>
         <div id="wrapper">
             <div id="page-wrapper">
-                    <div id="managementArea" class="col-md-6">
+                    <div id="managementArea" class="col-md-8">
                         <div class="mangementOption">
                             
                             <h5>Add Points</h5>
@@ -90,7 +90,7 @@
                                 <input type="submit" value="Change selected users groups" id="chgrp" class="action">
                         </div>
                     </div>
-                    <div id="displayManagement" class="form-group col-md-3">
+                    <div id="displayManagement" class="form-group col-md-2">
                         <div class="checkbox">
                             <label><input type="checkbox" class="displayCheckBox" value="grp" checked>User Group</label>
                         </div>
@@ -122,7 +122,7 @@
                             <label><input type="checkbox" class="displayCheckBox" value="inst" checked>Institution</label>
                         </div>
                     </div>
-                    <div id="displayManagement2" class="form-group col-md-3">    
+                    <div id="displayManagement2" class="form-group col-md-2">    
                         <div class="checkbox">
                             <label><input type="checkbox" class="displayCheckBox" value="coll" checked>College</label>
                         </div>

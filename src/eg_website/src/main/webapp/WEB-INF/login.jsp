@@ -43,7 +43,7 @@
                         <input type="text" class="form-control" name="username" data-validate="required"><br>
 
                         <label for="input">Password </label>
-                        <input type="password1" class="form-control" name="password" data-validate="required"><br>
+                        <input type="password" class="form-control" name="password" data-validate="required"><br>
 
 
                     </ul>

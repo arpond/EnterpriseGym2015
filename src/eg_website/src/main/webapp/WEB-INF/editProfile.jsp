@@ -65,22 +65,22 @@
                 <div class="form-group">
                    
                         <label for="input">First Name </label>
-                        <input type="text" class="form-control" name="firstname" value="<%=up.getFirstName()%>">
+                        <input type="text" class="form-control" name="firstname" value="<%=up.getFirstName()%>" data-validate="required">
 
                         <label for="input">Last Name </label>
-                        <input type="text" class="form-control" name="lastname" value="<%=up.getLastName()%>">
+                        <input type="text" class="form-control" name="lastname" value="<%=up.getLastName()%>" data-validate="required">
 
                         <label for="input">Mobile</label>
-                        <input type="text" class="form-control" name="mobile" value="<%=up.getMobile()%>">
+                        <input type="text" class="form-control" name="mobile" value="<%=up.getMobile()%>" data-validate="required">
 
                         <label for="input">Contact Number</label>
                         <input type="text" class="form-control" name="contactNumber" value="<%=up.getContactNumber()%>">
 
                         <label for="input">Matric Number </label>
-                        <input type="text" class="form-control" name="matricNumber" value="<%=up.getMatricNumber()%>">
+                        <input type="text" class="form-control" name="matricNumber" value="<%=up.getMatricNumber()%>" data-validate="required">
 
                         <label for="input">Email  </label>
-                        <input type="text" class="form-control" name="email" value="<%=ud.getEmail()%>">
+                        <input type="text" class="form-control" name="email" value="<%=ud.getEmail()%>" data-validate="required,email">
 
                         <input type="hidden" class="form-control" name="owner" value="<%=ud.getUsername()%>" id="updateButton">
                         

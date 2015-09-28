@@ -29,7 +29,7 @@
             if (newsImage != "")
             {
         %>
-        <img src="<%=newsImage%>"/>
+        <img class="img-responsive" src="<%=newsImage%>"/>
         <%  
             }
         %>

@@ -26,7 +26,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Events</title>
     </head>
-     <body>
+    <body>
         <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
         <div class="container">
 
@@ -61,44 +61,29 @@
 
 
                 </div>
-            </div>
-            <!-- Blog Sidebar Widgets Column -->
-            <div class="col-md-4">
+                <div class="col-md-4">
+                    <%
+                        if (eventImage != "") {
+                    %>
+                    <img class="img-responsive" src="<%=eventImage%>" width="200" height="250" />
+                    <%
+                        }
+                    %>
 
 
+                    <%
+                        if (ud != null && !attending) {
+                    %>
 
-                <!-- Blog Categories Well -->
-                <div class="well">
+                    <form method="POST"  action="SignUpForEvent">
+                        <input type="hidden" name="eventID" value="<%=ev.getEventID()%>">
+                        <input type="submit" value="Sign up" class="button" id="signUpButton">
+                    </form>
 
-                    <div class="row">
-
-                        <%
-                            if (eventImage != "") {
-                        %>
-                        <img src="<%=eventImage%>" width="200" height="250" />
-                        <%
-                            }
-                        %>
-
-
-                        <%
-                            if (ud != null && !attending) {
-                        %>
-
-                        <form method="POST"  action="SignUpForEvent">
-                            <input type="hidden" name="eventID" value="<%=ev.getEventID()%>">
-                            <input type="submit" value="Sign up" class="button" id="signUpButton">
-                        </form>
-
-                        <% }%>
-                        <h4>Event Type: <%=ev.getEventPointType()%> Points: <%=ev.getEventValue()%></h4>
-                        <h4>Start Time: <%=ev.getEventStartTime()%></h4>
-                    </div>
-                    <!-- /.row -->
+                    <% }%>
+                    <h4>Event Type: <%=ev.getEventPointType()%> Points: <%=ev.getEventValue()%></h4>
+                    <h4>Start Time: <%=ev.getEventStartTime()%></h4>
                 </div>
-
-
-
             </div>
 
         </div>
@@ -113,5 +98,5 @@
 
     </div>
     <!-- /.container -->
-    </body>
+</body>
 </html>

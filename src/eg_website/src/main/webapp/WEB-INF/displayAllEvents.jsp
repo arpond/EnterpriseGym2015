@@ -5,6 +5,7 @@
 --%>
 
 <%@page import="org.joda.time.DateTime"%>
+<%@page import="org.joda.time.format.*"%>
 <%@page import="uk.ac.dundee.team7.eg_website.Store.EventStore"%>
 <%@page import="java.util.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -51,7 +52,7 @@
                     ArrayList<EventStore> alEvents = new ArrayList();
                     alEvents = (ArrayList<EventStore>) request.getAttribute("events");
                     Iterator i1 = alEvents.iterator();
-
+                    DateTimeFormatter dtfOut = DateTimeFormat.forPattern("MMMM dd, yyyy");
                     while (i1.hasNext()) {
 
                         EventStore es = (EventStore) i1.next();
@@ -59,24 +60,20 @@
                 %>
                 <div class="container">
                      <hr>
-                    <div class="col-md-1">
-                        <p><i class="fa fa-camera fa-4x"></i>
-                        </p>
-                        <p>June 17, 2014</p>
-                    </div>
 
-                    <div class="col-md-5">
+                    <div class="col-md-4">
 
                         <div>
-                            <img src="<%=es.getEventImage()%>" width="300" height="200" > </img>
+                            <img class="img-responsive img-hover" src="<%=es.getEventImage()%>" width="300" height="200" > </img>
 
                         </div>
                     </div>
                         
                         
-                    <div class="col-md-6">  
+                    <div class="col-md-8">  
                         <p>
                         <h4><a href="/eg_website<%=es.getContent().getContentPath()%>"><%=es.getContent().getContentTitle()%></a></h4>
+                        <h5><%=dtfOut.print(es.getEventStartTime())%></h5>
                         </p>
                         
                         <p>Event Type: <%=es.getEventPointType()%></p>
