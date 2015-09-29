@@ -4,6 +4,7 @@
     Author     : Katerina
 --%>
 
+<%@page import="uk.ac.dundee.team7.eg_website.Store.ContentStore"%>
 <%@page import="org.joda.time.DateTime"%>
 <%@page import="org.joda.time.format.*"%>
 <%@page import="uk.ac.dundee.team7.eg_website.Store.EventStore"%>
@@ -22,10 +23,14 @@
         <title>All Events</title>
 
         <%@include file="/WEB-INF/includes/scripts.jsp" %>
+        <script src="/eg_website/js/dxhtmlxscheduler/dhtmlxscheduler.js" type="text/javascript"></script>
+        <script src="/eg_website/js/dxhtmlxscheduler/dhtmlxschedule_minical.js" type="text/javascript"></script>
+        <script src="/eg_website/js/dxhtmlxscheduler/dhtmlxscheduler_container_autoresize.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="/eg_website/css/dhtmlxscheduler.css" type="text/css">
 
     </head>
 
-    <body>
+    <body onload="init();">
         <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
         <div class="container">
 
@@ -44,9 +49,23 @@
                     </ol>
                 </div>
             </div>
-
+            <div class="container">
+             <div id="scheduler_here" class="dhx_cal_container" 
+                         style='width:1100px; height:400px; padding:5px;'>
+                        <div class="dhx_cal_navline">
+                            <div class="dhx_cal_prev_button">&nbsp;</div>
+                            <div class="dhx_cal_next_button">&nbsp;</div>
+                            <div class="dhx_cal_today_button"></div>
+                            <div class="dhx_cal_date"></div>
+                            
+                            <div class="dhx_cal_tab" name="month_tab" style="right:76px;"></div>
+                        </div>
+                        <div class="dhx_cal_header"></div>
+                        <div class="dhx_cal_data"></div>
+             </div>
+            </div>
             <div class="row">  
-                 
+                  
                        
                 <%
                     ArrayList<EventStore> alEvents = new ArrayList();
@@ -58,6 +77,7 @@
                         EventStore es = (EventStore) i1.next();
 
                 %>
+                
                 <div class="container">
                      <hr>
 
@@ -92,7 +112,43 @@
             
         </div>
         </div>
-    
+    <script type="text/javascript" charset="utf-8">
+                            function init() {
+                                scheduler.config.readonly = true;
+                                //scheduler.config.xml_date = "%Y-%m-%d %H:%i";
+                                scheduler.config.container_autoresize = false;
+                                var now = Date.now;
+                                scheduler.init('scheduler_here', new Date(2015, 10, 10), "month");
+                                scheduler.config.max_month_events = 2;
+                                
+                                parseTest();
+
+                            }
+                            // scheduler.load("connector/Connector.php");
+                        </script>
+                        <script type="text/javascript" charset="utf-8">
+                            function parseTest() {
+                            <%
+                                    int j = 0;
+                                    DateTimeFormatter dtfOutCal = DateTimeFormat.forPattern("MM/dd/yyyy HH:mm");
+                                    while (alEvents.size() > j) {
+                                        EventStore currentEvent = alEvents.get(j);
+                                        ContentStore currentContent = currentEvent.getContent();
+
+                                        String contentTitle = currentContent.getContentTitle();
+                                        String startTime = dtfOutCal.print(currentEvent.getEventStartTime());
+                                        String endTime = dtfOutCal.print(currentEvent.getEventEndTime());
+
+                            %>
+                                scheduler.parse([
+                                    {text: "<%=contentTitle%>",
+                                        start_date: "<%=startTime%>",
+                                        end_date: "<%=endTime%>"},
+                                ], "json");
+                            <%j++;
+                                    }%>
+                            }
+                        </script>
     <%@include file="/WEB-INF/includes/normalFooter.jsp" %>
 </body>
 

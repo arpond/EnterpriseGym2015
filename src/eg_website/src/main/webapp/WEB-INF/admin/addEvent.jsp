@@ -22,7 +22,9 @@
         <title>How to start</title>
         <script src="/eg_website/js/dxhtmlxscheduler/dhtmlxscheduler.js" type="text/javascript"></script>
         <script src="/eg_website/js/dxhtmlxscheduler/dhtmlxscheduler_container_autoresize.js" type="text/javascript"></script>
-        <link rel="stylesheet" href="/eg_website/css/dhtmlxscheduler.css" type="text/css">
+        <link rel="stylesheet" href="/eg_website/css/dhtmlxscheduler.css" type="text/css">        
+        <script src="/eg_website/js/notify.min.js"></script>
+        <script src="/eg_website/js/verify.notify.js"></script>
     </head>
     <%
         HashMap types = (HashMap) request.getAttribute("pointTypes");
@@ -62,12 +64,13 @@
                         <div class="left">
                             <h3>Add an Event</h3>
                             <ul>
+                                <form>
                                 <p></p>
-                                <label class="input">Event Title</label> <input type="text" name="eventTitle">
+                                <label class="input">Event Title</label> <input type="text" name="eventTitle" data-validate="required">
                                 <p></p>
-                                <label class="input">Event Path:  /Event/</label> <input type="text" name="eventPath">
+                                <label class="input">Event Path:  /Event/</label> <input type="text" name="eventPath" data-validate="required">
                                 <p></p>
-                                <label class="input">Event Image link</label> <input type="text" name="eventLink">
+                                <label class="input">Event Image link</label> <input type="text" name="eventLink" data-validate="required">
                                 <p></p>
                                 <label>Event Start Date</label> 
                                 <input type="text" name="daterange" class="input" value="01/01/2015" />
@@ -84,7 +87,7 @@
                                     });
                                 </script>
 
-                                <input type="text" class="timepicker" class="input" name="time">
+                                <input type="text" class="timepicker" class="input" name="time" data-validate="required">
                                 <script type="text/javascript">
                                     $(document).ready(function() {
                                         $('input.timepicker').timepicker({});
@@ -102,7 +105,7 @@
                                         )
                                     });
                                 </script>
-                                <input type="text" class="timepicker" class="input" name="endtime">
+                                <input type="text" class="timepicker" class="input" name="endtime" data-validate="required">
                                 <script type="text/javascript">
                                     $(document).ready(function() {
                                         $('input.timepicker').timepicker({});
@@ -111,13 +114,16 @@
                                 <p></p>
                                 <label>Event Summary</label> 
                                 <p></p>
-                                <textarea cols="80" placeholder="Event Summary" class="input" rows="5" id="eventSummary" name="eventSummary" >   
+                                <textarea cols="80" placeholder="Event Summary" class="input" rows="5" id="eventSummary" name="eventSummary" data-validate="required" >   
                                 </textarea>
                                 <p></p>
                                 <label>Event Content</label> 
                                 <p></p>
-                                <textarea cols="80" placeholder="Content" class="input" rows="10" id="eventContent" name="eventContent" >   
+                                <textarea cols="80" placeholder="Content" class="input" rows="10" id="eventContent" name="eventContent" data-validate="required" >   
                                 </textarea>
+                                <script type="text/javascript">
+                                    CKEDITOR.replace('eventContent');
+                                </script>
                                 <p></p>
                                 <p>Type of Points:</p>
                                 <select name=ptTypes>
@@ -130,7 +136,7 @@
                                     %>
                                 </select>
                                 <p></p>
-                                <label class="input">Point Value:</label> <input type="text" name="points">
+                                <label class="input">Point Value:</label> <input type="text" name="points" data-validate="required,number">
                                 <p></p>                        
                                 <p>Category:</p>
                                 <select name=ctTypes>
@@ -142,7 +148,7 @@
                                         }
                                     %>
                                 </select>
-
+                                </form>
                             </ul>
                             <button type="submit" class="btn btn-primary" id="addEvent" >Add Event</button>
                         </div>
@@ -153,7 +159,7 @@
                         <script type="text/javascript" charset="utf-8">
                             function init() {
 
-                                scheduler.config.container_autoresize = true;
+                                scheduler.config.container_autoresize = false;
                                 scheduler.xy.bar_height = 50;
                                 scheduler.xy.bar_width = 50;
                                 //scheduler.config.xml_date = "%Y-%m-%d %H:%i";
@@ -168,15 +174,15 @@
                         <script type="text/javascript" charset="utf-8">
                             function parseTest() {
                             <%
-                                    int j = 0;
-                                    DateTimeFormatter dtfOut = DateTimeFormat.forPattern("MM/dd/yyyy HH:mm");
-                                    while (events.size() > j) {
-                                        EventStore currentEvent = events.get(j);
-                                        ContentStore currentContent = currentEvent.getContent();
+                                int j = 0;
+                                DateTimeFormatter dtfOut = DateTimeFormat.forPattern("MM/dd/yyyy HH:mm");
+                                while (events.size() > j) {
+                                    EventStore currentEvent = events.get(j);
+                                    ContentStore currentContent = currentEvent.getContent();
 
-                                        String contentTitle = currentContent.getContentTitle();
-                                        String startTime = dtfOut.print(currentEvent.getEventStartTime());
-                                        String endTime = dtfOut.print(currentEvent.getEventEndTime());
+                                    String contentTitle = currentContent.getContentTitle();
+                                    String startTime = dtfOut.print(currentEvent.getEventStartTime());
+                                    String endTime = dtfOut.print(currentEvent.getEventEndTime());
 
                             %>
                                 scheduler.parse([
@@ -185,7 +191,7 @@
                                         end_date: "<%=endTime%>"},
                                 ], "json");
                             <%j++;
-                                    }%>
+                                }%>
                             }
                         </script>
                         </div>
