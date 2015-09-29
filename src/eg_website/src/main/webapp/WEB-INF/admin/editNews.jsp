@@ -4,6 +4,10 @@
     Author     : dragomir
 --%>
 
+<%@page import="java.sql.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.text.DateFormat"%>
+<%@page import="org.joda.time.DateTime"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -27,7 +31,20 @@
                                 request.getAttribute("editContent");
                                 request.getAttribute("contentID");
                                 request.getAttribute("editNewsImage");
-
+                                
+                                DateTime newDT =  (DateTime) request.getAttribute("editStartTime");
+                                System.out.println(newDT);
+                                String tempnewDT = newDT.toString();
+                                System.out.println(tempnewDT);
+                                String useThisDateTime = tempnewDT.substring(0,tempnewDT.length()-19);
+                                System.out.println(useThisDateTime);
+                                
+                                
+                                   String partOne = useThisDateTime.substring(9, 10);
+                                   String partTwo = useThisDateTime.substring(6, 7);
+                                   String partThree = useThisDateTime.substring(0, 4);
+                                   String voltron = partOne + "/" + partTwo + "/" + partThree;
+                                    System.out.println(voltron);
                             %>
 
                             <label class="input"></label> <input type="text" hidden="true" value="${contentID}" name="contentID">
@@ -51,7 +68,25 @@
                             <script type="text/javascript">
                                 CKEDITOR.replace('editContent');
                             </script>
+                            
+                             <input type="text" name="daterange" class="input" value="<%=voltron%>" />
 
+                    <script type="text/javascript">
+                        $(function () {
+                            $('input[name="daterange"]').daterangepicker({
+                                singleDatePicker: true,
+                                showDropdowns: true
+                            }
+
+                            )
+                        });
+                    </script>
+                    <input type="text" class="timepicker" class="input" name="timepicker">
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            $('input.timepicker').timepicker({});
+                        });
+                    </script>
 
                         </ul>
                     </div>

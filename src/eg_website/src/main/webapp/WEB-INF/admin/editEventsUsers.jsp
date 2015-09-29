@@ -25,6 +25,7 @@
         <title>Event Attendees</title>
 
         <%@include file="/WEB-INF/includes/adminScripts.jsp" %>
+         <script src="/eg_website/js/users.js"></script>
         <script src="/eg_website/js/tables.js"></script>
     </head>
     <body>
@@ -44,7 +45,7 @@
                     <form method= "POST"  action = "markUsersAsAttended" id = "markUsersAsAttended"
                                 > 
                           <input hidden name="eventID" value="<%=eventID%>">
-                <input type="submit" value="Edit Attendence for selected users" class="action" id="markUsersAsAttended">
+                <input type="submit" value="Edit Attendence for selected users" class="action" id="ap">
                   
                 
                 <table cellpadding="1" cellspacing="1" id="resultTable" class="table table-bordered table-hover table-striped">

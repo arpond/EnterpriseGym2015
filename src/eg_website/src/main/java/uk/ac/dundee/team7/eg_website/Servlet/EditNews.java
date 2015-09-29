@@ -69,6 +69,7 @@ public class EditNews extends HttpServlet {
         request.setAttribute("editContentSummary", cs.getContent().getContentSummary());
         request.setAttribute("contentID", cs.getContent().getContentID());
         request.setAttribute("editNewsImage", cs.getNewsImage());
+        request.setAttribute("editStartTime", cs.getDisplayTime());
         
 
         RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editNews.jsp");

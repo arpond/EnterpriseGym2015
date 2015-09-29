@@ -75,6 +75,8 @@ public class EditEvent extends HttpServlet {
         request.setAttribute("editPointType", tempPointTypeArray);
         request.setAttribute("editEventID", cs.getEventID());
         request.setAttribute("editEventValue", cs.getEventValue());
+        request.setAttribute("editStartTime", cs.getEventStartTime());
+        
         
         
         
@@ -108,6 +110,12 @@ public class EditEvent extends HttpServlet {
         String evenPointType = request.getParameter("editPointType");
         String eventID = request.getParameter("editEventID");
         String eventValue = request.getParameter("editEventValue");
+        String StartTime1 = request.getParameter("daterange");
+        String StartTime2 = request.getParameter("timepicker");
+        
+        String finalStarTime = StartTime1 + StartTime2;
+        System.out.println("JORDAAasdasdadsasdasdasdasdasdasd");
+        System.out.println(finalStarTime);
         
         int tempEventID = Integer.parseInt(eventID);
         int tempEventValue = Integer.parseInt(eventValue);
