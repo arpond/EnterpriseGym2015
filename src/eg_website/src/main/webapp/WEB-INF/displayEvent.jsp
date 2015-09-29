@@ -6,9 +6,11 @@
 
 <%@page import="uk.ac.dundee.team7.eg_website.Store.ContentStore"%>
 <%@page import="org.joda.time.DateTime"%>
+<%@page import="org.joda.time.format.*"%>
 <%@page import="uk.ac.dundee.team7.eg_website.Store.EventStore"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
 <html lang="en">
     <%  EventStore ev = (EventStore) request.getAttribute("event");
         Boolean attending = (Boolean) request.getAttribute("attending");
@@ -26,6 +28,22 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Events</title>
     </head>
+
+    <style>
+        .table-user-information > tbody > tr {
+            border-top: 1px solid rgb(221, 221, 221);
+        }
+
+        .table-user-information > tbody > tr:first-child {
+            border-top: 0;
+        }
+
+
+        .table-user-information > tbody > tr > td {
+            border-top: 0;
+        }
+    </style>
+
     <body>
         <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
         <div class="container">
@@ -44,59 +62,56 @@
                     </ol>
                 </div>
             </div>
-            <!-- /.row -->
 
-            <!-- Content Row -->
             <div class="row">
-
-                <!-- Blog Post Content Column -->
                 <div class="col-lg-8">
-
-
-                    <!-- Post Content -->
-
                     <%
                         out.print(ev.getContent().getContent());
                     %>
-
-
                 </div>
+
                 <div class="col-md-4">
-                    <%
-                        if (eventImage != "") {
-                    %>
-                    <img class="img-responsive" src="<%=eventImage%>" width="200" height="250" />
-                    <%
-                        }
-                    %>
+                    <div class="container" style="max-width:360px; max-height:600px; text-align:center;"> 
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <center><h3 class="panel-title"><%=ev.getContent().getContentTitle()%></h3></center>
+                            </div>
+                            <div class="panel-body">
+                                <table class=" table table-user-information">
+                                    <%
+                                        DateTimeFormatter dtfOut = DateTimeFormat.forPattern("MMMM dd, yyyy");
+                                    %>
 
+                                    <p><%=dtfOut.print(ev.getEventStartTime())%></p>               
+                                    <%
+                                        if (eventImage != "") {
+                                    %>
+                                    <img src="<%=eventImage%>" style="max-height:300px; max-width:300px;">
+                                    <%
+                                        }
+                                    %>
+                                    <%
+                                        if (ud != null && !attending) {
+                                    %>
 
-                    <%
-                        if (ud != null && !attending) {
-                    %>
-
-                    <form method="POST"  action="SignUpForEvent">
-                        <input type="hidden" name="eventID" value="<%=ev.getEventID()%>">
-                        <input type="submit" value="Sign up" class="button" id="signUpButton">
-                    </form>
-
-                    <% }%>
-                    <h4>Event Type: <%=ev.getEventPointType()%> Points: <%=ev.getEventValue()%></h4>
-                    <h4>Start Time: <%=ev.getEventStartTime()%></h4>
+                                    <p><form method="POST"  action="Event">
+                                        <input type="hidden" name="eventID" value="<%=ev.getEventID()%>">
+                                        <br> <input type="submit" value="Sign up for the event" class="btn btn-default" style="display:block;margin: 0 auto;" id="signUpButton">
+                                    </form></p>
+                                    <% }%>
+                                    <p>Event Type: <%=ev.getEventPointType()%> </p>
+                                    <p>Points: <%=ev.getEventValue()%></p>
+                                </table>
+                            </div>
+                        </div>
+                    </div> 
                 </div>
             </div>
-
         </div>
-        <!-- /.row -->
 
-        <hr>
+    </body>   
 
-        <!-- Footer -->
-        <footer>
-            <%@include file="/WEB-INF/includes/normalFooter.jsp" %>
-        </footer>
-
-    </div>
-    <!-- /.container -->
-</body>
+    <footer>
+        <%@include file="/WEB-INF/includes/normalFooter.jsp" %>
+    </footer>
 </html>
