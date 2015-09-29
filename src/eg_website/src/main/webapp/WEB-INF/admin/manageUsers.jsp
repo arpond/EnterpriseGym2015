@@ -75,6 +75,7 @@
                             </form>
                         </div>
                         <div class="mangementOption">
+                            <form>
                             <h5>Change Group</h5>
                                 Group:
                                 <select id="newgroup">
@@ -88,6 +89,7 @@
                                     %>
                                 </select>
                                 <input type="submit" value="Change selected users groups" id="chgrp" class="action">
+                            </form>
                         </div>
                     </div>
                     <div id="displayManagement" class="form-group col-md-2">
