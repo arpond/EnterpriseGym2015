@@ -64,7 +64,7 @@
                             <label class="input">Event Content Path</label> <input type="text" name="editContentPath" value="${editContentPath}" >
                             <p></p>
                             <p></p>
-                            <label class="input">Event Image Path</label> <input type="text" name="editNewsImage" value="${editEventImage}" >
+                            <label class="input">Event Image Path</label> <input type="text" name="editEventImage" value="${editEventImage}" >
                             <p></p>
                             <label>Content Summary</label> 
                             <p></p>

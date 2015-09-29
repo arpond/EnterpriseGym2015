@@ -1,15 +1,11 @@
 package uk.ac.dundee.team7.eg_website.model;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import java.sql.Array;
 import java.sql.CallableStatement;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
-import oracle.net.aso.i;
 import org.joda.time.DateTime;
 import uk.ac.dundee.team7.eg_website.Store.*;
 
@@ -60,8 +56,19 @@ public class EventModel {
             rs = cs.getResultSet();
             
             rs.first();
+            
+            int id=0;
+            try
+            {
+                String temp = rs.getString("contentID");
+                id =Integer.parseInt(temp);
+            }
+            catch (Exception e)
+            {
+            }
+            
             conStore.setContent(rs.getString("content"));
-          
+            conStore.setContentID(id);
             conStore.setContentPath(rs.getString("contentPath"));
             conStore.setContentTitle(rs.getString("contentTitle"));
             conStore.setContentSummary(rs.getString("contentSummary"));
@@ -215,6 +222,10 @@ public class EventModel {
         int tempEventID = event.getEventID();
         int tempContentID = contStore.getContentID();
         DateTime tempStartTime = event.getEventStartTime();
+        
+        long millis = tempStartTime.getMillis();
+        //TimeStamp ts = new TimeStamp (millis);
+        
         String tempImageURL = event.getEventImage();
         String tempContent = contStore.getContent();
         int tempPoints = event.getEventValue();
@@ -226,7 +237,8 @@ public class EventModel {
             cs1.setString(1, event.getEventPointType());
             cs1.execute();
             rs = cs1.getResultSet();
-            tempEventPointTypeID = rs.getInt("typeID");
+            rs.first();
+            tempEventPointTypeID = rs.getInt("typeId");
             String tempContentTitle = contStore.getContentTitle();
        //new Timestamp(dateTime1.getMillis()
 
@@ -245,6 +257,7 @@ public class EventModel {
             conn.close();
             return true;
         } catch (SQLException se) {
+            String e = se.toString();
             conn.close();
             return false;
         }
