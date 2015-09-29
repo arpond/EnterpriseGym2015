@@ -1,6 +1,7 @@
 
 <%@page import="java.util.HashMap"%>
 <%@page import="java.text.SimpleDateFormat"%>
+<%@page import="org.joda.time.format.*"%>
 <%@page import="java.sql.Date"%>
 <%@page import="com.google.gson.Gson"%>
 <%@page import="uk.ac.dundee.team7.eg_website.Store.CalendarStore"%>
@@ -26,6 +27,7 @@
     <%
      HashMap types = (HashMap) request.getAttribute("pointTypes");
         Object[] typeIDs = types.keySet().toArray();
+        ArrayList<EventStore> events = (ArrayList) request.getAttribute("events");
         
         HashMap categoryTypes = (HashMap) request.getAttribute("categoryTypes");
         Object[] categoryTypeIDs = categoryTypes.keySet().toArray();%>
@@ -148,45 +150,48 @@
                         </div>
         </div>
     </div>
-    <script type="application/javascript" charset="utf-8">
-           
-
-function getUrlVars(url) {
-var hash;
-var myJson = {};
-var hashes = url.slice(url.indexOf('?') + 1).split('&');
-for (var i = 0; i < hashes.length; i++) {
-hash = hashes[i].split('=');
-myJson[hash[0]] = hash[1];
-}
-return myJson;
-}
-    </script>
+    
 
     <script type="text/javascript" charset="utf-8">
         function init() {
-            var params = getUrlVars('text=You and Your Team&eventStartTime=11/11/2015 14:00&eventEndTime=12/11/2015 18:00');
-            console.log(params);           
+                     
             scheduler.config.container_autoresize = true;
             scheduler.xy.bar_height=50;
             scheduler.xy.bar_width=50;
             //scheduler.config.xml_date = "%Y-%m-%d %H:%i";
             var now= Date.now;
             scheduler.init('scheduler_here', new Date(2015, 10, 10), "month");
-            scheduler.parse([
-                {text: "Fun Enterprise Event", start_date: "09/11/2015 14:00", end_date: "09/11/2015 17:00"},
-                {text: "Virtual Revision Class", start_date: "09/15/2015 12:00", end_date: "09/18/2015 19:00"},
-                {text: "Project Deadline", start_date: "09/24/2015 09:00", end_date: "09/24/2015 10:00"},
-                {text: "Fun Enterprise Event", start_date: "09/12/2015 14:00", end_date: "09/12/2015 17:00"},
-                {text: "Virtual Revision Class", start_date: "09/13/2015 12:00", end_date: "09/13/2015 19:00"},
-                {text: "Project Deadline", start_date: "09/27/2015 09:00", end_date: "09/27/2015 10:00"},
-                {text: "Fun Enterprise Event", start_date: "09/20/2015 14:00", end_date: "09/21/2015 17:00"},
-                {text: "Virtual Revision Class", start_date: "09/16/2015 12:00", end_date: "09/19/2015 19:00"},
-                {text: "Project Deadline", start_date: "09/24/2015 09:00", end_date: "09/25/2015 10:00"},
-            ], "json");
+            
+            parseTest();
+            
         }
         // scheduler.load("connector/Connector.php");
     </script>
+    <script type="text/javascript" charset="utf-8">
+        function parseTest(){
+            <%
+            int j =0;
+            DateTimeFormatter dtfOut = DateTimeFormat.forPattern("MM/dd/yyyy HH:mm");
+            while(events.size() > j)
+            {
+                EventStore currentEvent = events.get(j);
+                       ContentStore currentContent = currentEvent.getContent();
+                       
+                      String contentTitle = currentContent.getContentTitle();
+                      String startTime = dtfOut.print(currentEvent.getEventStartTime());
+                      String endTime = dtfOut.print(currentEvent.getEventEndTime());
+                      
+%>
+        scheduler.parse([
+                
+                {text: "<%=contentTitle%>",
+                    start_date: "<%=startTime%>", 
+                    end_date: "<%=endTime%>"}, 
+                        
+            ], "json");
+            <%j++;}%>
+        }
+      </script>
 </div>
 </article> 
 

@@ -127,11 +127,7 @@ public class EventModel {
             while (rs.next()) {
                 
                  EventStore evStore = new EventStore();
-                 ContentStore conStore = new ContentStore();
-                 
-                System.out.println("once----twice----trice ?");
-                
-                
+                 ContentStore conStore = new ContentStore();                
                 conStore.setContent(rs.getString("content"));                
                 conStore.setContentPath(rs.getString("contentPath"));
                 conStore.setContentTitle(rs.getString("contentTitle"));
@@ -144,11 +140,16 @@ public class EventModel {
                 
                 Timestamp eventPosted = rs.getTimestamp("posted");    
                 Timestamp eventStartTime = rs.getTimestamp("eventStartTime");
+                Timestamp eventEndTime = rs.getTimestamp("eventEndTime");
                 Date date = new Date(eventStartTime.getTime());
                 DateTime eventStartTimeDateTime = new DateTime(date);
                 Date date1 = new Date(eventPosted.getTime());
                 DateTime eventPostedDateTime = new DateTime(date1);
+                Date endDate = new Date(eventEndTime.getTime());
+                DateTime eventEndDateTime = new DateTime(endDate);
+                
                 evStore.setEventStartTime(eventStartTimeDateTime);
+                evStore.setEventEndTime(eventEndDateTime);
                 evStore.setPostedTime(eventPostedDateTime);
                 evStore.setEventValue(rs.getInt("eventPoints"));
                 evStore.setEventID(rs.getInt("eventID"));
