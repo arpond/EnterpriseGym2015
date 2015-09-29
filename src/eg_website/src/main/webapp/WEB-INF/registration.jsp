@@ -28,17 +28,17 @@
 
         <div class="container" style="border:20px transparent; max-width:600px">
 
-            <form class="registerForm" method="POST"  action="View" >
+            <form class="registerForm" method="POST"  action="/eg_website/Register" >
                 <div class="form-group">
                     <ul>
                         <label for="input">Username </label>
                         <input type="text" class="form-control" name="username" data-validate="required">
 
                         <label for="input">Password </label>
-                        <input type="password1" class="form-control" name="password" data-validate="required,matching#first">
+                        <input type="password" class="form-control" name="password" data-validate="required,matching#first">
 
                         <label for="input">Password</label>
-                        <input type="password2" class="form-control" name="verification" data-validate="required,matching#second">
+                        <input type="password" class="form-control" name="verification" data-validate="required,matching#second">
 
                         <label for="input">Email</label>
                         <input type="text" class="form-control" name="email" data-validate="required,email">

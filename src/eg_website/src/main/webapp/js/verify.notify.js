@@ -2574,8 +2574,8 @@ $.verify.addRules({
 
 $.verify.addGroupRules({
   matching: function(r) {
-    var first = r.field("first"),
-        second= r.field("second");
+    var first  = r.field("first").val();
+        second = r.field("second").val();
     if(first != second) {
         return "Passwords do not match.";
       }
