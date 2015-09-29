@@ -63,9 +63,49 @@
                         <p></p>
                         <label class="input">Event Title</label> <input type="text" name="eventTitle">
                         <p></p>
-                        <label class="input">Event Path</label> <input type="text" name="eventPath">
+                        <label class="input">Event Path:  /Event/</label> <input type="text" name="eventPath">
                         <p></p>
                         <label class="input">Event Image link</label> <input type="text" name="eventLink">
+                        <p></p>
+                        <label>Event Start Date</label> 
+                        <input type="text" name="daterange" class="input" value="01/01/2015" />
+                        <p></p>
+                        <label>Event Start Time (HH:MM)</label> 
+                        <script type="text/javascript">
+                            $(function() {
+                                $('input[name="daterange"]').daterangepicker({
+                                    singleDatePicker: true,
+                                    showDropdowns: true
+                                }
+
+                                )
+                            });
+                        </script>
+                        
+                        <input type="text" class="timepicker" class="input" name="time">
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('input.timepicker').timepicker({});
+                            });
+                        </script>
+                        
+                        <label>Event End Time (HH:MM)</label> 
+                        <script type="text/javascript">
+                            $(function() {
+                                $('input[name="daterange"]').daterangepicker({
+                                    singleDatePicker: true,
+                                    showDropdowns: true
+                                }
+
+                                )
+                            });
+                        </script>
+                        <input type="text" class="timepicker" class="input" name="endtime">
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('input.timepicker').timepicker({});
+                            });
+                        </script>
                         <p></p>
                         <label>Event Summary</label> 
                         <p></p>
@@ -90,12 +130,11 @@
                                 </select>
                         <p></p>
                         <label class="input">Point Value:</label> <input type="text" name="points">
-                        <p></p>
-                        
+                        <p></p>                        
                         <p>Category:</p>
                                 <select name=ctTypes>
                                     <%
-                                    for (int j=0; j < categoryTypeIDs.length; j++)
+                                    for (int j=1; j < categoryTypeIDs.length; j++)
                                     {
                                         %>
                                         <option value="<%=categoryTypeIDs[j]%>"><%=categoryTypes.get(categoryTypeIDs[j])%></option>
@@ -103,46 +142,7 @@
                                     }
                                     %>
                                 </select>
-                        <p></p>
-                        <label>Event Start Date</label> 
-                        <input type="text" name="daterange" class="input" value="01/01/2015" />
-                        <label>Event Start Time (HH:MM)</label> 
-                        <script type="text/javascript">
-                            $(function() {
-                                $('input[name="daterange"]').daterangepicker({
-                                    singleDatePicker: true,
-                                    showDropdowns: true
-                                }
-
-                                )
-                            });
-                        </script>
-                        <input type="text" class="timepicker" class="input" name="time">
-                        <script type="text/javascript">
-                            $(document).ready(function() {
-                                $('input.timepicker').timepicker({});
-                            });
-                        </script>
-                        <p></p>
-                        <label>Event End Date</label> 
-                        <input type="text" name="enddaterange" class="input" value="01/01/2015" />
-                        <label>Event End Time (HH:MM)</label> 
-                        <script type="text/javascript">
-                            $(function() {
-                                $('input[name="enddaterange"]').daterangepicker({
-                                    singleDatePicker: true,
-                                    showDropdowns: true
-                                }
-
-                                )
-                            });
-                        </script>
-                        <input type="text" class="timepicker" class="input" name="endtime">
-                        <script type="text/javascript">
-                            $(document).ready(function() {
-                                $('input.timepicker').timepicker({});
-                            });
-                        </script>
+                        
                         </ul>
                             <button type="submit" class="btn btn-primary" id="addEvent" >Add Event</button>
                         </div>

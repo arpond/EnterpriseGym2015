@@ -77,14 +77,14 @@ public class Calendar extends HttpServlet {
         java.sql.Date sqlStartDate = null;
         java.sql.Date sqlEndDate = null;
         String eventTitle = request.getParameter("eventTitle");
-        String eventPath = request.getParameter("eventPath");
+        String eventPath = "/Event/" + request.getParameter("eventPath");
         String eventSummary = request.getParameter("eventSummary");
         String event = request.getParameter("eventContent");
         String eventImageURL = request.getParameter("eventLink");
         //String displayDateTime=request.getParameter("newsDisplayTime");
         String realDisplayTime = request.getParameter("daterange");
         String realDisplayTime1 = request.getParameter("time");
-        String endDisplayTime = request.getParameter("enddaterange");
+        String endDisplayTime = request.getParameter("daterange");
         String endDisplayTime1 = request.getParameter("endtime");
        int categoryID = Integer.parseInt( request.getParameter("ctTypes"));
         int pointTypeID = Integer.parseInt( request.getParameter("ptTypes"));
