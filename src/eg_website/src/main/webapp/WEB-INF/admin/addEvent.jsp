@@ -160,8 +160,6 @@
                             function init() {
 
                                 scheduler.config.container_autoresize = false;
-                                scheduler.xy.bar_height = 50;
-                                scheduler.xy.bar_width = 50;
                                 //scheduler.config.xml_date = "%Y-%m-%d %H:%i";
                                 var now = Date.now;
                                 scheduler.init('scheduler_here', new Date(2015, 10, 10), "month");
