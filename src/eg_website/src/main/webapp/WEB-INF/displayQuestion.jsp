@@ -10,6 +10,9 @@
 <!DOCTYPE html>
 <html>
     <%
+          QuizStore quiz = (QuizStore) request.getAttribute("quiz");
+          int attemptID = (int) request.getAttribute("attemptID");
+          int questionNumber = (int) request.getAttribute("questionNumber");
           QuestionStore question = (QuestionStore) request.getAttribute("question");
           AnswerStore userAnswer = (AnswerStore) request.getAttribute("answer");
     %>
@@ -60,7 +63,7 @@
                 {
             %>
             <p>Choose one:</p>
-            <form method="POST" action="Quiz" id="question">
+            <form method="POST" action="/eg_website/Quiz/<%=question.getQuestionNumber()+1%>" id="question">
                 <ul>
             <%
                     ArrayList<AnswerStore> ans = question.getAnswerArray();
@@ -84,6 +87,24 @@
             %>  
                 </ul>
                 <input type="hidden" name="mode" value="1">
+                <input type="hidden" name="quizID" value="<%=quiz.getQuizId()%>">
+                <input type="hidden" name="attemptID" value="<%=attemptID%>">
+                <input type="hidden" name="questionID" value="<%=question.getQuestionID()%>">
+                <input type="hidden" name="questionNumber" value="<%=question.getQuestionNumber()%>">
+                <%
+                    if (question.getQuestionNumber() == quiz.getQuestionsArray().size())
+                    {
+                    %>
+                    <input type="hidden" name="last" value="1">
+                    <%
+                    }
+                    else
+                    {
+                    %>
+                    <input type="hidden" name="last" value="0">
+                    <%
+                    }
+                %>
                 <input type="submit" class="btn btn-default" style="display:block;margin: 0 auto;"  value="Submit" id="questionButton">
             </form>
             <%
@@ -94,6 +115,20 @@
             <form method="POST" action="Quiz" id="question">
                 <label class="input">Answer</label> <input type="text" name="answer">
                 <input type="hidden" name="mode" value="1">
+                <%
+                    if (question.getQuestionNumber() == quiz.getQuestionsArray().size())
+                    {
+                    %>
+                    <input type="hidden" name="last" value="1">
+                    <%
+                    }
+                    else
+                    {
+                    %>
+                    <input type="hidden" name="last" value="0">
+                    <%
+                    }
+                %>
                 <input type="submit" value="Submit" class="btn btn-default" style="display:block;margin: 0 auto;" id="questionButton">
             </form> 
             <%

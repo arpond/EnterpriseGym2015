@@ -196,26 +196,17 @@ public class QuizModel {
         DatabaseConnection dbc = new DatabaseConnection();
         java.sql.Connection conn = dbc.connectToDB();
         CallableStatement cs = null;
-        cs= conn.prepareCall("select * eg_users_has_eg_quiz_has_eg_question,eg_users_has_eg_quiz,eg_quiz,eg_question,eg_answers"
-                + " where eg_quiz.quizID = ? and"
-                + " eg_quiz.quizID = eg_users_has_eg_quiz.eg_quiz_quizID and"
-                + " eg_users_has_eg_quiz.eg_users_userID = ? and"
-                + " eg_users_has_eg_quiz_has_eg_question.eg_users_has_eg_quiz_eg_users_userID = eg_users_has_eg_quiz.eg_users_userID and"
-                + " eg_users_has_eg_quiz_has_eg_question.eg_users_has_eg_quiz_eg_quiz_quizID = eg_quiz.quizID and"
-                + " eg_question.questionID=? and"
-                + " eg_users_has_eg_quiz.attemptID ? and"
-                + " eg_users_has_eg_quiz_has_eg_question.eg_users_has_eg_quiz_attemptID  = eg_users_has_eg_quiz.attemptID  and"
-                + " eg_users_has_eg_quiz_has_eg_question.eg_question_questionID =  eg_question.questionID and"
-                + " eg_question.eg_quiz_quizID = eg_quiz.quizID and"
-                + " eg_answers.eg_question_questionID = eg_question.questionID and"
-                + " eg_answers.eg_question_eg_quiz_quizID = eg_quiz.quizID");
+        cs= conn.prepareCall("{call getAnswer(?,?,?,?)}");
         cs.setInt(1, quizID);
         cs.setInt(2, userID);
         cs.setInt(3, questionID);
         cs.setInt(4, attemptID);
         cs.execute();
         ResultSet rs = cs.getResultSet();
-        AnswerStore fetchedAnswer = new AnswerStore(rs.getInt("answerID"),rs.getString("answerText"),false);
+        rs.first();
+        AnswerStore fetchedAnswer = new AnswerStore();
+        fetchedAnswer.setAnswerId(rs.getInt("answerID"));
+        fetchedAnswer.setAnswerText(rs.getString("answerText"));
         conn.close();
         return fetchedAnswer;
     }
@@ -226,7 +217,7 @@ public class QuizModel {
      * @param userID
      * @param attemptID 
      */
-    public void startQuiz(int quizID, int userID) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+    public int startQuiz(int quizID, int userID) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         Class.forName("com.mysql.jdbc.Driver").newInstance();
         DatabaseConnection dbc = new DatabaseConnection();
         java.sql.Connection conn = dbc.connectToDB();
@@ -236,7 +227,14 @@ public class QuizModel {
         cs.setInt(1,quizID);
         cs.setInt(2,userID);
         cs.execute();
+        
+        cs = conn.prepareCall("select last_insert_id() as last_id from eg_users_has_eg_quiz");
+        ResultSet rs = cs.executeQuery();
+        rs.first();
+        int lastid = Integer.parseInt(rs.getString("last_id"));
+        
         conn.close();
+        return lastid;
     }
 
     /**
@@ -289,13 +287,16 @@ public class QuizModel {
         java.sql.Connection conn = dbc.connectToDB();
         CallableStatement cs = null;
         ArrayList<AnswerStore> emptyAS = new ArrayList<AnswerStore>();
-        cs= conn.prepareCall("insert into eg_users_has_eg_quiz_has_eg_question (eg_users_has_eg_quiz_eg_users_userID,eg_users_has_eg_quiz_eg_quiz_quizID, eg_users_has_eg_quiz_attemptID ,eg_question_questionID,answerText) values(?,?,?,?,?)");
-        cs.setString(1,answerText);
-        cs.setInt(2,attemptID);
-        cs.setInt(3,quizID);
-        cs.setInt(4,userID);
-        cs.setInt(5,questionID);
-                
+        cs= conn.prepareCall("insert into eg_users_has_eg_quiz_has_eg_question ("
+                + "eg_users_has_eg_quiz_eg_users_userID,eg_users_has_eg_quiz_eg_quiz_quizID, "
+                + "eg_users_has_eg_quiz_attemptID ,eg_question_questionID,answer) values(?,?,?,?,?)");
+        
+        cs.setInt(1,userID);
+        cs.setInt(2,quizID);
+        cs.setInt(3,attemptID);
+        cs.setInt(4,questionID);
+        cs.setString(5,answerText);
+        
         cs.execute();
         conn.close();
     }

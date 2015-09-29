@@ -58,7 +58,7 @@
             <div class="container" style="max-width:600px">
 
                 <%
-                    if (taken.size() > 0) {
+                    if (taken != null && taken.size() > 0) {
                 %>
 
                 <div class="panel panel-info">
