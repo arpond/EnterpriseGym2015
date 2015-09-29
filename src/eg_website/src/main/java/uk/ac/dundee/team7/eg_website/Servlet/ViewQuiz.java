@@ -267,6 +267,10 @@ public class ViewQuiz extends HttpServlet {
             //as = qm.FetchAnswer(quizID, ud.getUserID(), qs.getQuestionID(), attemptID);
                 quiz = qm.fetchQuiz(quizID);
             }
+            else
+            {
+                qm.FinishQuiz(attemptID);
+            }
         }
         catch(Exception e)
         {

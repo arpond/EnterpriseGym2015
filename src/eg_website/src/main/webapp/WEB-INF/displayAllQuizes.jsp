@@ -71,12 +71,29 @@
 
 
                         <%for (int i = 0; i < taken.size(); i++) {
-                QuizStore current = taken.get(i);%>
+                            QuizStore current = taken.get(i);%>
 
                         <div class="quizItem">
                             <table class=" table table-user-information"> 
                                 <tr>
-                                    <td><h4><a href="/eg_website/Quiz/<%=current.getQuizId()%>"><%=current.getQuizName()%></a></h4></td>
+                                    <td>
+                                        <h4>
+                                            <%
+                            if (current.getStatus() < 2)
+                            {
+                                            %>
+                                            <a href="/eg_website/Quiz/<%=current.getQuizId()%>"><%=current.getQuizName()%></a>
+                                            <%
+                            }
+                            else
+                            {
+                                            %>
+                                            <%=current.getQuizName()%>
+                                            <%
+                            }
+                                            %>
+                                        </h4>
+                                    </td>
                                     <td><h4>Status: <%=StatusMap.get(current.getStatus())%></h4></td> 
                                 <tr></table>
                         </div>

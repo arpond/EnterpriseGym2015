@@ -301,4 +301,19 @@ public class QuizModel {
         conn.close();
     }
 
+    public void FinishQuiz(int attemptID)  
+            throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        CallableStatement cs = null;
+        ArrayList<AnswerStore> emptyAS = new ArrayList<AnswerStore>();
+        cs= conn.prepareCall("Update eg_users_has_eg_quiz SET status = 2 WHERE attemptID = ?");
+        
+        cs.setInt(1,attemptID);
+
+        cs.execute();
+        conn.close();
+    }
+
 }
