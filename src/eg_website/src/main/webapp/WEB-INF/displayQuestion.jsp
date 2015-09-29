@@ -16,14 +16,45 @@
     <head>
         <%@include file="/WEB-INF/includes/scripts.jsp" %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Question</title>
     </head>
+    
+    <style>
+            .table-user-information > tbody > tr {
+                border-top: 1px solid rgb(221, 221, 221);
+            }
+
+            .table-user-information > tbody > tr:first-child {
+                border-top: 0;
+            }
+            .table-user-information > tbody > tr > td {
+                border-top: 0;
+            }
+        </style>
+        
     <body>
         <%@include file="/WEB-INF/includes/normalHeader.jsp" %>
-        <h1>Quiz Name</h1>
-        <div>
-            <p>Question <%=question.getQuestionNumber()%></p>
-            <p><%=question.getQuestionText()%></p>
+        <div class="container"> 
+            <!-- Page Heading/Breadcrumbs -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="page-header">Quiz </h2>
+                    <ol class="breadcrumb">
+                        <li><a href="/eg_website">Home</a>
+                        <li><a href="/eg_website/Quiz">Quiz</a>
+                        </li>
+                        <li class="active"><%=question.getQuestionNumber()%></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="container" style="max-width:600px"> 
+           <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <center><h3 class="panel-title"><p><%=question.getQuestionText()%></p></h3></center>
+                    </div>
+                    <div class="panel-body">
+        <table class=" table table-user-information">
             <%
                 if (question.getQuestionType() == 0)
                 {
@@ -38,20 +69,22 @@
                         if (userAnswer != null && userAnswer.getAnswerText().equals(ans.get(i).getAnswerText()))
                         {
                             %>
-                            <li><input type="radio" name="answer" value="<%=ans.get(i).getAnswerText()%>" checked><%=ans.get(i).getAnswerText()%></li>
+                            <p style="text-align:center"> <input type="radio" name="answer" value="<%=ans.get(i).getAnswerText()%>" checked><%=ans.get(i).getAnswerText()%></p>    
+                                
                             <%
                         }
                         else
                         {
                             %>
-                            <li><input type="radio" name="answer" value="<%=ans.get(i).getAnswerText()%>"><%=ans.get(i).getAnswerText()%></li>
+                            <p><input type="radio" name="answer" value="<%=ans.get(i).getAnswerText()%>"><%=ans.get(i).getAnswerText()%></p>
                             <%
                         }
                     }
-            %>
+                   
+            %>  
                 </ul>
                 <input type="hidden" name="mode" value="1">
-                <input type="submit" value="Login" class="button" id="questionButton">
+                <input type="submit" class="btn btn-default" style="display:block;margin: 0 auto;"  value="Submit" id="questionButton">
             </form>
             <%
                 }    
@@ -61,7 +94,7 @@
             <form method="POST" action="Quiz" id="question">
                 <label class="input">Answer</label> <input type="text" name="answer">
                 <input type="hidden" name="mode" value="1">
-                <input type="submit" value="Login" class="button" id="questionButton">
+                <input type="submit" value="Submit" class="btn btn-default" style="display:block;margin: 0 auto;" id="questionButton">
             </form> 
             <%
                 }
@@ -71,6 +104,10 @@
                     next question if exists
                 */
             %>
+            
+             </table>
+        </div>
+    </div>
         </div>
         <%@include file="/WEB-INF/includes/normalFooter.jsp" %>
     </body>
