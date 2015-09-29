@@ -14,11 +14,9 @@
             <!-- Page Heading/Breadcrumbs -->
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Register
-
-                    </h1>
+                    <h2 class="page-header">Register </h2>
                     <ol class="breadcrumb">
-                        <li><a href="index.html">Home</a>
+                        <li><a href="/eg_website">Home</a>
                         </li>
                         <li class="active">Register</li>
                     </ol>
@@ -33,7 +31,7 @@
                     <ul>
                         <label for="input">Username </label>
                         <input type="text" class="form-control" name="username" data-validate="required">
-
+                        <br>
                         <label for="input">Password </label>
                         <input type="password" class="form-control" name="password" data-validate="required,matching#first">
 
@@ -42,7 +40,7 @@
 
                         <label for="input">Email</label>
                         <input type="text" class="form-control" name="email" data-validate="required,email">
-
+<br>
                     </ul>
                     <button type="submit" id="updateButton" class="btn btn-default" style="display:block;margin: 0 auto;" value="Register" name="action">Register</button> 
                 </div>
