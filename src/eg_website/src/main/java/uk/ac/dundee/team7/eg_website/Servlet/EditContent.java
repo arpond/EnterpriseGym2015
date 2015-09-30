@@ -36,6 +36,7 @@ public class EditContent extends HttpServlet {
         ContentStore cs = new ContentStore();
         String contentTitle = request.getParameter("editContentTitle");
         String contentPath = request.getParameter("editContentPath");
+        contentPath = "/Content/" + contentPath;
         String contentSummary = request.getParameter("editContentSummary");
         String content = request.getParameter("editContent");
         String contentID = request.getParameter("contentID");

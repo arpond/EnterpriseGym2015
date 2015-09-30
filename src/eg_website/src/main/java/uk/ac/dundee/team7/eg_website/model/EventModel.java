@@ -132,9 +132,6 @@ public class EventModel {
                 
                  EventStore evStore = new EventStore();
                  ContentStore conStore = new ContentStore();
-                 
-                System.out.println("once----twice----trice ?");
-                
                 
                 conStore.setContent(rs.getString("content"));
                 conStore.setContentID(rs.getInt("contentID"));

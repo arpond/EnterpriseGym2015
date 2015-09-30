@@ -35,6 +35,7 @@ public class ManageNews extends HttpServlet {
                 java.sql.Date sqlStartDate = null;
 		String newsTitle=request.getParameter("newsTitle");
                 String newsPath=request.getParameter("newsPath");
+                newsPath = "/News/" + newsPath;
                 String newsSummary=request.getParameter("newsSummary");
                 String news=request.getParameter("newsContent");
                 String newsImageURL=request.getParameter("newsLink");

@@ -23,6 +23,7 @@ public class ManageContent extends HttpServlet {
             
 		String contentTitle=request.getParameter("contentTitle");
                 String contentPath=request.getParameter("contentPath");
+                contentPath = "/Content/" + contentPath;
                 String contentSummary=request.getParameter("contentSummary");
                 String content=request.getParameter("content");
                 

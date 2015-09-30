@@ -94,6 +94,7 @@ public class EditNews extends HttpServlet {
         NewsStore ns = new NewsStore();
         String contentTitle = request.getParameter("editContentTitle");
         String contentPath = request.getParameter("editContentPath");
+        contentPath = "/News/" + contentPath;
         String contentSummary = request.getParameter("editContentSummary");
         String content = request.getParameter("editContent");
         String contentID = request.getParameter("contentID");
