@@ -4,6 +4,7 @@
     Author     : dragomir
 --%>
 
+<%@page import="org.joda.time.DateTime"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -32,6 +33,22 @@
                                 request.getAttribute("editEventID");
                                 request.getAttribute("editEventValue");
                                
+                                
+                                DateTime newDT =  (DateTime) request.getAttribute("editStartTime");
+                                System.out.println(newDT);
+                                String tempnewDT = newDT.toString();
+                                System.out.println(tempnewDT);
+                                String useThisDateTime = tempnewDT.substring(0,tempnewDT.length()-19);
+                                System.out.println(useThisDateTime);
+                                
+                                
+                                   String partOne = useThisDateTime.substring(8, 10);
+                                   String partTwo = useThisDateTime.substring(5, 7);
+                                   String partThree = useThisDateTime.substring(0, 4);
+                                   String voltron = partOne + "/" + partTwo + "/" + partThree;
+                                    System.out.println(voltron);
+                           
+                                   
                             
                                  ArrayList<String> strArray = new ArrayList();
                                   strArray = (ArrayList<String>) request.getAttribute("editPointType");
@@ -79,8 +96,24 @@
                             <script type="text/javascript">
                                 CKEDITOR.replace('editContent');
                             </script>
+                              <input type="text" name="daterange" class="input" value="<%=voltron%>" />
 
+                    <script type="text/javascript">
+                        $(function () {
+                            $('input[name="daterange"]').daterangepicker({
+                                singleDatePicker: true,
+                                showDropdowns: true
+                            }
 
+                            )
+                        });
+                    </script>
+                    <input type="text" class="timepicker" class="input" name="timepicker">
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            $('input.timepicker').timepicker({});
+                        });
+                    </script>
                    
                     </div>
                     <div class="right"><input type="submit" value="Edit Event Content" class="button" id="changeEvent"></div>

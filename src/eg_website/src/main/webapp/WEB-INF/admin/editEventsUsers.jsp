@@ -25,16 +25,29 @@
         <title>Event Attendees</title>
 
         <%@include file="/WEB-INF/includes/adminScripts.jsp" %>
+         <script src="/eg_website/js/users.js"></script>
         <script src="/eg_website/js/tables.js"></script>
     </head>
     <body>
         <%@include file="/WEB-INF/includes/adminNav.jsp" %>
+        
+        <%
+            String eventID = (String) request.getAttribute("eventID");
+                           
+            %>
         <div id="wrapper">
             <div id="page-wrapper">
                 <div id="filterArea">
+                    
                     <label for="filter">Filter</label>
                     <input type="text" name="filter" value="" id="filter" />
                 </div>
+                    <form method= "POST"  action = "markUsersAsAttended" id = "markUsersAsAttended"
+                                > 
+                          <input hidden name="eventID" value="<%=eventID%>">
+                <input type="submit" value="Edit Attendence for selected users" class="action" id="ap">
+                  
+                
                 <table cellpadding="1" cellspacing="1" id="resultTable" class="table table-bordered table-hover table-striped">
                     <thead>
                         <tr>
@@ -50,10 +63,10 @@
                     <tbody>
                         <%
                             ArrayList<UserStore> nsL = new ArrayList();
-
+                           
                             nsL = (ArrayList<UserStore>) request.getAttribute("getUsersForEvent");
                             Iterator i1 = nsL.iterator();
-
+                        
                             while (i1.hasNext()) {
                                 UserStore es = (UserStore) i1.next();
                         %>
@@ -64,18 +77,20 @@
                             <td><%=es.getUd().getEmail()%></td> 
                             <td><%=es.getUp().getYearOfStudy()%> </td> 
                             <td>
-                                <form method= "GET"  action = "markAsAttended" id = "markAsAttended"
-                                > 
-                                    <input type="checkbox" name="id" value="Java">
-                                </form>
+                               
+                            <input type="checkbox" value="<%=es.getUd().getUserID()%>">
+                                    
+                              
                             </td>
                         </tr>
 
                         <%
                             }
                         %>
+                       
                     </tbody>
                 </table>
+                        </form>
             </div>
         </div>
     </body>

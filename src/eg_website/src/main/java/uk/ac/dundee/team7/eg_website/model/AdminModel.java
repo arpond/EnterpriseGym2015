@@ -332,5 +332,32 @@ public class AdminModel {
             conn.close();
         }
     }
+    
+    public void givePointsForEvent(List<String> userIDs, int eventID) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException{
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        
+        
+        CallableStatement cs = null;
+        try {
+            for (int i=0; i<userIDs.size(); i++)
+            {
+                int id = Integer.parseInt(userIDs.get(i));
+                
+                cs = conn.prepareCall("{call GivePointsForEvent(?,?)}");
+                cs.setInt(1, id);
+                cs.setInt(2, eventID);
+         
+                cs.execute();
+            }
+            conn.close();
+        } catch (SQLException se) {
+            String e = se.toString();
+            conn.close();
+        }
+        
+        
+    }
 
 }
