@@ -4,6 +4,9 @@
     Author     : dragomir
 --%>
 
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.text.DateFormat"%>
 <%@page import="org.joda.time.DateTime"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -34,19 +37,14 @@
                                 request.getAttribute("editEventValue");
                                
                                 
+                               
+                                
+                                
                                 DateTime newDT =  (DateTime) request.getAttribute("editStartTime");
-                                System.out.println(newDT);
-                                String tempnewDT = newDT.toString();
-                                System.out.println(tempnewDT);
-                                String useThisDateTime = tempnewDT.substring(0,tempnewDT.length()-19);
-                                System.out.println(useThisDateTime);
-                                
-                                
-                                   String partOne = useThisDateTime.substring(8, 10);
-                                   String partTwo = useThisDateTime.substring(5, 7);
-                                   String partThree = useThisDateTime.substring(0, 4);
-                                   String voltron = partOne + "/" + partTwo + "/" + partThree;
-                                    System.out.println(voltron);
+                                //DateTimeFormatter dtfOut = DateTimeFormat.forPattern("");
+                                Date newDate = newDT.toDate();
+                                DateFormat df = new SimpleDateFormat("MM/dd/YYYY");
+                                String sdt = df.format(newDate);
                            
                                    
                             
@@ -96,7 +94,7 @@
                             <script type="text/javascript">
                                 CKEDITOR.replace('editContent');
                             </script>
-                              <input type="text" name="daterange" class="input" value="<%=voltron%>" />
+                              <input type="text" name="daterange" class="input" value="<%=sdt%>" />
 
                     <script type="text/javascript">
                         $(function () {
