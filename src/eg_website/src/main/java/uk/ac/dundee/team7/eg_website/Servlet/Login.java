@@ -49,7 +49,7 @@ public class Login extends HttpServlet{
         }
         catch (Exception e)
         {
-            Message.message("There was a database error" + e.toString(), request, response);
+            Message.message("Your username or password were incorrect", request, response);
             return;
         }
         HttpSession session=request.getSession();
@@ -62,7 +62,7 @@ public class Login extends HttpServlet{
         }
         else
         {
-            Message.message("Your username or passowrd could not be found", request, response);
+            Message.message("Your username or password were incorrect", request, response);
         }
           
     }
