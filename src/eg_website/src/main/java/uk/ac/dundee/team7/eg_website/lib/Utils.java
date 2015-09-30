@@ -45,6 +45,19 @@ public class Utils {
         return args;
     }
     
+    public static String[] SplitPath(String path)
+    {
+        StringTokenizer st = new StringTokenizer(path, "/");
+        int count = st.countTokens();
+        String args[] =  new String[count];
+        
+        for (int i=0; i< count; i++)
+        {
+            args[i] = st.nextToken();
+        }
+        return args;
+    }
+    
      /**
      * Converts the byte array to a Hex string
      * 

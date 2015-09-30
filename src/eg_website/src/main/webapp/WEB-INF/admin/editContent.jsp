@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="uk.ac.dundee.team7.eg_website.lib.Utils"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,18 +22,32 @@
 
 
                             <%
-                                request.getAttribute("editContentTitle");
-                                request.getAttribute("editContentPath");
-                                request.getAttribute("editContentSummary");
-                                request.getAttribute("editContent");
-                                request.getAttribute("contentID");
+                                String path = (String) request.getAttribute("editContentPath");
+                                
+                                String[] split = Utils.SplitPath(path);
+                                
+                                StringBuilder sb = new StringBuilder();    
+                                for (int i = 1; i < split.length; i++)
+                                {
+                                    if (i == split.length-1)
+                                    {
+                                        sb.append(split[i]);
+                                    }
+                                    else
+                                    {
+                                        sb.append(split[i] + "/");
+                                    }
+                                }
+
+                                String truncPath = sb.toString();
+                                
 
                             %>
 
                             <label class="input"></label> <input type="text" hidden="true" value="${contentID}" name="contentID">
                             <label class="input">Content Title</label> <input type="text" name="editContentTitle" value="${editContentTitle}">
                             <p></p>
-                            <label class="input">Content Path</label> <input type="text" name="editContentPath" value="${editContentPath}" >
+                            <label class="input">Content Path</label> /Content/<input type="text" name="editContentPath" value="<%=truncPath%>" >
                             <p></p>
                             <label>Content Summary</label> 
                             <textarea cols="890" placeholder="Content Summary" class="input" rows="5" id="editContentSummary" name="editContentSummary" >   

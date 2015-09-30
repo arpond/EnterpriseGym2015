@@ -132,9 +132,6 @@ public class EventModel {
                 
                  EventStore evStore = new EventStore();
                  ContentStore conStore = new ContentStore();
-                 
-                System.out.println("once----twice----trice ?");
-                
                 
                 conStore.setContent(rs.getString("content"));
                 conStore.setContentID(rs.getInt("contentID"));
@@ -215,6 +212,8 @@ public class EventModel {
             conn.close();
             return true;
         } catch (SQLException se) {
+            String e = se.toString();
+            System.out.println(e);
             conn.close();
             return false;
         }

@@ -87,9 +87,9 @@ public class Calendar extends HttpServlet {
         String eventImageURL = request.getParameter("eventLink");
         //String displayDateTime=request.getParameter("newsDisplayTime");
         String realDisplayTime = request.getParameter("daterange");
-        String realDisplayTime1 = request.getParameter("time");
+        String realDisplayTime1 = request.getParameter("time") + ":00";
         String endDisplayTime = request.getParameter("daterange");
-        String endDisplayTime1 = request.getParameter("endtime");
+        String endDisplayTime1 = request.getParameter("endtime") + ":00";
        int categoryID = Integer.parseInt( request.getParameter("ctTypes"));
         int pointTypeID = Integer.parseInt( request.getParameter("ptTypes"));
         DateTime eventStartTime;
@@ -105,9 +105,9 @@ public class Calendar extends HttpServlet {
         try {
             System.out.println("THE TIME BRO");
             System.out.println(realDisplayTime + " " + realDisplayTime1.substring(0, realDisplayTime1.length() - 2));
-            java.util.Date date = simpleDateFormat.parse(realDisplayTime + " " + realDisplayTime1.substring(0, realDisplayTime1.length() - 2) + ":00");
+            java.util.Date date = simpleDateFormat.parse(realDisplayTime + " " + realDisplayTime1.substring(0, realDisplayTime1.length() - 2));
             // newsStartTime = new DateTime(date);
-            java.util.Date enddate = simpleDateFormat.parse(endDisplayTime + " " + endDisplayTime1.substring(0, endDisplayTime1.length() - 2) + ":00");
+            java.util.Date enddate = simpleDateFormat.parse(endDisplayTime + " " + endDisplayTime1.substring(0, endDisplayTime1.length() - 2));
             sqlStartDate = new java.sql.Date(date.getTime());
             sqlEndDate = new java.sql.Date(enddate.getTime());
         } catch (ParseException ex) {

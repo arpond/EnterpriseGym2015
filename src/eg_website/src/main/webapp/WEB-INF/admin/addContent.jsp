@@ -23,7 +23,7 @@
                             <table>
                                 <h2>Add new content below</h2><br>
                                 <p><h4>Content Title <input type="text" name="contentTitle"> &nbsp; &nbsp; &nbsp; &nbsp;
-                                    Content Path <input type="text" name="contentPath"></h4></p>
+                                    Content Path /Content/<input type="text" name="contentPath"></h4></p>
                                 <textarea cols="60" placeholder="Content" class="input" rows="6" id="content" name="content" >   
                                 </textarea>
                                 <script type="text/javascript">

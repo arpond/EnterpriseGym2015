@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -74,7 +75,8 @@ public class ManageEvent extends HttpServlet{
             Logger.getLogger(ManageEvent.class.getName()).log(Level.SEVERE, null, ex);
         }
                 
-                
+        RequestDispatcher view = request.getRequestDispatcher("/eg_website/Admin");
+        view.include(request, response);
     }
 
 }

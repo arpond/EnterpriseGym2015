@@ -50,7 +50,7 @@ public class EditNews extends HttpServlet {
          NewsStore cs = new NewsStore();
         String tempstring = (String) request.getParameter("path");
         
-        
+       
         System.out.println(tempstring);
         NewsModel cm = new NewsModel();
         try {
@@ -94,6 +94,7 @@ public class EditNews extends HttpServlet {
         NewsStore ns = new NewsStore();
         String contentTitle = request.getParameter("editContentTitle");
         String contentPath = request.getParameter("editContentPath");
+        contentPath = "/News/" + contentPath;
         String contentSummary = request.getParameter("editContentSummary");
         String content = request.getParameter("editContent");
         String contentID = request.getParameter("contentID");
@@ -109,6 +110,9 @@ public class EditNews extends HttpServlet {
         
         int tempContID = Integer.parseInt(contentID);
         
+        
+        contentPath = "/News/" + contentPath;
+                
         cs.setContent(content);
         cs.setContentID(tempContID);
         cs.setContentPath(contentPath);
