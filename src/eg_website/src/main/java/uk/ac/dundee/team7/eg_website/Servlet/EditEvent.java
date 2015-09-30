@@ -78,10 +78,6 @@ public class EditEvent extends HttpServlet {
         request.setAttribute("editEventID", cs.getEventID());
         request.setAttribute("editEventValue", cs.getEventValue());
         request.setAttribute("editStartTime", cs.getEventStartTime());
-        
-        
-        
-        
 
         RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editEvent.jsp");
         view.include(request, response);
@@ -105,6 +101,7 @@ public class EditEvent extends HttpServlet {
         
         String contentTitle = request.getParameter("editContentTitle");
         String contentPath = request.getParameter("editContentPath");
+        contentPath = "/Event/" + contentPath;
         String contentSummary = request.getParameter("editContentSummary");
         String content = request.getParameter("editContent");
         String contentID = request.getParameter("contentID");
@@ -114,14 +111,14 @@ public class EditEvent extends HttpServlet {
         String eventValue = request.getParameter("editEventValue");
         
         String StartTime1 = request.getParameter("daterange");
-         System.out.println("JORDAAasdasdadsasdasdasdasdasdasd");
+
         System.out.println(StartTime1);
         String StartTime2 = request.getParameter("timepicker");
         String StartTime3 = request.getParameter("timepicker1");
-         System.out.println("JORDAAasdasdadsasdasdasdasdasdasd");
+
         System.out.println(StartTime2);
         String finalStarTime = StartTime1 +" "+ StartTime2 + ":00";
-        System.out.println("JORDAAasdasdadsasdasdasdasdasdasd");
+
         System.out.println(finalStarTime);
         DateTime date = DateTime.parse(finalStarTime, 
                   DateTimeFormat.forPattern("MM/dd/YYYY HH:mm:ss"));
@@ -163,8 +160,8 @@ public class EditEvent extends HttpServlet {
             Logger.getLogger(EditNews.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editAllEvents.jsp");
-     
+        RequestDispatcher view = request.getRequestDispatcher("/eg_website/Admin/EventOptions");
+        view.include(request, response);
     }
 
     /**

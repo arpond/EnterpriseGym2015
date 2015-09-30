@@ -4,6 +4,7 @@
     Author     : dragomir
 --%>
 
+<%@page import="uk.ac.dundee.team7.eg_website.lib.Utils"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.sql.Date"%>
@@ -31,6 +32,24 @@
                                 DateTime newDT =  (DateTime) request.getAttribute("editStartTime");
                                 DateTime oldET = (DateTime) request.getAttribute("editEndTime");
                                 //DateTimeFormatter dtfOut = DateTimeFormat.forPattern("");
+                                String path = (String) request.getAttribute("editContentPath");
+                                
+                                String[] split = Utils.SplitPath(path);
+                                
+                                StringBuilder sb = new StringBuilder();    
+                                for (int i = 1; i < split.length; i++)
+                                {
+                                    if (i == split.length-1)
+                                    {
+                                        sb.append(split[i]);
+                                    }
+                                    else
+                                    {
+                                        sb.append(split[i] + "/");
+                                    }
+                                }
+
+                                String truncPath = sb.toString();
                                 
                                 java.util.Date newDTone = newDT.toDate();
                                 DateFormat df = new SimpleDateFormat("MM/dd/YYYY");
@@ -73,7 +92,7 @@
                             <p></p>
                             <label class="input">Event Value</label> <input type="text" name="editEventValue" value="${editEventValue}">
                             <p></p>
-                            <label class="input">Event Content Path</label> <input type="text" name="editContentPath" value="${editContentPath}" >
+                            <label class="input">Event Content Path </label> /Event/<input type="text" name="editContentPath" value="<%=truncPath%>" >
                             <p></p>
                             <p></p>
                             <label class="input">Event Image Path</label> <input type="text" name="editEventImage" value="${editEventImage}" >
