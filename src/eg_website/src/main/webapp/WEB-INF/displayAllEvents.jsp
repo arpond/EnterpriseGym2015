@@ -118,7 +118,7 @@
                                 //scheduler.config.xml_date = "%Y-%m-%d %H:%i";
                                 scheduler.config.container_autoresize = false;
                                 var now = Date.now;
-                                scheduler.init('scheduler_here', new Date(2015, 10, 10), "month");
+                                scheduler.init('scheduler_here', new Date(), "month");
                                 scheduler.config.max_month_events = 2;
                                 
                                 parseTest();
