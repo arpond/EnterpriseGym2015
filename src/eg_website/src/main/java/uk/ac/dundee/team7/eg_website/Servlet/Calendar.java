@@ -90,7 +90,7 @@ public class Calendar extends HttpServlet {
         String realDisplayTime1 = request.getParameter("time");
         String endDisplayTime = request.getParameter("daterange");
         String endDisplayTime1 = request.getParameter("endtime");
-       int categoryID = Integer.parseInt( request.getParameter("ctTypes"));
+        int categoryID = Integer.parseInt( request.getParameter("ctTypes"));
         int pointTypeID = Integer.parseInt( request.getParameter("ptTypes"));
         DateTime eventStartTime;
         DateTime eventEndTime;

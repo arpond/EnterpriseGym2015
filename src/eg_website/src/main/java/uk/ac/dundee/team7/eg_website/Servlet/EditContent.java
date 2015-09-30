@@ -39,7 +39,8 @@ public class EditContent extends HttpServlet {
         String contentSummary = request.getParameter("editContentSummary");
         String content = request.getParameter("editContent");
         String contentID = request.getParameter("contentID");
-
+        
+        contentPath = "/Content/" + contentPath;
         int tempContID = Integer.parseInt(contentID);
         cs.setContent(content);
         cs.setContentID(tempContID);

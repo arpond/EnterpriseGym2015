@@ -47,9 +47,9 @@
                             %>
 
                             <label class="input"></label> <input type="text" hidden="true" value="${contentID}" name="contentID">
-                            <label class="input">News Content Title</label> <input type="text" name="editContentTitle" value="${editContentTitle}">
+                            <label class="input">News Title</label> <input type="text" name="editContentTitle" value="${editContentTitle}">
                             <p></p>
-                            <label class="input">News Content Path</label> <input type="text" name="editContentPath" value="${editContentPath}" >
+                            <label class="input">News Path</label> <input type="text" name="editContentPath" value="${editContentPath}" >
                             <p></p>
                             <p></p>
                             <label class="input">News Image Path</label> <input type="text" name="editNewsImage" value="${editNewsImage}" >
