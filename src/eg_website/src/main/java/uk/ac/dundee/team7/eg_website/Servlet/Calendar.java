@@ -43,9 +43,12 @@ public class Calendar extends HttpServlet {
         HttpSession session = request.getSession();
         HashMap types = new HashMap();
         HashMap categoryTypes = new HashMap();
+        EventModel em = new EventModel();
+        ArrayList<EventStore> events = new ArrayList<EventStore>();
 
         AdminModel am = new AdminModel();
         try {
+            events=em.fetchEvents();
             types = am.fetchPointTypes();
             categoryTypes = am.fetchCategories();
         } catch (ClassNotFoundException ex) {
@@ -57,6 +60,7 @@ public class Calendar extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(Calendar.class.getName()).log(Level.SEVERE, null, ex);
         }
+        request.setAttribute("events",events);
         request.setAttribute("pointTypes", types);
         request.setAttribute("categoryTypes", categoryTypes);
         //ContentStore cs = (ContentStore) session.getAttribute("getContentToEdit");
@@ -70,21 +74,21 @@ public class Calendar extends HttpServlet {
             throws ServletException, IOException {
 
         EventModel em = new EventModel();
-        EventStore contentS;
+        ArrayList<EventStore> events = new ArrayList<EventStore>();
         HttpSession session = request.getSession();
         UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
 
         java.sql.Date sqlStartDate = null;
         java.sql.Date sqlEndDate = null;
         String eventTitle = request.getParameter("eventTitle");
-        String eventPath = request.getParameter("eventPath");
+        String eventPath = "/Event/" + request.getParameter("eventPath");
         String eventSummary = request.getParameter("eventSummary");
         String event = request.getParameter("eventContent");
         String eventImageURL = request.getParameter("eventLink");
         //String displayDateTime=request.getParameter("newsDisplayTime");
         String realDisplayTime = request.getParameter("daterange");
         String realDisplayTime1 = request.getParameter("time");
-        String endDisplayTime = request.getParameter("enddaterange");
+        String endDisplayTime = request.getParameter("daterange");
         String endDisplayTime1 = request.getParameter("endtime");
        int categoryID = Integer.parseInt( request.getParameter("ctTypes"));
         int pointTypeID = Integer.parseInt( request.getParameter("ptTypes"));
@@ -121,6 +125,7 @@ public class Calendar extends HttpServlet {
         AdminModel am = new AdminModel();
         //java.sql.Date sqlStartDate = new java.sql.Date(newsStartTime.getMillis());                
         try {
+            events = em.fetchEvents();
             types = am.fetchPointTypes();
             categoryTypes=am.fetchCategories();
             em.addEvent(eventPath, eventTitle, event, eventStartTime, eventEndTime, eventImageURL, pointTypeID, points, userID, categoryID, eventSummary);
@@ -134,6 +139,7 @@ public class Calendar extends HttpServlet {
         } catch (IllegalAccessException ex) {
             Logger.getLogger(ManageNews.class.getName()).log(Level.SEVERE, null, ex);
         }
+        request.setAttribute("events",events);
         request.setAttribute("pointTypes", types);
          request.setAttribute("categoryTypes", categoryTypes);
         RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/addEvent.jsp");
