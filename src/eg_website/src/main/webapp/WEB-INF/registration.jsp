@@ -4,7 +4,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Register</title>
         <%@include file="/WEB-INF/includes/scripts.jsp" %> 
-
+<script src="/eg_website/js/users.js"></script>
+<script src="/eg_website/js/registerValidation.js"></script>
         <title>Register</title>
     </head> 
 
@@ -27,12 +28,12 @@
         </div>
 
         <div class="container" style="border:20px transparent; max-width:600px">
-
-            <form class="registerForm" method="POST"  action="View" >
+            
+            <form class="registerForm" method="POST"  action="View" name="registerForm">
                 <div class="form-group">
-                    <ul>
+                    <ul>    
                         <label for="input">Username </label>
-                        <input type="text" class="form-control" name="username" data-validate="required">
+                        <input type="text" class="form-control" name="username" data-validate="required" id="username" onblur="checkExist()">
 
                         <label for="input">Password </label>
                         <input type="password1" class="form-control" name="password" data-validate="required,matching#first">
@@ -41,7 +42,7 @@
                         <input type="password2" class="form-control" name="verification" data-validate="required,matching#second">
 
                         <label for="input">Email</label>
-                        <input type="text" class="form-control" name="email" data-validate="required,email">
+                        <input type="text" class="form-control" name="email" data-validate="required,email" id="email" onblur="checkExistEmail()" >
 
                     </ul>
                     <button type="submit" id="updateButton" class="btn btn-default" style="display:block;margin: 0 auto;" value="Register" name="action">Register</button> 
