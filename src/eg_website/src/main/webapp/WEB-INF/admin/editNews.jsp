@@ -36,8 +36,9 @@
                                 request.getAttribute("editNewsImage");
                                 
                                 DateTime newDT =  (DateTime) request.getAttribute("editStartTime");
+                                java.util.Date newDTone = newDT.toDate();
                                 DateFormat df = new SimpleDateFormat("MM/dd/YYYY");
-                                String sdt = df.format(new Date(System.currentTimeMillis()));
+                                String sdt = df.format(new Date(newDTone.getTime()));
                                
                                 System.out.println(sdt);
                             %>
