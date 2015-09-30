@@ -77,12 +77,21 @@
 </nav>
 
 <nav id="topToolbar">
-          <%
-          UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
-          if (ud != null) 
-          {
-          %>    
+        <%
+        UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
+        if (ud != null) 
+        {
+        %>    
     <div class="bar1" style="display: inline-block; text-align: right; width:100%; background-color:#800020; color:white; font-size:17px; border:5px">
+        <%
+            if (ud.getGroupID() == 3)
+            {
+        %>
+        <a style="font-size:16px; color:white;" href="/eg_website/Admin">Admin</a> 
+        &nbsp | &nbsp; 
+        <%
+            }
+        %>
         <a style="font-size:16px; color:white;" href="/eg_website/Profile/View">View Profile</a> 
         &nbsp | &nbsp; 
         <a style="font-size:16px; color:white;" href="/eg_website/Profile/Edit">Edit Profile</a> 

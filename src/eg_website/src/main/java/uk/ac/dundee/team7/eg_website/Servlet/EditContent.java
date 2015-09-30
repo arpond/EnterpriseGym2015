@@ -86,14 +86,23 @@ public class EditContent extends HttpServlet {
             Logger.getLogger(ManageContent.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        request.setAttribute("editContentTitle", cs.getContentTitle());
-        request.setAttribute("editContentPath", cs.getContentPath());
-        request.setAttribute("editContent", cs.getContent());
-        request.setAttribute("editContentSummary", cs.getContentSummary());
-        request.setAttribute("contentID", cs.getContentID());
+        UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
+        if (ud == null || ud.getGroupID() != 3)
+        {
+            Message.message("You do not have access to the admin page.", request, response);
+        }
+        else
+        {
+            request.setAttribute("editContentTitle", cs.getContentTitle());
+            request.setAttribute("editContentPath", cs.getContentPath());
+            request.setAttribute("editContent", cs.getContent());
+            request.setAttribute("editContentSummary", cs.getContentSummary());
+            request.setAttribute("contentID", cs.getContentID());
 
-        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editContent.jsp");
-        view.include(request, response);
+            RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editContent.jsp");
+            view.include(request, response);
+        }
+        
 
     }
 

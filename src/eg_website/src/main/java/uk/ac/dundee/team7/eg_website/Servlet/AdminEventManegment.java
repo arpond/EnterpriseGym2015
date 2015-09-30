@@ -14,8 +14,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import uk.ac.dundee.team7.eg_website.Store.EventStore;
 import uk.ac.dundee.team7.eg_website.Store.NewsStore;
+import uk.ac.dundee.team7.eg_website.Store.UserDetails;
 import uk.ac.dundee.team7.eg_website.model.EventModel;
 import uk.ac.dundee.team7.eg_website.model.NewsModel;
 
@@ -48,9 +50,21 @@ public class AdminEventManegment extends HttpServlet {
             Message.message("Database error. " + e.toString(), request, response);
             return;
         }
-        request.setAttribute("allEvensForEdit", csAL);
-        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editAllEvents.jsp");
-        view.include(request, response);
+        
+        HttpSession session = request.getSession();
+        UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
+        if (ud == null || ud.getGroupID() != 3)
+        {
+            Message.message("You do not have access to the admin page.", request, response);
+        }
+        else
+        {
+            request.setAttribute("allEvensForEdit", csAL);
+            RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editAllEvents.jsp");
+            view.include(request, response);
+        }
+        
+        
     }
 
     /**

@@ -13,7 +13,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.json.JSONObject;
+import uk.ac.dundee.team7.eg_website.Store.UserDetails;
 import uk.ac.dundee.team7.eg_website.Store.UserStore;
 import uk.ac.dundee.team7.eg_website.model.AdminModel;
 
@@ -79,12 +81,21 @@ public class ManageUser extends HttpServlet {
             {
                 Message.message("Database error" + e.toString(), request, response);
             }
+            HttpSession session = request.getSession();
+            UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
+            if (ud == null || ud.getGroupID() != 3)
+            {
+                Message.message("You do not have access to the admin page.", request, response);
+            }
+            else
+            {
+                request.setAttribute("groups", groups);
+                request.setAttribute("users", uss);
+                request.setAttribute("pointTypes", types);
+                RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/manageUsers.jsp");
+                view.include(request, response);
+            }
             
-            request.setAttribute("groups", groups);
-            request.setAttribute("users", uss);
-            request.setAttribute("pointTypes", types);
-            RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/manageUsers.jsp");
-            view.include(request, response);
 	}
 
     private void addPoints(List<String> userIDs, int points, int type, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
