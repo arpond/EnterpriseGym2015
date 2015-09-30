@@ -65,5 +65,44 @@ $(document).on("click", ".action", function() {
             async: false
         }); 
     }
+    else if ($action === "checkUsername")
+    {
+        var actionDetails = new Object();
+        actionDetails.action = "checkUsername";
+        //actionDetails. =
+        actionDetails.username = $("#username").val();
+        
+        $.ajax({
+            url: "/eg_website/UserRegisterValidation",
+            type: 'GET',
+            datatype: 'json',
+            data: JSON.stringify(actionDetails),
+            contentType: 'application/json',
+            mimeType: 'application/json',
+            async: true
+        }); 
+    }
+    else if ($action === "markUsersAsAttended")
+    {
+        var actionDetails = new Object();
+        actionDetails.action = "markUsersAsAttended";
+        actionDetails.eventID = $("#eventID").val();
+        actionDetails.selected = $(".visible td").find("input:checked")
+                .map(function() {
+                    return $( this ).val();
+                }).get().join( ", " );
+        
+        $.ajax({
+            url: "/eg_website/Admin/markUsersAsAttended",
+            type: 'POST',
+            datatype: 'json',
+            data: JSON.stringify(actionDetails),
+            contentType: 'application/json',
+            mimeType: 'application/json',
+            async: false
+        }); 
+    }
+    
+    
 });
 

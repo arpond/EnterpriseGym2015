@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 import uk.ac.dundee.team7.eg_website.Store.ContentStore;
 import uk.ac.dundee.team7.eg_website.Store.NewsStore;
 import uk.ac.dundee.team7.eg_website.model.ContentModel;
@@ -96,7 +98,15 @@ public class EditNews extends HttpServlet {
         String content = request.getParameter("editContent");
         String contentID = request.getParameter("contentID");
         String imagePath = request.getParameter("editImagePath");
-
+        String StartTime1 = request.getParameter("daterange");
+        String StartTime2 = request.getParameter("timepicker");
+        
+        String finalStarTime = StartTime1 +" "+ StartTime2;
+       
+        System.out.println(finalStarTime);
+        DateTime date = DateTime.parse(finalStarTime, 
+                  DateTimeFormat.forPattern("MM/dd/YYYY HH:mm:ss"));
+        
         int tempContID = Integer.parseInt(contentID);
         
         cs.setContent(content);
@@ -105,6 +115,7 @@ public class EditNews extends HttpServlet {
         cs.setContentSummary(contentSummary);
         cs.setContentTitle(contentTitle);
         ns.setNewsImage(imagePath);
+        ns.setDisplayTime(date);
         ns.setContent(cs);
         try {
             cm.updateContent(ns);

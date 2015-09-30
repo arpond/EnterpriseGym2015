@@ -126,12 +126,11 @@ public class NewsModel {
         CallableStatement cs = null;
 
         cs = conn.prepareCall("{call updateNews(?,?,?,?,?,?,?,?,?)}");
-        System.out.println("CONTENT ID");
-        System.out.println(news.getContent().getContentID());
+        
         cs.setInt(1, news.getNewsID());
         cs.setInt(2, news.getContent().getContentID());
-        DateTime now = new DateTime();
-        cs.setTimestamp(3, new Timestamp(now.getMillis()));
+        
+        cs.setTimestamp(3, new Timestamp(news.getDisplayTime().getMillis()));
         cs.setString(4, news.getNewsImage());
         ContentStore contentstore = news.getContent();
         cs.setString(5, contentstore.getContent());

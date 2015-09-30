@@ -4,6 +4,9 @@
     Author     : dragomir
 --%>
 
+<%@page import="org.joda.time.format.DateTimeFormatter"%>
+<%@page import="org.joda.time.format.DateTimeFormat"%>
+<%@page import="org.joda.time.format.DateTimeFormat"%>
 <%@page import="java.sql.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
@@ -33,18 +36,10 @@
                                 request.getAttribute("editNewsImage");
                                 
                                 DateTime newDT =  (DateTime) request.getAttribute("editStartTime");
-                                System.out.println(newDT);
-                                String tempnewDT = newDT.toString();
-                                System.out.println(tempnewDT);
-                                String useThisDateTime = tempnewDT.substring(0,tempnewDT.length()-19);
-                                System.out.println(useThisDateTime);
-                                
-                                
-                                   String partOne = useThisDateTime.substring(9, 10);
-                                   String partTwo = useThisDateTime.substring(6, 7);
-                                   String partThree = useThisDateTime.substring(0, 4);
-                                   String voltron = partOne + "/" + partTwo + "/" + partThree;
-                                    System.out.println(voltron);
+                                DateFormat df = new SimpleDateFormat("MM/dd/YYYY");
+                                String sdt = df.format(new Date(System.currentTimeMillis()));
+                               
+                                System.out.println(sdt);
                             %>
 
                             <label class="input"></label> <input type="text" hidden="true" value="${contentID}" name="contentID">
@@ -69,7 +64,7 @@
                                 CKEDITOR.replace('editContent');
                             </script>
                             
-                             <input type="text" name="daterange" class="input" value="<%=voltron%>" />
+                             <input type="text" name="daterange" class="input" value="<%=sdt%>" />
 
                     <script type="text/javascript">
                         $(function () {
@@ -81,7 +76,7 @@
                             )
                         });
                     </script>
-                    <input type="text" class="timepicker" class="input" name="timepicker">
+                    <input type="text" class="timepicker" name="timepicker">
                     <script type="text/javascript">
                         $(document).ready(function() {
                             $('input.timepicker').timepicker({});
