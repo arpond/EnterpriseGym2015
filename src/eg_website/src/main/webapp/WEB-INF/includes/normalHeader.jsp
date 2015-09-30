@@ -63,12 +63,12 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Connect <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li> <a href="full-width.html">Associate Initiative</a> </li>
-                        <li> <a href="sidebar.html">Associate Events</a> </li>
-                        <li> <a href="faq.html">Funding for Startups</a> </li>
-                        <li> <a href="faq.html">Entrepreneurial Internships</a> </li>
-                        <li> <a href="404.html">Information & Website for Startups</a> </li>
-                        <li> <a href="404.html">Competitions</a> </li>
+                        <li> <a href="/eg_website/Content/Initiative">Associate Initiative</a> </li>
+                        <li> <a href="/eg_website/Content/AssociateEvents">Associate Events</a> </li>
+                        <li> <a href="/eg_website/Content/Funding">Funding for Startups</a> </li>
+                        <li> <a href="/eg_website/Content/Internships">Entrepreneurial Internships</a> </li>
+                        <li> <a href="/eg_website/Content/Startups">Information & Website for Startups</a> </li>
+                        <li> <a href="/eg_website/Content/Competitions">Competitions</a> </li>
                     </ul>
                 </li>
             </ul>
