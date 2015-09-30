@@ -26,6 +26,7 @@ public class ManageContent extends HttpServlet {
                 String contentSummary=request.getParameter("contentSummary");
                 String content=request.getParameter("content");
                 
+
                 ContentModel cm = new ContentModel();
                 ContentStore contentS;
                 
