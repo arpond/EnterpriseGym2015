@@ -45,7 +45,7 @@ public class ViewQuiz extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
-           //userID, quizID, attemptNumber
+           //userID, quizID, attemptID
         int mode;
         try
         {
@@ -154,41 +154,6 @@ public class ViewQuiz extends HttpServlet {
         view.include(request, response);
     }
 
-    private void startNewQuiz(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       
-        int quizID;
-        HttpSession session = request.getSession();
-        UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
-        
-        try
-        {
-            quizID = Integer.parseInt(request.getParameter("quizID"));
-            //attemptNumber = Integer.parseInt(request.getParameter("attemptNumber"));            
-        }
-        catch (Exception e)
-        {
-           Message.message("Question could not be found.", request, response);
-           return;
-        }
-        
-        QuizModel qm = new QuizModel();
-        QuestionStore qs;
-        try
-        {
-            qs = qm.FetchQuestion(quizID, 1);
-            qm.startQuiz(quizID, ud.getUserID());
-        }
-        catch(Exception e)
-        {
-            Message.message("Database error. " + e.toString(), request, response);
-            return;
-        }
-        
-        request.setAttribute("question", qs);
-        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/displayQuestion.jsp");
-        view.include(request, response);
-    }
-
     private void DisplayAllQuizes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
@@ -225,48 +190,109 @@ public class ViewQuiz extends HttpServlet {
         RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/displayAllQuizes.jsp");
         view.include(request, response);
     }
-
-    private void answerQuestion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    
+        private void startNewQuiz(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+       
+        int quizID;
         HttpSession session = request.getSession();
         UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
-        int questionID, quizID, attemptNumber, questionNumber;
-        String answerText;
-        
-        //UserID, questionID, quizID, attemptNumber, answerText
         
         try
         {
             quizID = Integer.parseInt(request.getParameter("quizID"));
-            attemptNumber = Integer.parseInt(request.getParameter("attemptNumber"));
-            questionID = Integer.parseInt(request.getParameter("questionID"));
-            questionNumber = Integer.parseInt(request.getParameter("questionNumber"));
-            answerText = request.getParameter("userAnswer");
+            //attemptNumber = Integer.parseInt(request.getParameter("attemptID"));            
         }
         catch (Exception e)
         {
-           Message.message("Quuestion could not be found.", request, response);
+           Message.message("Question could not be found.", request, response);
            return;
         }
         
         QuizModel qm = new QuizModel();
-        QuestionStore qs;
-        AnswerStore as;
+        QuizStore qs = null;
+        QuestionStore question = null;
+        int attemptID;
         try
         {
-            qm.answerQuestion(quizID, ud.getUserID(), questionID, attemptNumber, answerText);
-            qs = qm.FetchQuestion(quizID, questionNumber + 1);
-            as = qm.FetchAnswer(quizID, ud.getUserID(), qs.getQuestionID(), attemptNumber);
+            qs = qm.fetchQuiz(quizID);
+            question = qm.FetchQuestion(quizID, 1);
+            attemptID = qm.startQuiz(quizID, ud.getUserID());
         }
         catch(Exception e)
         {
             Message.message("Database error. " + e.toString(), request, response);
             return;
         }
-        
-        request.setAttribute("question", qs);
-        request.setAttribute("answer", as); //This is the answer provided by the user previously.. if it exists.
+        request.setAttribute("quiz",qs);
+        request.setAttribute("questionNumber",1);
+        request.setAttribute("question", question);
+        request.setAttribute("attemptID", attemptID);
         RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/displayQuestion.jsp");
         view.include(request, response);
+    }
+
+    private void answerQuestion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
+        int questionID, quizID, attemptID, questionNumber, last;
+        String answer;
+        
+        //UserID, questionID, quizID, attemptID, answerText
+        
+        try
+        {
+            last = Integer.parseInt(request.getParameter("last"));
+            quizID = Integer.parseInt(request.getParameter("quizID"));
+            attemptID = Integer.parseInt(request.getParameter("attemptID"));
+            questionID = Integer.parseInt(request.getParameter("questionID"));
+            questionNumber = Integer.parseInt(request.getParameter("questionNumber"));
+            answer = request.getParameter("answer");
+        }
+        catch (Exception e)
+        {
+           Message.message("Question could not be found.", request, response);
+           return;
+        }
+        
+        QuizModel qm = new QuizModel();
+        QuestionStore qs = null;
+        AnswerStore as;
+        QuizStore quiz = null;
+        try
+        {
+            qm.answerQuestion(quizID, ud.getUserID(), questionID, attemptID, answer);
+            if (last == 0)
+            {
+                qs = qm.FetchQuestion(quizID, questionNumber + 1);
+            //as = qm.FetchAnswer(quizID, ud.getUserID(), qs.getQuestionID(), attemptID);
+                quiz = qm.fetchQuiz(quizID);
+            }
+            else
+            {
+                qm.FinishQuiz(attemptID);
+            }
+        }
+        catch(Exception e)
+        {
+            Message.message("Database error. " + e.toString(), request, response);
+            return;
+        }
+        request.setAttribute("quiz",qs);
+        request.setAttribute("questionNumber",questionNumber+1);
+        request.setAttribute("attemptID", attemptID);
+        request.setAttribute("question", qs);
+        //request.setAttribute("answer", as); //This is the answer provided by the user previously.. if it exists.
+        request.setAttribute("quiz",quiz);
+        if (last == 0)
+        {   
+            RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/displayQuestion.jsp");
+            view.include(request, response);
+        }
+        else
+        {
+            Message.message("Thank you for completing the quiz", request, response);
+            return;
+        }
     }
 
 }

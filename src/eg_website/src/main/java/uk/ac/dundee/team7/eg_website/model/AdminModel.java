@@ -259,6 +259,30 @@ public class AdminModel {
             return types;
         }
     }
+    
+    public HashMap fetchCategories() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException{
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        HashMap types = new HashMap();
+
+        CallableStatement cs = null;
+        try {
+            cs = conn.prepareCall("SELECT *  FROM eg_categories");
+            cs.execute();
+            ResultSet rs = cs.getResultSet();
+            while(rs.next())
+            {
+                types.put(rs.getInt("categoryId"),  rs.getString("categoryName"));
+            }
+            conn.close();
+            return types;
+        } catch (SQLException se) {
+            String e = se.toString();
+            conn.close();
+            return types;
+        }
+    }
 
     public HashMap fetchGroups()throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException{
         Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -307,6 +331,33 @@ public class AdminModel {
             String e = se.toString();
             conn.close();
         }
+    }
+    
+    public void givePointsForEvent(List<String> userIDs, int eventID) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException{
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        
+        
+        CallableStatement cs = null;
+        try {
+            for (int i=0; i<userIDs.size(); i++)
+            {
+                int id = Integer.parseInt(userIDs.get(i));
+                
+                cs = conn.prepareCall("{call GivePointsForEvent(?,?)}");
+                cs.setInt(1, id);
+                cs.setInt(2, eventID);
+         
+                cs.execute();
+            }
+            conn.close();
+        } catch (SQLException se) {
+            String e = se.toString();
+            conn.close();
+        }
+        
+        
     }
 
 }

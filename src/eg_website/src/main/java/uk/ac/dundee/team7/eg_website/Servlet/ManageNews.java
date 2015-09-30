@@ -40,7 +40,7 @@ public class ManageNews extends HttpServlet {
                 String newsImageURL=request.getParameter("newsLink");
                 //String displayDateTime=request.getParameter("newsDisplayTime");
                 String realDisplayTime = request.getParameter("daterange");
-                String realDisplayTime1 = request.getParameter("time");
+                String realDisplayTime1 = request.getParameter("timepicker");
                 DateTime newsStartTime;
                 
                 System.out.println("date");
@@ -52,7 +52,7 @@ public class ManageNews extends HttpServlet {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
             try {
                 System.out.println("THE TIME BRO");
-                System.out.println(realDisplayTime+" "+ realDisplayTime1.substring(0,realDisplayTime1.length()-2));
+                //System.out.println(realDisplayTime+" "+ realDisplayTime1.substring(0,realDisplayTime1.length()-2));
                     java.util.Date date = simpleDateFormat.parse(realDisplayTime+" "+ realDisplayTime1.substring(0,realDisplayTime1.length()-2) + ":00");
                // newsStartTime = new DateTime(date);
                  sqlStartDate = new java.sql.Date(date.getTime());

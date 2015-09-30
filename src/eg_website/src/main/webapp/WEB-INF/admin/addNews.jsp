@@ -20,7 +20,7 @@
         <div id="page-wrapper">
         <form method="POST"  action="addNews" id="addNews">
             <div class="left">
-                <ul>
+                <ul></ul>
                     <label class="input">News Title</label> <input type="text" name="newsTitle">
                     <p></p>
                     <label class="input">News Path</label> <input type="text" name="newsPath">
@@ -50,14 +50,14 @@
                             )
                         });
                     </script>
-                    <input type="text" class="timepicker" class="input" name="time">
+                    <input type="text" class="timepicker" class="input" name="timepicker">
                     <script type="text/javascript">
-                        $(document).ready(function () {
+                        $(document).ready(function() {
                             $('input.timepicker').timepicker({});
                         });
                     </script>
                    
-                </ul>
+              
             </div>
             <button type="submit" class="btn btn-primary" id="addNews" >Add News</button>
            

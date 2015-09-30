@@ -8,6 +8,7 @@ package uk.ac.dundee.team7.eg_website.Servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -18,17 +19,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.team7.eg_website.Store.ContentStore;
+import uk.ac.dundee.team7.eg_website.Store.EventStore;
 import uk.ac.dundee.team7.eg_website.Store.NewsStore;
-import uk.ac.dundee.team7.eg_website.model.ContentModel;
+import uk.ac.dundee.team7.eg_website.model.EventModel;
 import uk.ac.dundee.team7.eg_website.model.NewsModel;
 
 /**
  *
  * @author dragomir
  */
-@WebServlet(name = "EditNews", urlPatterns = {"/Admin/changeNews",
-"/Admin/editNews"})
-public class EditNews extends HttpServlet {
+@WebServlet(name = "EditEvent", urlPatterns = {"/Admin/EditEvent",
+"/Admin/changeEvent"})
+public class EditEvent extends HttpServlet {
 
    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -43,16 +45,17 @@ public class EditNews extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
+          HttpSession session = request.getSession();
        // NewsStore cs = new NewsStore();
-         NewsStore cs = new NewsStore();
-        String tempstring = (String) request.getParameter("path");
-        
+         EventStore cs = new EventStore();
+        String tempstring = (String) request.getParameter("eventPath");
+        ArrayList<String> tempPointTypeArray = new ArrayList();
         
         System.out.println(tempstring);
-        NewsModel cm = new NewsModel();
+        EventModel cm = new EventModel();
         try {
-            cs = cm.fetchNews(tempstring);
+            cs = cm.fetchEvent(tempstring);
+            tempPointTypeArray = cm.fetchPointTypes();
         } catch (SQLException ex) {
             Logger.getLogger(ManageContent.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -68,11 +71,17 @@ public class EditNews extends HttpServlet {
         request.setAttribute("editContent", cs.getContent().getContent());
         request.setAttribute("editContentSummary", cs.getContent().getContentSummary());
         request.setAttribute("contentID", cs.getContent().getContentID());
-        request.setAttribute("editNewsImage", cs.getNewsImage());
-        request.setAttribute("editStartTime", cs.getDisplayTime());
+        request.setAttribute("editEventImage", cs.getEventImage());
+        request.setAttribute("editPointType", tempPointTypeArray);
+        request.setAttribute("editEventID", cs.getEventID());
+        request.setAttribute("editEventValue", cs.getEventValue());
+        request.setAttribute("editStartTime", cs.getEventStartTime());
+        
+        
+        
         
 
-        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editNews.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editEvent.jsp");
         view.include(request, response);
     }
 
@@ -87,15 +96,30 @@ public class EditNews extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        NewsModel cm = new NewsModel();
+        EventModel cm = new EventModel();
         ContentStore cs = new ContentStore();
-        NewsStore ns = new NewsStore();
+        EventStore ns = new EventStore();
+        
+        
         String contentTitle = request.getParameter("editContentTitle");
         String contentPath = request.getParameter("editContentPath");
         String contentSummary = request.getParameter("editContentSummary");
         String content = request.getParameter("editContent");
         String contentID = request.getParameter("contentID");
-        String imagePath = request.getParameter("editImagePath");
+        String imagePath = request.getParameter("editEventImage");
+        String evenPointType = request.getParameter("editPointType");
+        String eventID = request.getParameter("editEventID");
+        String eventValue = request.getParameter("editEventValue");
+        String StartTime1 = request.getParameter("daterange");
+        String StartTime2 = request.getParameter("timepicker");
+        
+        String finalStarTime = StartTime1 + StartTime2;
+        System.out.println("JORDAAasdasdadsasdasdasdasdasdasd");
+        System.out.println(finalStarTime);
+        
+        int tempEventID = Integer.parseInt(eventID);
+        int tempEventValue = Integer.parseInt(eventValue);
+        
 
         int tempContID = Integer.parseInt(contentID);
         
@@ -104,10 +128,17 @@ public class EditNews extends HttpServlet {
         cs.setContentPath(contentPath);
         cs.setContentSummary(contentSummary);
         cs.setContentTitle(contentTitle);
-        ns.setNewsImage(imagePath);
+        ns.setEventImage(imagePath);
+        
+        
+        ns.setEventPointType(evenPointType);
+        ns.setEventID(tempEventID);
+        ns.setEventValue(tempEventValue);
+        
+        
         ns.setContent(cs);
         try {
-            cm.updateContent(ns);
+            cm.updateEvent(ns);
         } catch (SQLException ex) {
             Logger.getLogger(EditContent.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -118,7 +149,7 @@ public class EditNews extends HttpServlet {
             Logger.getLogger(EditNews.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editNews.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editAllEvents.jsp");
     }
 
     /**

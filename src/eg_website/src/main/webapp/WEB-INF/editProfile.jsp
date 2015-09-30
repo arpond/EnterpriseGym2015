@@ -116,7 +116,7 @@
                             %>
                         </select>
                         <div id='colleges' class='hidden '>
-                            <label for="input" class='input'>College</label>
+                            <label for="input" class='input'>School</label>
                         
                             <select id='collegeSelector' name='collgeSelector' class="form-control">
                             </select>

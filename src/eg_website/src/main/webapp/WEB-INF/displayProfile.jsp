@@ -31,6 +31,20 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <%@include file="/WEB-INF/includes/scripts.jsp" %>
         <title>Profile</title>
+        <style>
+            .table-user-information > tbody > tr {
+                border-top: 1px solid rgb(221, 221, 221);
+            }
+
+            .table-user-information > tbody > tr:first-child {
+                border-top: 0;
+            }
+
+
+            .table-user-information > tbody > tr > td {
+                border-top: 0;
+            }
+        </style>
 
     </head>
     <body>
@@ -57,48 +71,151 @@
             </div>
 
             <div class="row">
+                <div class ="col-md-5">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><%=firstName%> <%=lastName%></h3>
+                    </div>
+                    <div class="panel-body">
 
-                <div class="col-lg-6">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-hover table-striped">
 
-                            <p><%out.println("First name: " + firstName);%></p>
-                            <p><%out.println("Last name: " + lastName);%></p>
-                            <p><% out.println("Mobile: " + mobile);%></p>
-                            <p><% out.println("Contact Number: " + contactNumber);%></p>
-                            <p><% out.println("Study Year: " + studyYear);%></p>
-                            <p><% out.println("Matriculation Number: " + matricNo);%></p>
-                            <p><% out.println("Country: " + country);%></p>
-                            <p><% out.println("Institution: " + institution);%></p>
-                            <p><% out.println("Status: " + status);%></p>
-                            <p><% out.println("College: " + college);%></p>
-                            <p><% out.println("Degree: " + degree);%></p>
+                        <table class=" table table-user-information">
+                            <tr>
+                                <td>First Name</td>
+                                <td><%=firstName%></td>
+                            </tr>
+                            <tr>
+                                <td>Last Name</td>
+                                <td><%=lastName%></td>
+                            </tr>
+                            <tr>
+                                <td>Mobile</td>
+                                <td><%=mobile%></td>
+                            </tr>
+                            <tr>
+                                <td>Contact Number</td>
+                                <td><%=contactNumber%></td>
+                            </tr>
+                            <tr>
+                                <td>Year of Study</td>
+                                <td><%=studyYear%></td>
+                            </tr>
+                            <tr>
+                                <td>Matriculation Number</td>
+                                <td><%=matricNo%></td>
+                            </tr>
+                            <tr>
+                                <td>Country</td>
+                                <td><%=country%></td>
+                            </tr>
+                            <tr>
+                                <td>Status</td>
+                                <td><%=status%></td>
+                            </tr>
 
+                            <tr>
+                                <td>Institution</td>
+                                <td><%=institution%></td>
+                            </tr>
+                            <tr>
+                                <td>School</td>
+                                <td><%=college%></td>
+                            </tr>
+                            <tr>
+                                <td>Degree</td>
+                                <td><%=degree%></td>
+                            </tr>
                         </table>
+
+
+
                     </div>
                 </div>
-
-                <div class="col-lg-6">
-                    <h2>Your Points</h2>
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-hover">
-
-                            <%
-                                Set set = points.entrySet();
-                                Iterator i = set.iterator();
-                                while (i.hasNext()) {
-                                    Map.Entry me = (Map.Entry) i.next();
-
-                            %>                 
-                            <th><b><h5><%out.println(me.getKey());%>   </h5></b></th>
-                            <th><h5> <%out.println(me.getValue());%></h5></th>
-                            </tr>
-                            <%
-                                }
-                            %>
-
-                        </table>
+                </div>
+                <div class="col-md-7">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Your Points</h3>
                     </div>
+                    <div class="panel-body">
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <tr>
+                                    <th>
+                                        Points Type
+                                    </th>
+                                    <th>
+                                        Points Earned
+                                    </th>
+                                    <th>
+                                        Progress
+                                    </th>
+                                </tr>
+
+                                <%
+                                    Set set = points.entrySet();
+                                    Iterator i = set.iterator();
+                                    int numOfSilvers = 0;
+                                    int totalPoints = 0;
+                                    while (i.hasNext()) {
+                                        Map.Entry me = (Map.Entry) i.next();
+
+                                %>
+                                <tr>
+                                    <td><b><h5><%out.println(me.getKey());%>   </h5></b></td>
+                                    <td>
+                                        <h5> 
+                                            <%out.println(me.getValue());%>
+                                            <%
+                                                float percentComplete = 0.0f;
+                                                percentComplete = ((int) me.getValue() / 70.0f) * 100;
+                                                if (percentComplete > 100) {
+                                                    percentComplete = 100;
+                                                }
+                                                totalPoints += (int) me.getValue();
+                                                if ((int) me.getValue() >= 70) {
+                                                    numOfSilvers++;
+                                            %>
+                                            Silver Awarded
+                                            <%
+                                                }
+                                            %>
+                                        </h5>
+                                    </td>
+                                    <td width="40%">
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="<%=percentComplete%>"
+                                                 aria-valuemin="0" aria-valuemax="100" style="width:<%=percentComplete%>%">
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <%
+                                    }
+                                %>
+                                <tr>
+                                    <td>
+                                        <h5>Total Points</h5>
+                                    </td>
+                                    <td>
+                                        <h5>
+                                            <%=totalPoints%>
+                                            <%
+                                                if (numOfSilvers >= 2) {
+                                            %>
+                                            Gold awarded
+                                            <%
+                                                }
+                                            %>
+                                        </h5>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
                 </div>
             </div>
         </div>   

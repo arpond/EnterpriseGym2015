@@ -1,19 +1,35 @@
 package uk.ac.dundee.team7.eg_website.model;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import java.sql.CallableStatement;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
-import oracle.net.aso.i;
 import org.joda.time.DateTime;
 import uk.ac.dundee.team7.eg_website.Store.*;
 
 public class EventModel {
-
+    public ArrayList<String> fetchPointTypes() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException{
+        
+        CallableStatement cs = null;
+        ArrayList<String> pointTypeArray = new ArrayList();
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        ResultSet rs = null;
+             cs = conn.prepareCall("{call getPointTypes()}");
+            cs.execute();
+            rs = cs.getResultSet();
+            int i = 0;
+            while(rs.next()){
+                pointTypeArray.add(rs.getString("typeName"));
+                i++;
+            }
+            conn.close();
+            return pointTypeArray;
+        
+    }
     /**
      *
      * @param eventPath
@@ -24,10 +40,14 @@ public class EventModel {
         DatabaseConnection dbc = new DatabaseConnection();
         java.sql.Connection conn = dbc.connectToDB();
         CallableStatement cs = null;
+        CallableStatement cs1 = null;
         EventStore evStore = new EventStore();
         ContentStore conStore = new ContentStore();
+        String[] pointTypeArray = new String[20];
+        
         System.out.println("123");
         ResultSet rs = null;
+        ResultSet rs1 = null;
         try {
             System.out.println("321");
             cs = conn.prepareCall("{call getEventsOne(?)}");
@@ -36,8 +56,19 @@ public class EventModel {
             rs = cs.getResultSet();
             
             rs.first();
+            
+            int id=0;
+            try
+            {
+                String temp = rs.getString("contentID");
+                id =Integer.parseInt(temp);
+            }
+            catch (Exception e)
+            {
+            }
+            
             conStore.setContent(rs.getString("content"));
-          
+            conStore.setContentID(id);
             conStore.setContentPath(rs.getString("contentPath"));
             conStore.setContentTitle(rs.getString("contentTitle"));
             conStore.setContentSummary(rs.getString("contentSummary"));
@@ -69,6 +100,7 @@ public class EventModel {
             conn.close();
             return evStore;
         }
+         
         conn.close();
         return evStore;
 
@@ -95,11 +127,7 @@ public class EventModel {
             while (rs.next()) {
                 
                  EventStore evStore = new EventStore();
-                 ContentStore conStore = new ContentStore();
-                 
-                System.out.println("once----twice----trice ?");
-                
-                
+                 ContentStore conStore = new ContentStore();                
                 conStore.setContent(rs.getString("content"));                
                 conStore.setContentPath(rs.getString("contentPath"));
                 conStore.setContentTitle(rs.getString("contentTitle"));
@@ -112,11 +140,16 @@ public class EventModel {
                 
                 Timestamp eventPosted = rs.getTimestamp("posted");    
                 Timestamp eventStartTime = rs.getTimestamp("eventStartTime");
+                Timestamp eventEndTime = rs.getTimestamp("eventEndTime");
                 Date date = new Date(eventStartTime.getTime());
                 DateTime eventStartTimeDateTime = new DateTime(date);
                 Date date1 = new Date(eventPosted.getTime());
                 DateTime eventPostedDateTime = new DateTime(date1);
+                Date endDate = new Date(eventEndTime.getTime());
+                DateTime eventEndDateTime = new DateTime(endDate);
+                
                 evStore.setEventStartTime(eventStartTimeDateTime);
+                evStore.setEventEndTime(eventEndDateTime);
                 evStore.setPostedTime(eventPostedDateTime);
                 evStore.setEventValue(rs.getInt("eventPoints"));
                 evStore.setEventID(rs.getInt("eventID"));
@@ -147,24 +180,28 @@ public class EventModel {
      * @param eventPointType
      * @param eventValue
      */
-    public boolean addEvent(String eventPath, String eventTitle, String event, DateTime startTime, String imageURL, int eventPointTypeID, int eventValue, int UserID) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+    public boolean addEvent(String eventPath, String eventTitle, String event, DateTime startTime, DateTime endTime, String imageURL, int eventPointTypeID, int eventValue, int userID, int categoryID, String contentSummary) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
 
         Class.forName("com.mysql.jdbc.Driver").newInstance();
         DatabaseConnection dbc = new DatabaseConnection();
         java.sql.Connection conn = dbc.connectToDB();
         CallableStatement cs = null;
         DateTime dateTime1 = new DateTime(startTime);
+        DateTime dateTime2 = new DateTime(endTime);
 
         try {
-            cs = conn.prepareCall("{call addEvent(?,?,?,?,?,?,?,?)}");
+            cs = conn.prepareCall("{call addEvent(?,?,?,?,?,?,?,?,?,?,?)}");
             cs.setTimestamp(1, new Timestamp(dateTime1.getMillis()));
-            cs.setString(2, imageURL);
-            cs.setString(3, event);
-            cs.setInt(4, eventValue);
-            cs.setString(5, eventPath);
-            cs.setInt(6, UserID);
-            cs.setInt(7, eventPointTypeID);
-            cs.setString(8, eventTitle);
+            cs.setTimestamp(2, new Timestamp(dateTime2.getMillis()));
+            cs.setString(3, imageURL);
+            cs.setString(4, event);
+            cs.setInt(5, eventValue);
+            cs.setInt(6,categoryID);            
+            cs.setString(7, eventPath);
+            cs.setInt(8, userID);
+            cs.setInt(9, eventPointTypeID);
+            cs.setString(10, eventTitle);
+            cs.setString(11,contentSummary);
             cs.execute();
             conn.close();
             return true;
@@ -190,6 +227,10 @@ public class EventModel {
         int tempEventID = event.getEventID();
         int tempContentID = contStore.getContentID();
         DateTime tempStartTime = event.getEventStartTime();
+        
+        long millis = tempStartTime.getMillis();
+        //TimeStamp ts = new TimeStamp (millis);
+        
         String tempImageURL = event.getEventImage();
         String tempContent = contStore.getContent();
         int tempPoints = event.getEventValue();
@@ -201,7 +242,8 @@ public class EventModel {
             cs1.setString(1, event.getEventPointType());
             cs1.execute();
             rs = cs1.getResultSet();
-            tempEventPointTypeID = rs.getInt("typeID");
+            rs.first();
+            tempEventPointTypeID = rs.getInt("typeId");
             String tempContentTitle = contStore.getContentTitle();
        //new Timestamp(dateTime1.getMillis()
 
@@ -220,6 +262,7 @@ public class EventModel {
             conn.close();
             return true;
         } catch (SQLException se) {
+            String e = se.toString();
             conn.close();
             return false;
         }

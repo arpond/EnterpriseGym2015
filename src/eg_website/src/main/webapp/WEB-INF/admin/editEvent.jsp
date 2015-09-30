@@ -4,25 +4,23 @@
     Author     : dragomir
 --%>
 
-<%@page import="java.sql.Date"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.text.DateFormat"%>
 <%@page import="org.joda.time.DateTime"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
         <%@include file="/WEB-INF/includes/adminScripts.jsp" %>
-        <title>JSP Page</title>
+        <title>Edit Event</title>
     </head>
     <body>
         <%@include file="/WEB-INF/includes/adminNav.jsp" %>
         <div id="wrapper">
             <div id="page-wrapper">
-                <form method="POST"  action="changeNews" id="changeNews">
+                <form method="POST"  action="changeEvent" id="changeEvent">
                     <div class="left">
-                        <ul>
-
+                       
 
                             <%
                                 request.getAttribute("editContentTitle");
@@ -30,7 +28,11 @@
                                 request.getAttribute("editContentSummary");
                                 request.getAttribute("editContent");
                                 request.getAttribute("contentID");
-                                request.getAttribute("editNewsImage");
+                                request.getAttribute("editEventImage");
+                                //request.getAttribute("editPointType");
+                                request.getAttribute("editEventID");
+                                request.getAttribute("editEventValue");
+                               
                                 
                                 DateTime newDT =  (DateTime) request.getAttribute("editStartTime");
                                 System.out.println(newDT);
@@ -40,20 +42,46 @@
                                 System.out.println(useThisDateTime);
                                 
                                 
-                                   String partOne = useThisDateTime.substring(9, 10);
-                                   String partTwo = useThisDateTime.substring(6, 7);
+                                   String partOne = useThisDateTime.substring(8, 10);
+                                   String partTwo = useThisDateTime.substring(5, 7);
                                    String partThree = useThisDateTime.substring(0, 4);
                                    String voltron = partOne + "/" + partTwo + "/" + partThree;
                                     System.out.println(voltron);
+                           
+                                   
+                            
+                                 ArrayList<String> strArray = new ArrayList();
+                                  strArray = (ArrayList<String>) request.getAttribute("editPointType");
+
                             %>
 
                             <label class="input"></label> <input type="text" hidden="true" value="${contentID}" name="contentID">
-                            <label class="input">News Content Title</label> <input type="text" name="editContentTitle" value="${editContentTitle}">
+                            <label class="input"></label> <input type="text" hidden="true" value="${editEventID}" name="editEventID">
+                            <label class="input">Event Content Title</label> <input type="text" name="editContentTitle" value="${editContentTitle}">
                             <p></p>
-                            <label class="input">News Content Path</label> <input type="text" name="editContentPath" value="${editContentPath}" >
+
+                            <select name="editPointType">     
+                                    <%
+                                    
+                                    for(int i=0;i<strArray.size();i++){
+
+                                        %>
+                                    <option value=<%=strArray.get(i)%>><%=strArray.get(i)%></option>
+                                     <%
+                                                 
+                                    }
+                                    %>
+                                
+    
+                            </select>
+
+                            <p></p>
+                            <label class="input">Event Value</label> <input type="text" name="editEventValue" value="${editEventValue}">
+                            <p></p>
+                            <label class="input">Event Content Path</label> <input type="text" name="editContentPath" value="${editContentPath}" >
                             <p></p>
                             <p></p>
-                            <label class="input">News Image Path</label> <input type="text" name="editNewsImage" value="${editNewsImage}" >
+                            <label class="input">Event Image Path</label> <input type="text" name="editEventImage" value="${editEventImage}" >
                             <p></p>
                             <label>Content Summary</label> 
                             <p></p>
@@ -68,8 +96,7 @@
                             <script type="text/javascript">
                                 CKEDITOR.replace('editContent');
                             </script>
-                            
-                             <input type="text" name="daterange" class="input" value="<%=voltron%>" />
+                              <input type="text" name="daterange" class="input" value="<%=voltron%>" />
 
                     <script type="text/javascript">
                         $(function () {
@@ -87,10 +114,9 @@
                             $('input.timepicker').timepicker({});
                         });
                     </script>
-
-                        </ul>
+                   
                     </div>
-                    <div class="right"><input type="submit" value="Edit News Content" class="button" id="changeNews"></div>
+                    <div class="right"><input type="submit" value="Edit Event Content" class="button" id="changeEvent"></div>
                 </form>
             </div>
         </div>

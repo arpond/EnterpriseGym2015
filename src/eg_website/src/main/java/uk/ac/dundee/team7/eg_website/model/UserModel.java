@@ -1,12 +1,15 @@
 package uk.ac.dundee.team7.eg_website.model;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import uk.ac.dundee.team7.eg_website.Store.*;
+import uk.ac.dundee.team7.eg_website.lib.Utils;
 
 
 public class UserModel {
@@ -112,13 +115,29 @@ public class UserModel {
         UserProfile usrProfile = new UserProfile();
         CallableStatement cs = null;
         HashMap map = new HashMap();
+        
+        
+        String encodedPassword = null;
+        String salt = null;
+        try
+        {
+            salt = Utils.convertToHex(Utils.generateSalt());
+            encodedPassword = Utils.SHA256(password + salt);
+        }
+        catch (UnsupportedEncodingException | NoSuchAlgorithmException et)
+        {
+            System.out.println("Can't check your password");
+            return false;
+        }
 
         ResultSet rs = null;
         try {
             cs = conn.prepareCall("{call registerUser(?,?,?)}");
             cs.setString(1, username);
             cs.setString(2, password);
+            //cs.setString(2, encodedPassword);
             cs.setString(3, email);
+            //cs.setString(4, salt)
 
             cs.execute();
             rs = cs.getResultSet();

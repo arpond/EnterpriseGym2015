@@ -5,10 +5,14 @@
  */
 package uk.ac.dundee.team7.eg_website.Servlet;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -18,8 +22,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.json.JSONException;
+import org.json.JSONObject;
 import uk.ac.dundee.team7.eg_website.Store.NewsStore;
 import uk.ac.dundee.team7.eg_website.Store.UserStore;
+import uk.ac.dundee.team7.eg_website.model.AdminModel;
 import uk.ac.dundee.team7.eg_website.model.EventModel;
 import uk.ac.dundee.team7.eg_website.model.NewsModel;
 
@@ -27,7 +34,8 @@ import uk.ac.dundee.team7.eg_website.model.NewsModel;
  *
  * @author dragomir
  */
-@WebServlet(name = "EditUsersInEvent", urlPatterns = {"/Admin/EditUsersInEvent"})
+@WebServlet(name = "EditUsersInEvent", urlPatterns = {"/Admin/EditUsersInEvent",
+"/Admin/markUsersAsAttended"})
 public class EditUsersInEvent extends HttpServlet {
 
    
@@ -49,7 +57,7 @@ public class EditUsersInEvent extends HttpServlet {
          //EventModel cs = new EventStore();
          
          ArrayList<UserStore> csAL = new ArrayList<UserStore>();
-         
+        String eventID = request.getParameter("eventID");
         int tempstring = Integer.parseInt(request.getParameter("eventID"));
         
         EventModel cm = new EventModel();
@@ -68,7 +76,7 @@ public class EditUsersInEvent extends HttpServlet {
 
        
         request.setAttribute("getUsersForEvent", csAL);
-        
+        request.setAttribute("eventID", eventID);
         RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editEventsUsers.jsp");
         view.include(request, response);
     }
@@ -84,7 +92,43 @@ public class EditUsersInEvent extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
+            String json = "";
+            if(br != null)
+            {
+                json = br.readLine();
+            }
+            
+            
+            JSONObject jsonResult = new JSONObject(json);
+            System.out.println(jsonResult.toString());
+            String selected = jsonResult.getString("selected");
+            List<String> userIDs = Arrays.asList(selected.split("\\s*,\\s*"));
+            
+            AdminModel am = new AdminModel();
+           // ArrayList<String> userIDs = new ArrayList();
+           // String users = request.getParameter("userID");
+            String eventID = request.getParameter("eventID");
+            
+            
+            
+            
+            int tempEventID = Integer.parseInt(eventID);
+            try {
+                am.givePointsForEvent(userIDs, tempEventID);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(EditUsersInEvent.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InstantiationException ex) {
+                Logger.getLogger(EditUsersInEvent.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+                Logger.getLogger(EditUsersInEvent.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(EditUsersInEvent.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (JSONException ex) {
+            Logger.getLogger(EditUsersInEvent.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
