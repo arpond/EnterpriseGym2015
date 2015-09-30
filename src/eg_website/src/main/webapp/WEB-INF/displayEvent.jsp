@@ -69,7 +69,6 @@
                         out.print(ev.getContent().getContent());
                     %>
                 </div>
-
                 <div class="col-md-4">
                     <div class="container" style="max-width:360px; max-height:600px; text-align:center;"> 
                         <div class="panel panel-info">
@@ -94,10 +93,13 @@
                                         if (ud != null && !attending) {
                                     %>
 
-                                    <p><form method="POST"  action="Event">
-                                        <input type="hidden" name="eventID" value="<%=ev.getEventID()%>">
-                                        <br> <input type="submit" value="Sign up for the event" class="btn btn-default" style="display:block;margin: 0 auto;" id="signUpButton">
-                                    </form></p>
+                                    <p>
+                                    <form method="POST"  action="Event">
+                                        <input type="hidden" name="eventID" value="">
+                                        <br> 
+                                        <input type="submit" value="Sign up for the event" class="btn btn-default" style="display:block;margin: 0 auto;" id="signUpButton">
+                                    </form>
+                                    </p>
                                     <% }%>
                                     <p>Event Type: <%=ev.getEventPointType()%> </p>
                                     <p>Points: <%=ev.getEventValue()%></p>
@@ -107,6 +109,8 @@
                     </div> 
                 </div>
             </div>
+
+
         </div>
 
     </body>   

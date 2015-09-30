@@ -76,18 +76,25 @@
     </div>
 </nav>
 
-<nav id="topToolbar"
+<nav id="topToolbar">
           <%
           UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
           if (ud != null) 
           {
           %>    
     <div class="bar1" style="display: inline-block; text-align: right; width:100%; background-color:#800020; color:white; font-size:17px; border:5px">
-        <a style="font-size:16px; color:white;" href="/eg_website/Profile/View">View Profile</a> &nbsp | &nbsp; <a style="font-size:16px; color:white;" href="/eg_website/Profile/Edit">Edit Profile</a> &nbsp;| &nbsp; <a style="font-size:16px; color:white;" href="/eg_website/Quiz">Quiz</a>  &nbsp;| &nbsp; <a style="font-size:16px; color:white;" href="Logout">Logout</a> &nbsp;&nbsp;
+        <a style="font-size:16px; color:white;" href="/eg_website/Profile/View">View Profile</a> 
+        &nbsp | &nbsp; 
+        <a style="font-size:16px; color:white;" href="/eg_website/Profile/Edit">Edit Profile</a> 
+        &nbsp;| &nbsp; 
+        <a style="font-size:16px; color:white;" href="/eg_website/Quiz">Quiz</a>  
+        &nbsp;| &nbsp; 
+        <a style="font-size:16px; color:white;" href="Logout">Logout</a> &nbsp;&nbsp;
     </div> 
     <%} else { %>
     <div class="bar1" style="display: inline-block; text-align:center; width:100%; background-color:#800020; color:white; font-size:14px;">
-        <a style="font-size:18px; color:white;" href="/eg_website/Login">Login</a> or <a style="font-size:18px; color:white;" href="/eg_website/Register">Join Now</a>
+        <a style="font-size:18px; color:white;" href="/eg_website/Login">Login</a> or 
+        <a style="font-size:18px; color:white;" href="/eg_website/Register">Join Now</a>
         <% }%>
     </div>
 </nav>
