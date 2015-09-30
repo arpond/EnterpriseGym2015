@@ -52,7 +52,7 @@ public class Async_PathCheck extends HttpServlet {
         {
             JSONObject jsonResult = new JSONObject(json);
             String path = jsonResult.getString("path");
-            //unique = cm.isUniquePath(path);
+            unique = cm.isUniquePath(path);
         }
         catch (Exception e)
         {
