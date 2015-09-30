@@ -22,7 +22,11 @@ import uk.ac.dundee.team7.eg_website.model.EventModel;
  *
  * @author Andrew
  */
-@WebServlet(name = "Index", urlPatterns = {""})
+@WebServlet(urlPatterns = {
+    "",
+    "/Index"
+    
+})
 public class Index extends HttpServlet{
     
     @Override
