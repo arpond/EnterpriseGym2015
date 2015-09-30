@@ -35,7 +35,7 @@ import uk.ac.dundee.team7.eg_website.model.NewsModel;
  * @author dragomir
  */
 @WebServlet(name = "EditUsersInEvent", urlPatterns = {"/Admin/EditUsersInEvent",
-"/Admin/markUsersAsAttended"})
+"/Admin/markUsersAsAttended123"})
 public class EditUsersInEvent extends HttpServlet {
 
    

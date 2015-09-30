@@ -1,11 +1,15 @@
 package uk.ac.dundee.team7.eg_website.model;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+import java.sql.Array;
 import java.sql.CallableStatement;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
+import oracle.net.aso.i;
 import org.joda.time.DateTime;
 import uk.ac.dundee.team7.eg_website.Store.*;
 
@@ -68,7 +72,7 @@ public class EventModel {
             }
             
             conStore.setContent(rs.getString("content"));
-            conStore.setContentID(id);
+            conStore.setContentID(rs.getInt("contentID"));
             conStore.setContentPath(rs.getString("contentPath"));
             conStore.setContentTitle(rs.getString("contentTitle"));
             conStore.setContentSummary(rs.getString("contentSummary"));
@@ -127,8 +131,13 @@ public class EventModel {
             while (rs.next()) {
                 
                  EventStore evStore = new EventStore();
-                 ContentStore conStore = new ContentStore();                
-                conStore.setContent(rs.getString("content"));                
+                 ContentStore conStore = new ContentStore();
+                 
+                System.out.println("once----twice----trice ?");
+                
+                
+                conStore.setContent(rs.getString("content"));
+                conStore.setContentID(rs.getInt("contentID"));
                 conStore.setContentPath(rs.getString("contentPath"));
                 conStore.setContentTitle(rs.getString("contentTitle"));
                 conStore.setContentSummary(rs.getString("contentSummary"));
@@ -223,14 +232,10 @@ public class EventModel {
         CallableStatement cs = null;
         CallableStatement cs1 = null;
         ContentStore contStore = event.getContent();
-
+int tempEventPointTypeID = 1;
         int tempEventID = event.getEventID();
         int tempContentID = contStore.getContentID();
         DateTime tempStartTime = event.getEventStartTime();
-        
-        long millis = tempStartTime.getMillis();
-        //TimeStamp ts = new TimeStamp (millis);
-        
         String tempImageURL = event.getEventImage();
         String tempContent = contStore.getContent();
         int tempPoints = event.getEventValue();
@@ -238,17 +243,18 @@ public class EventModel {
         try {
             ResultSet rs = null;
             cs1 = conn.prepareCall("{call getPointTypeID(?)}");
-            int tempEventPointTypeID;
+            
             cs1.setString(1, event.getEventPointType());
             cs1.execute();
             rs = cs1.getResultSet();
             rs.first();
             tempEventPointTypeID = rs.getInt("typeId");
+            
             String tempContentTitle = contStore.getContentTitle();
        //new Timestamp(dateTime1.getMillis()
 
             //contStore.getContentID()
-            cs = conn.prepareCall("{call updateEvent(?,?,?,?,?,?,?,?,?)}");
+            cs = conn.prepareCall("{call updateEvent(?,?,?,?,?,?,?,?,?,?)}");
             cs.setInt(1, tempEventID);
             cs.setInt(2, tempContentID);
             cs.setTimestamp(3, new Timestamp(tempStartTime.getMillis()));
@@ -258,6 +264,7 @@ public class EventModel {
             cs.setString(7, tempContentPath);
             cs.setInt(8, tempEventPointTypeID);
             cs.setString(9, tempContentTitle);
+            cs.setTimestamp(10,  new Timestamp(tempEndTime.getMillis()));
             cs.execute();
             conn.close();
             return true;

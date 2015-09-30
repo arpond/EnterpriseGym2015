@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 import uk.ac.dundee.team7.eg_website.Store.ContentStore;
 import uk.ac.dundee.team7.eg_website.Store.EventStore;
 import uk.ac.dundee.team7.eg_website.Store.NewsStore;
@@ -110,12 +112,23 @@ public class EditEvent extends HttpServlet {
         String evenPointType = request.getParameter("editPointType");
         String eventID = request.getParameter("editEventID");
         String eventValue = request.getParameter("editEventValue");
-        String StartTime1 = request.getParameter("daterange");
-        String StartTime2 = request.getParameter("timepicker");
         
-        String finalStarTime = StartTime1 + StartTime2;
+        String StartTime1 = request.getParameter("daterange");
+         System.out.println("JORDAAasdasdadsasdasdasdasdasdasd");
+        System.out.println(StartTime1);
+        String StartTime2 = request.getParameter("timepicker");
+        String StartTime3 = request.getParameter("timepicker1");
+         System.out.println("JORDAAasdasdadsasdasdasdasdasdasd");
+        System.out.println(StartTime2);
+        String finalStarTime = StartTime1 +" "+ StartTime2;
         System.out.println("JORDAAasdasdadsasdasdasdasdasdasd");
         System.out.println(finalStarTime);
+        DateTime date = DateTime.parse(finalStarTime, 
+                  DateTimeFormat.forPattern("MM/dd/YYYY HH:mm:ss"));
+        String finalEndTime = StartTime1 + " " + StartTime3;
+        DateTime date1 = DateTime.parse(finalEndTime, 
+                  DateTimeFormat.forPattern("MM/dd/YYYY HH:mm:ss"));
+        
         
         int tempEventID = Integer.parseInt(eventID);
         int tempEventValue = Integer.parseInt(eventValue);
@@ -129,7 +142,8 @@ public class EditEvent extends HttpServlet {
         cs.setContentSummary(contentSummary);
         cs.setContentTitle(contentTitle);
         ns.setEventImage(imagePath);
-        
+        ns.setEventStartTime(date);
+        ns.setEventEndTime(date1);
         
         ns.setEventPointType(evenPointType);
         ns.setEventID(tempEventID);
@@ -150,6 +164,7 @@ public class EditEvent extends HttpServlet {
         }
 
         RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editAllEvents.jsp");
+     
     }
 
     /**

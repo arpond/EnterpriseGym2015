@@ -4,9 +4,11 @@
     Author     : dragomir
 --%>
 
-<%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
+<%@page import="java.sql.Date"%>
+<%@page import="org.joda.time.format.DateTimeFormatter"%>
+<%@page import="org.joda.time.format.DateTimeFormat"%>
 <%@page import="org.joda.time.DateTime"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -37,15 +39,15 @@
                                 request.getAttribute("editEventValue");
                                
                                 
-                               
-                                
-                                
                                 DateTime newDT =  (DateTime) request.getAttribute("editStartTime");
                                 //DateTimeFormatter dtfOut = DateTimeFormat.forPattern("");
-                                Date newDate = newDT.toDate();
+                                
+                                java.util.Date newDTone = newDT.toDate();
                                 DateFormat df = new SimpleDateFormat("MM/dd/YYYY");
-                                String sdt = df.format(newDate);
-                           
+                                String sdt = df.format(new Date(newDTone.getTime()));
+                               
+                                System.out.println(sdt);
+                                
                                    
                             
                                  ArrayList<String> strArray = new ArrayList();
@@ -94,8 +96,9 @@
                             <script type="text/javascript">
                                 CKEDITOR.replace('editContent');
                             </script>
-                              <input type="text" name="daterange" class="input" value="<%=sdt%>" />
-
+                            <p>Date</p>
+                              <input type="text" name="daterange" class="input" value="<%=sdt%>"/>
+                    
                     <script type="text/javascript">
                         $(function () {
                             $('input[name="daterange"]').daterangepicker({
@@ -106,12 +109,21 @@
                             )
                         });
                     </script>
-                    <input type="text" class="timepicker" class="input" name="timepicker">
+                    <p>Start Time</p>
+                    <input type="text" class="timepicker input" name="timepicker">
                     <script type="text/javascript">
                         $(document).ready(function() {
                             $('input.timepicker').timepicker({});
                         });
                     </script>
+                    <p>End Time</p>
+                    <input type="text" class="timepicker input" name="timepicker1">
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            $('input.timepicker1').timepicker({});
+                        });
+                    </script>
+                    
                    
                     </div>
                     <div class="right"><input type="submit" value="Edit Event Content" class="button" id="changeEvent"></div>
