@@ -101,7 +101,7 @@ public class EditNews extends HttpServlet {
         String StartTime1 = request.getParameter("daterange");
         String StartTime2 = request.getParameter("timepicker");
         
-        String finalStarTime = StartTime1 +" "+ StartTime2;
+        String finalStarTime = StartTime1 +" "+ StartTime2+":00";
        
         System.out.println(finalStarTime);
         DateTime date = DateTime.parse(finalStarTime, 

@@ -120,12 +120,12 @@ public class EditEvent extends HttpServlet {
         String StartTime3 = request.getParameter("timepicker1");
          System.out.println("JORDAAasdasdadsasdasdasdasdasdasd");
         System.out.println(StartTime2);
-        String finalStarTime = StartTime1 +" "+ StartTime2;
+        String finalStarTime = StartTime1 +" "+ StartTime2 + ":00";
         System.out.println("JORDAAasdasdadsasdasdasdasdasdasd");
         System.out.println(finalStarTime);
         DateTime date = DateTime.parse(finalStarTime, 
                   DateTimeFormat.forPattern("MM/dd/YYYY HH:mm:ss"));
-        String finalEndTime = StartTime1 + " " + StartTime3;
+        String finalEndTime = StartTime1 + " " + StartTime3 + ":00";
         DateTime date1 = DateTime.parse(finalEndTime, 
                   DateTimeFormat.forPattern("MM/dd/YYYY HH:mm:ss"));
         

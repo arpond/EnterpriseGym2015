@@ -28,25 +28,20 @@
                        
 
                             <%
-                                request.getAttribute("editContentTitle");
-                                request.getAttribute("editContentPath");
-                                request.getAttribute("editContentSummary");
-                                request.getAttribute("editContent");
-                                request.getAttribute("contentID");
-                                request.getAttribute("editEventImage");
-                                //request.getAttribute("editPointType");
-                                request.getAttribute("editEventID");
-                                request.getAttribute("editEventValue");
-                               
-                                
                                 DateTime newDT =  (DateTime) request.getAttribute("editStartTime");
+                                DateTime oldET = (DateTime) request.getAttribute("editEndTime");
                                 //DateTimeFormatter dtfOut = DateTimeFormat.forPattern("");
                                 
                                 java.util.Date newDTone = newDT.toDate();
                                 DateFormat df = new SimpleDateFormat("MM/dd/YYYY");
+                                
                                 String sdt = df.format(new Date(newDTone.getTime()));
                                
                                 System.out.println(sdt);
+                                
+                                DateTimeFormatter tf = DateTimeFormat.forPattern("HH:mm");
+                                String startTime = tf.print(newDT);
+                                String endTime = tf.print(oldET);
                                 
                                    
                             
@@ -110,14 +105,14 @@
                         });
                     </script>
                     <p>Start Time</p>
-                    <input type="text" class="timepicker input" name="timepicker">
+                    <input type="text" class="timepicker input" name="timepicker" value="<%=startTime%>">
                     <script type="text/javascript">
                         $(document).ready(function() {
                             $('input.timepicker').timepicker({});
                         });
                     </script>
                     <p>End Time</p>
-                    <input type="text" class="timepicker input" name="timepicker1">
+                    <input type="text" class="timepicker input" name="timepicker1" value="<%=endTime%>">
                     <script type="text/javascript">
                         $(document).ready(function() {
                             $('input.timepicker1').timepicker({});

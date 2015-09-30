@@ -236,6 +236,7 @@ int tempEventPointTypeID = 1;
         int tempEventID = event.getEventID();
         int tempContentID = contStore.getContentID();
         DateTime tempStartTime = event.getEventStartTime();
+        DateTime tempEndTime = event.getEventEndTime();
         String tempImageURL = event.getEventImage();
         String tempContent = contStore.getContent();
         int tempPoints = event.getEventValue();

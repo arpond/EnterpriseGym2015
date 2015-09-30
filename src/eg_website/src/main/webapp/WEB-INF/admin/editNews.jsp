@@ -39,6 +39,9 @@
                                 java.util.Date newDTone = newDT.toDate();
                                 DateFormat df = new SimpleDateFormat("MM/dd/YYYY");
                                 String sdt = df.format(new Date(newDTone.getTime()));
+                                
+                                DateTimeFormatter tf = DateTimeFormat.forPattern("HH:mm");
+                                String startTime = tf.print(newDT);
                                
                                 System.out.println(sdt);
                             %>
@@ -77,7 +80,7 @@
                             )
                         });
                     </script>
-                    <input type="text" class="timepicker" name="timepicker">
+                    <input type="text" class="timepicker" name="timepicker" value="<%=startTime%>">
                     <script type="text/javascript">
                         $(document).ready(function() {
                             $('input.timepicker').timepicker({});
