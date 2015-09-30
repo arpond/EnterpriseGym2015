@@ -27,6 +27,8 @@ public class ManageNews extends HttpServlet {
     
     
 	public void doPost(HttpServletRequest request, HttpServletResponse response) {
+               
+                
                 NewsModel cm = new NewsModel();
                 NewsStore contentS;
                 HttpSession session = request.getSession();
@@ -50,11 +52,11 @@ public class ManageNews extends HttpServlet {
                 System.out.println(realDisplayTime1);
                 
                // realDisplayTime1.substring(0,realDisplayTime1.length()-2);
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
             try {
                 System.out.println("THE TIME BRO");
                 //System.out.println(realDisplayTime+" "+ realDisplayTime1.substring(0,realDisplayTime1.length()-2));
-                    java.util.Date date = simpleDateFormat.parse(realDisplayTime+" "+ realDisplayTime1.substring(0,realDisplayTime1.length()-2) + ":00");
+                    java.util.Date date = simpleDateFormat.parse(realDisplayTime+" "+ realDisplayTime1 + ":00");
                // newsStartTime = new DateTime(date);
                  sqlStartDate = new java.sql.Date(date.getTime());
             } catch (ParseException ex) {
@@ -68,6 +70,7 @@ public class ManageNews extends HttpServlet {
                 
                 
               try{
+
                    cm.addNews(userID, newsPath, newsTitle, news, sqlStartDate, newsImageURL, categoryID, newsSummary);
                     
                 } catch (SQLException ex) {

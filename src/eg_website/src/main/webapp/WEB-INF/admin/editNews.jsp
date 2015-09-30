@@ -32,7 +32,7 @@
                                 DateTime newDT =  (DateTime) request.getAttribute("editStartTime");
                                 java.util.Date newDTone = newDT.toDate();
                                 DateFormat df = new SimpleDateFormat("MM/dd/YYYY");
-                                String sdt = df.format(new Date(newDTone.getTime()));
+                                String sdt = df.format(newDTone.getTime());
                                 
                                 DateTimeFormatter tf = DateTimeFormat.forPattern("HH:mm");
                                 String startTime = tf.print(newDT);
@@ -60,7 +60,7 @@
                             %>
 
                             <label class="input"></label> <input type="text" hidden="true" value="${contentID}" name="contentID">
-                            <label class="input">News Content Title</label> <input type="text" name="editContentTitle" value="${editContentTitle}">
+                            <label class="input">News Title</label> <input type="text" name="editContentTitle" value="${editContentTitle}">
                             <p></p>
                             <label class="input">News Content Path</label> /News/<input type="text" name="editContentPath" value="<%=truncPath%>" >
                             <p></p>

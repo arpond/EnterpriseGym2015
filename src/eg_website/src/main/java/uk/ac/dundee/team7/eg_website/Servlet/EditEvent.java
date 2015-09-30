@@ -52,7 +52,7 @@ public class EditEvent extends HttpServlet {
          EventStore cs = new EventStore();
         String tempstring = (String) request.getParameter("eventPath");
         ArrayList<String> tempPointTypeArray = new ArrayList();
-        
+        tempstring = "/Event/" + tempstring;
         System.out.println(tempstring);
         EventModel cm = new EventModel();
         try {

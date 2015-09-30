@@ -359,5 +359,30 @@ public class AdminModel {
         
         
     }
+    
+     public ArrayList<GroupsAndQuizStore> fetchGroupsAndQuizes() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+
+         Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        ArrayList<GroupsAndQuizStore> GQS = new ArrayList<GroupsAndQuizStore>();
+       
+        
+                CallableStatement cs = null;
+                cs = conn.prepareCall("{call getQuizesForGroups()}");
+                ResultSet rs = cs.getResultSet();
+         
+                cs.execute();
+                while(rs.next()){
+                  GroupsAndQuizStore gqSTORE = new GroupsAndQuizStore();
+                  gqSTORE.setGroupName(rs.getString("groupTitle"));
+                  gqSTORE.setGroupid(rs.getInt("groupID"));
+                  
+                    
+                }
+            conn.close();
+        return GQS;
+       
+    }
 
 }

@@ -212,6 +212,8 @@ public class EventModel {
             conn.close();
             return true;
         } catch (SQLException se) {
+            String e = se.toString();
+            System.out.println(e);
             conn.close();
             return false;
         }

@@ -148,7 +148,7 @@ public class ContentModel {
         java.sql.Connection conn = dbc.connectToDB();
         CallableStatement cs = null;        
         
-        cs = conn.prepareCall("{call getAllContent()}");
+        cs = conn.prepareCall("{call getOnlyContent()}");
         cs.execute();
         ResultSet rs = cs.getResultSet();
         //rs.first();
