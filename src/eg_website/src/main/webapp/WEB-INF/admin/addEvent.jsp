@@ -64,7 +64,7 @@
                         <div class="left">
                             <h3>Add an Event</h3>
                             <ul>
-                                <form>
+                                
                                 <p></p>
                                 <label class="input">Event Title</label> <input type="text" name="eventTitle" data-validate="required">
                                 <p></p>
@@ -148,9 +148,10 @@
                                         }
                                     %>
                                 </select>
-                                </form>
+                                
                             </ul>
                             <button type="submit" class="btn btn-primary" id="addEvent" >Add Event</button>
+                            </form>
                         </div>
                         </div>
                         </div>

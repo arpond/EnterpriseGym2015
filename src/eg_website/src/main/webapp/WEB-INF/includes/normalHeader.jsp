@@ -52,11 +52,11 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Trainers <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li> <a href="entrepreneurResident.html">Entrepreneur in Resident</a> </li>
-                        <li> <a href="bestTrainers.html">Learn from the Best Trainer</a> </li>
-                        <li> <a href="sucessMentors.html">Training for Success Mentors</a> </li>
-                        <li> <a href="coaches.html">Coaches</a> </li>
-                        <li> <a href="sponsors.html">Sponsors</a> </li>
+                        <li> <a href="/eg_website/Content/EntrepreneurResident">Entrepreneur in Resident</a> </li>
+                        <li> <a href="/eg_website/Content/BestTrainers">Learn from the Best Trainer</a> </li>
+                        <li> <a href="/eg_website/Content/SuccessMentors">Training for Success Mentors</a> </li>
+                        <li> <a href="/eg_website/Content/Coaches">Coaches</a> </li>
+                        <li> <a href="/eg_website/Content/Sponsors">Sponsors</a> </li>
                     </ul>
                 </li>
 
