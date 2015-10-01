@@ -39,7 +39,7 @@ public class Admin extends HttpServlet {
         HttpSession session = request.getSession();
         UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
         
-        /**if (ud == null || ud.getAuthID() != 1)
+        if (ud == null || ud.getGroupID() != 3)
         {
             Message.message("You do not have access to the admin page.", request, response);
         }
@@ -47,8 +47,6 @@ public class Admin extends HttpServlet {
         {
             RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/Admin/adminIndex.jsp");
             rd.forward(request,response); 
-        }**/
-        RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/admin/adminIndex.jsp");
-            rd.forward(request,response); 
+        }
     }
 }

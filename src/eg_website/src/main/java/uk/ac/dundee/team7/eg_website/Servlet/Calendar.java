@@ -60,13 +60,22 @@ public class Calendar extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(Calendar.class.getName()).log(Level.SEVERE, null, ex);
         }
-        request.setAttribute("events",events);
-        request.setAttribute("pointTypes", types);
-        request.setAttribute("categoryTypes", categoryTypes);
-        //ContentStore cs = (ContentStore) session.getAttribute("getContentToEdit");
-        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/addEvent.jsp");
-        view.include(request, response);
-
+        
+        UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
+        if (ud == null || ud.getGroupID() != 3)
+        {
+            Message.message("You do not have access to the admin page.", request, response);
+        }
+        else
+        {
+            request.setAttribute("events",events);
+            request.setAttribute("pointTypes", types);
+            request.setAttribute("categoryTypes", categoryTypes);
+            //ContentStore cs = (ContentStore) session.getAttribute("getContentToEdit");
+            RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/addEvent.jsp");
+            view.include(request, response);
+        }
+        
     }
 
     @Override

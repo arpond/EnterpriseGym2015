@@ -23,6 +23,7 @@ import org.joda.time.format.DateTimeFormat;
 import uk.ac.dundee.team7.eg_website.Store.ContentStore;
 import uk.ac.dundee.team7.eg_website.Store.EventStore;
 import uk.ac.dundee.team7.eg_website.Store.NewsStore;
+import uk.ac.dundee.team7.eg_website.Store.UserDetails;
 import uk.ac.dundee.team7.eg_website.model.EventModel;
 import uk.ac.dundee.team7.eg_website.model.NewsModel;
 
@@ -68,7 +69,14 @@ public class EditEvent extends HttpServlet {
             Logger.getLogger(ManageContent.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        request.setAttribute("editContentTitle", cs.getContent().getContentTitle());
+        UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
+        if (ud == null || ud.getGroupID() != 3)
+        {
+            Message.message("You do not have access to the admin page.", request, response);
+        }
+        else
+        {
+            request.setAttribute("editContentTitle", cs.getContent().getContentTitle());
         request.setAttribute("editContentPath", cs.getContent().getContentPath());
         request.setAttribute("editContent", cs.getContent().getContent());
         request.setAttribute("editContentSummary", cs.getContent().getContentSummary());
@@ -78,9 +86,10 @@ public class EditEvent extends HttpServlet {
         request.setAttribute("editEventID", cs.getEventID());
         request.setAttribute("editEventValue", cs.getEventValue());
         request.setAttribute("editStartTime", cs.getEventStartTime());
-
-        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editEvent.jsp");
-        view.include(request, response);
+    
+            RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editEvent.jsp");
+            view.include(request, response);;
+        }
     }
 
     /**

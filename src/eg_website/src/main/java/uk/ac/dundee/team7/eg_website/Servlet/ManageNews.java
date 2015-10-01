@@ -87,9 +87,18 @@ public class ManageNews extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             HttpSession session = request.getSession();
-            ContentStore cs = (ContentStore) session.getAttribute("getContentToEdit");
-            RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/addNews.jsp");
-            view.include(request, response);
+            UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
+            if (ud == null || ud.getGroupID() != 3)
+            {
+                Message.message("You do not have access to the admin page.", request, response);
+            }
+            else
+            {
+                ContentStore cs = (ContentStore) session.getAttribute("getContentToEdit");
+                RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/addNews.jsp");
+                view.include(request, response);
+            }
+
 	}
 
 }
