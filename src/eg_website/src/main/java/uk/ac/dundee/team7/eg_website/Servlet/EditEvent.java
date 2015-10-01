@@ -18,9 +18,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 import uk.ac.dundee.team7.eg_website.Store.ContentStore;
 import uk.ac.dundee.team7.eg_website.Store.EventStore;
 import uk.ac.dundee.team7.eg_website.Store.NewsStore;
+import uk.ac.dundee.team7.eg_website.Store.UserDetails;
 import uk.ac.dundee.team7.eg_website.model.EventModel;
 import uk.ac.dundee.team7.eg_website.model.NewsModel;
 
@@ -50,7 +53,7 @@ public class EditEvent extends HttpServlet {
          EventStore cs = new EventStore();
         String tempstring = (String) request.getParameter("eventPath");
         ArrayList<String> tempPointTypeArray = new ArrayList();
-        
+        //tempstring = "/Event/" + tempstring;
         System.out.println(tempstring);
         EventModel cm = new EventModel();
         try {
@@ -66,6 +69,13 @@ public class EditEvent extends HttpServlet {
             Logger.getLogger(ManageContent.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
+        if (ud == null || ud.getGroupID() != 3)
+        {
+            Message.message("You do not have access to the admin page.", request, response);
+        }
+        else
+        {
         request.setAttribute("editContentTitle", cs.getContent().getContentTitle());
         request.setAttribute("editContentPath", cs.getContent().getContentPath());
         request.setAttribute("editContent", cs.getContent().getContent());
@@ -76,13 +86,10 @@ public class EditEvent extends HttpServlet {
         request.setAttribute("editEventID", cs.getEventID());
         request.setAttribute("editEventValue", cs.getEventValue());
         request.setAttribute("editStartTime", cs.getEventStartTime());
-        
-        
-        
-        
-
-        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editEvent.jsp");
-        view.include(request, response);
+    
+            RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editEvent.jsp");
+            view.include(request, response);;
+        }
     }
 
     /**
@@ -103,6 +110,7 @@ public class EditEvent extends HttpServlet {
         
         String contentTitle = request.getParameter("editContentTitle");
         String contentPath = request.getParameter("editContentPath");
+        contentPath = "/Event/" + contentPath;
         String contentSummary = request.getParameter("editContentSummary");
         String content = request.getParameter("editContent");
         String contentID = request.getParameter("contentID");
@@ -110,12 +118,23 @@ public class EditEvent extends HttpServlet {
         String evenPointType = request.getParameter("editPointType");
         String eventID = request.getParameter("editEventID");
         String eventValue = request.getParameter("editEventValue");
-        String StartTime1 = request.getParameter("daterange");
-        String StartTime2 = request.getParameter("timepicker");
         
-        String finalStarTime = StartTime1 + StartTime2;
-        System.out.println("JORDAAasdasdadsasdasdasdasdasdasd");
+        String StartTime1 = request.getParameter("daterange");
+
+        System.out.println(StartTime1);
+        String StartTime2 = request.getParameter("timepicker");
+        String StartTime3 = request.getParameter("timepicker1");
+
+        System.out.println(StartTime2);
+        String finalStarTime = StartTime1 +" "+ StartTime2 + ":00";
+
         System.out.println(finalStarTime);
+        DateTime date = DateTime.parse(finalStarTime, 
+                  DateTimeFormat.forPattern("MM/dd/YYYY HH:mm:ss"));
+        String finalEndTime = StartTime1 + " " + StartTime3 + ":00";
+        DateTime date1 = DateTime.parse(finalEndTime, 
+                  DateTimeFormat.forPattern("MM/dd/YYYY HH:mm:ss"));
+        
         
         int tempEventID = Integer.parseInt(eventID);
         int tempEventValue = Integer.parseInt(eventValue);
@@ -129,7 +148,8 @@ public class EditEvent extends HttpServlet {
         cs.setContentSummary(contentSummary);
         cs.setContentTitle(contentTitle);
         ns.setEventImage(imagePath);
-        
+        ns.setEventStartTime(date);
+        ns.setEventEndTime(date1);
         
         ns.setEventPointType(evenPointType);
         ns.setEventID(tempEventID);
@@ -149,7 +169,8 @@ public class EditEvent extends HttpServlet {
             Logger.getLogger(EditNews.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editAllEvents.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/Admin/EventOptions");
+        view.include(request, response);
     }
 
     /**

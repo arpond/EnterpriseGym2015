@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONException;
 import org.json.JSONObject;
 import uk.ac.dundee.team7.eg_website.Store.NewsStore;
+import uk.ac.dundee.team7.eg_website.Store.UserDetails;
 import uk.ac.dundee.team7.eg_website.Store.UserStore;
 import uk.ac.dundee.team7.eg_website.model.AdminModel;
 import uk.ac.dundee.team7.eg_website.model.EventModel;
@@ -35,7 +36,7 @@ import uk.ac.dundee.team7.eg_website.model.NewsModel;
  * @author dragomir
  */
 @WebServlet(name = "EditUsersInEvent", urlPatterns = {"/Admin/EditUsersInEvent",
-"/Admin/markUsersAsAttended"})
+"/Admin/markUsersAsAttended123"})
 public class EditUsersInEvent extends HttpServlet {
 
    
@@ -74,11 +75,18 @@ public class EditUsersInEvent extends HttpServlet {
             Logger.getLogger(ManageContent.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-       
-        request.setAttribute("getUsersForEvent", csAL);
-        request.setAttribute("eventID", eventID);
-        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editEventsUsers.jsp");
-        view.include(request, response);
+        UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
+        if (ud == null || ud.getGroupID() != 3)
+        {
+            Message.message("You do not have access to the admin page.", request, response);
+        }
+        else
+        {
+            request.setAttribute("getUsersForEvent", csAL);
+            request.setAttribute("eventID", eventID);
+            RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editEventsUsers.jsp");
+            view.include(request, response);
+        }
     }
 
     /**

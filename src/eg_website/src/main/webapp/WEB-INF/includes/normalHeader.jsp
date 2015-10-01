@@ -15,7 +15,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/eg_website">Enterprise Gym</a>
+            <a class="navbar-brand" href="/eg_website/">Enterprise Gym</a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -52,23 +52,23 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Trainers <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li> <a href="entrepreneurResident.html">Entrepreneur in Resident</a> </li>
-                        <li> <a href="bestTrainers.html">Learn from the Best Trainer</a> </li>
-                        <li> <a href="sucessMentors.html">Training for Success Mentors</a> </li>
-                        <li> <a href="coaches.html">Coaches</a> </li>
-                        <li> <a href="sponsors.html">Sponsors</a> </li>
+                        <li> <a href="/eg_website/Content/EntrepreneurResident">Entrepreneur in Resident</a> </li>
+                        <li> <a href="/eg_website/Content/BestTrainers">Learn from the Best Trainer</a> </li>
+                        <li> <a href="/eg_website/Content/SuccessMentors">Training for Success Mentors</a> </li>
+                        <li> <a href="/eg_website/Content/Coaches">Coaches</a> </li>
+                        <li> <a href="/eg_website/Content/Sponsors">Sponsors</a> </li>
                     </ul>
                 </li>
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Connect <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li> <a href="full-width.html">Associate Initiative</a> </li>
-                        <li> <a href="sidebar.html">Associate Events</a> </li>
-                        <li> <a href="faq.html">Funding for Startups</a> </li>
-                        <li> <a href="faq.html">Entrepreneurial Internships</a> </li>
-                        <li> <a href="404.html">Information & Website for Startups</a> </li>
-                        <li> <a href="404.html">Competitions</a> </li>
+                        <li> <a href="/eg_website/Content/Initiative">Associate Initiative</a> </li>
+                        <li> <a href="/eg_website/Content/AssociateEvents">Associate Events</a> </li>
+                        <li> <a href="/eg_website/Content/Funding">Funding for Startups</a> </li>
+                        <li> <a href="/eg_website/Content/Internships">Entrepreneurial Internships</a> </li>
+                        <li> <a href="/eg_website/Content/Startups">Information & Website for Startups</a> </li>
+                        <li> <a href="/eg_website/Content/Competitions">Competitions</a> </li>
                     </ul>
                 </li>
             </ul>
@@ -76,18 +76,34 @@
     </div>
 </nav>
 
-<nav id="topToolbar"
-          <%
-          UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
-          if (ud != null) 
-          {
-          %>    
+<nav id="topToolbar">
+        <%
+        UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
+        if (ud != null) 
+        {
+        %>    
     <div class="bar1" style="display: inline-block; text-align: right; width:100%; background-color:#800020; color:white; font-size:17px; border:5px">
-        <a style="font-size:16px; color:white;" href="/eg_website/Profile/View">View Profile</a> &nbsp | &nbsp; <a style="font-size:16px; color:white;" href="/eg_website/Profile/Edit">Edit Profile</a> &nbsp;| &nbsp; <a style="font-size:16px; color:white;" href="/eg_website/Quiz">Quiz</a>  &nbsp;| &nbsp; <a style="font-size:16px; color:white;" href="Logout">Logout</a> &nbsp;&nbsp;
+        <%
+            if (ud.getGroupID() == 3)
+            {
+        %>
+        <a style="font-size:16px; color:white;" href="/eg_website/Admin">Admin</a> 
+        &nbsp | &nbsp; 
+        <%
+            }
+        %>
+        <a style="font-size:16px; color:white;" href="/eg_website/Profile/View">View Profile</a> 
+        &nbsp | &nbsp; 
+        <a style="font-size:16px; color:white;" href="/eg_website/Profile/Edit">Edit Profile</a> 
+        &nbsp;| &nbsp; 
+        <a style="font-size:16px; color:white;" href="/eg_website/Quiz">Quiz</a>  
+        &nbsp;| &nbsp; 
+        <a style="font-size:16px; color:white;" href="Logout">Logout</a> &nbsp;&nbsp;
     </div> 
     <%} else { %>
     <div class="bar1" style="display: inline-block; text-align:center; width:100%; background-color:#800020; color:white; font-size:14px;">
-        <a style="font-size:18px; color:white;" href="/eg_website/Login">Login</a> or <a style="font-size:18px; color:white;" href="/eg_website/Register">Join Now</a>
+        <a style="font-size:18px; color:white;" href="/eg_website/Login">Login</a> or 
+        <a style="font-size:18px; color:white;" href="/eg_website/Register">Join Now</a>
         <% }%>
     </div>
 </nav>

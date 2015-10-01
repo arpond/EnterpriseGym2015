@@ -30,11 +30,14 @@ public class UserModel {
 
         ResultSet rs = null;
 
-        cs = conn.prepareCall("{call isValidLogin(?,?)}");
+        cs = conn.prepareCall("{call isValidLogin(?)}");
         cs.setString(1, Username);
-        cs.setString(2, UsrPassword);
+        //cs.setString(2, UsrPassword);
         cs.execute();
         rs = cs.getResultSet();
+        
+        String storedSalt = null;
+        String storedPass = null;
 
         if (rs != null) {
             while (rs.next()) {
@@ -47,8 +50,23 @@ public class UserModel {
             details.setUserID(rs.getInt("userID"));
             details.setUsername(rs.getString("username"));
             details.setPoints(map);
+            storedSalt = rs.getString("salt");
+            storedPass = rs.getString("password");
         }
         conn.close();
+        try
+        {
+            String encodedPassword = Utils.SHA256(UsrPassword + storedSalt);
+            if (!encodedPassword.equals(storedPass))
+            {
+                details.setUserID(0);
+            }
+        }
+        catch (Exception e)
+        {
+            details.setUserID(0);
+        }
+        
         return details;
     }
 
@@ -132,12 +150,11 @@ public class UserModel {
 
         ResultSet rs = null;
         try {
-            cs = conn.prepareCall("{call registerUser(?,?,?)}");
+            cs = conn.prepareCall("{call registerUser(?,?,?,?)}");
             cs.setString(1, username);
-            cs.setString(2, password);
-            //cs.setString(2, encodedPassword);
+            cs.setString(2, encodedPassword);
             cs.setString(3, email);
-            //cs.setString(4, salt)
+            cs.setString(4, salt);
 
             cs.execute();
             rs = cs.getResultSet();
@@ -241,6 +258,9 @@ public class UserModel {
         
         return true;
 	}
+        
+        
+        
 
 	/**
 	 * 

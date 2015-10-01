@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.team7.eg_website.Store.ContentStore;
 import uk.ac.dundee.team7.eg_website.Store.NewsStore;
+import uk.ac.dundee.team7.eg_website.Store.UserDetails;
 import uk.ac.dundee.team7.eg_website.model.ContentModel;
 import uk.ac.dundee.team7.eg_website.model.NewsModel;
 
@@ -52,9 +53,19 @@ public class AdminNewsOptions extends HttpServlet {
             Message.message("Database error. " + e.toString(), request, response);
             return;
         }
-        request.setAttribute("allNewsForEdit", csAL);
-        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editAllNews.jsp");
-        view.include(request, response);
+        HttpSession session = request.getSession();
+        UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
+        if (ud == null || ud.getGroupID() != 3)
+        {
+            Message.message("You do not have access to the admin page.", request, response);
+        }
+        else
+        {
+            request.setAttribute("allNewsForEdit", csAL);
+            RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editAllNews.jsp");
+            view.include(request, response);
+        }
+        
     }
     
 

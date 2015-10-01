@@ -64,7 +64,7 @@
                         <div class="left">
                             <h3>Add an Event</h3>
                             <ul>
-                                <form>
+                                
                                 <p></p>
                                 <label class="input">Event Title</label> <input type="text" name="eventTitle" data-validate="required">
                                 <p></p>
@@ -148,9 +148,10 @@
                                         }
                                     %>
                                 </select>
-                                </form>
+                                
                             </ul>
                             <button type="submit" class="btn btn-primary" id="addEvent" >Add Event</button>
+                            </form>
                         </div>
                         </div>
                         </div>
@@ -162,7 +163,7 @@
                                 scheduler.config.container_autoresize = false;
                                 //scheduler.config.xml_date = "%Y-%m-%d %H:%i";
                                 var now = Date.now;
-                                scheduler.init('scheduler_here', new Date(2015, 10, 10), "month");
+                                scheduler.init('scheduler_here', new Date(), "month");
 
                                 parseTest();
 

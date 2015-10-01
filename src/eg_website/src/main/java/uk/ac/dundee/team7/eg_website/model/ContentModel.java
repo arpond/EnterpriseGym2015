@@ -148,7 +148,7 @@ public class ContentModel {
         java.sql.Connection conn = dbc.connectToDB();
         CallableStatement cs = null;        
         
-        cs = conn.prepareCall("{call getAllContent()}");
+        cs = conn.prepareCall("{call getOnlyContent()}");
         cs.execute();
         ResultSet rs = cs.getResultSet();
         //rs.first();
@@ -166,6 +166,26 @@ public class ContentModel {
             
             
             return csAL;
+        }
+        
+        public Boolean isUniquePath(String newsPath) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            DatabaseConnection dbc = new DatabaseConnection();
+            java.sql.Connection conn = dbc.connectToDB();
+            CallableStatement cs = null;
+
+            cs = conn.prepareCall("SELECT * FROM eg_content where contentPath = ? ");
+            cs.setString(1, newsPath);
+            cs.execute();
+            ResultSet rs = cs.getResultSet();
+            
+            if (rs != null && rs.next())
+            {
+                conn.close();
+                return false;
+            }
+            conn.close();
+            return true;
         }
 
 }

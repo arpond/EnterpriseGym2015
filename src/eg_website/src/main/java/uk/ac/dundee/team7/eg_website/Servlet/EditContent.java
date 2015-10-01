@@ -36,10 +36,12 @@ public class EditContent extends HttpServlet {
         ContentStore cs = new ContentStore();
         String contentTitle = request.getParameter("editContentTitle");
         String contentPath = request.getParameter("editContentPath");
+        contentPath = "/Content/" + contentPath;
         String contentSummary = request.getParameter("editContentSummary");
         String content = request.getParameter("editContent");
         String contentID = request.getParameter("contentID");
-
+        
+        contentPath = "/Content/" + contentPath;
         int tempContID = Integer.parseInt(contentID);
         cs.setContent(content);
         cs.setContentID(tempContID);
@@ -86,14 +88,23 @@ public class EditContent extends HttpServlet {
             Logger.getLogger(ManageContent.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        request.setAttribute("editContentTitle", cs.getContentTitle());
-        request.setAttribute("editContentPath", cs.getContentPath());
-        request.setAttribute("editContent", cs.getContent());
-        request.setAttribute("editContentSummary", cs.getContentSummary());
-        request.setAttribute("contentID", cs.getContentID());
+        UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
+        if (ud == null || ud.getGroupID() != 3)
+        {
+            Message.message("You do not have access to the admin page.", request, response);
+        }
+        else
+        {
+            request.setAttribute("editContentTitle", cs.getContentTitle());
+            request.setAttribute("editContentPath", cs.getContentPath());
+            request.setAttribute("editContent", cs.getContent());
+            request.setAttribute("editContentSummary", cs.getContentSummary());
+            request.setAttribute("contentID", cs.getContentID());
 
-        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editContent.jsp");
-        view.include(request, response);
+            RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editContent.jsp");
+            view.include(request, response);
+        }
+        
 
     }
 

@@ -3,7 +3,10 @@
     Created on : Sep 24, 2015, 11:03:29 PM
     Author     : dragomir
 --%>
-
+<%@page import="uk.ac.dundee.team7.eg_website.lib.Utils"%>
+<%@page import="org.joda.time.format.DateTimeFormatter"%>
+<%@page import="org.joda.time.format.DateTimeFormat"%>
+<%@page import="org.joda.time.format.DateTimeFormat"%>
 <%@page import="java.sql.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
@@ -25,32 +28,41 @@
 
 
                             <%
-                                request.getAttribute("editContentTitle");
-                                request.getAttribute("editContentPath");
-                                request.getAttribute("editContentSummary");
-                                request.getAttribute("editContent");
-                                request.getAttribute("contentID");
-                                request.getAttribute("editNewsImage");
                                 
                                 DateTime newDT =  (DateTime) request.getAttribute("editStartTime");
-                                System.out.println(newDT);
-                                String tempnewDT = newDT.toString();
-                                System.out.println(tempnewDT);
-                                String useThisDateTime = tempnewDT.substring(0,tempnewDT.length()-19);
-                                System.out.println(useThisDateTime);
+                                java.util.Date newDTone = newDT.toDate();
+                                DateFormat df = new SimpleDateFormat("MM/dd/YYYY");
+                                String sdt = df.format(newDTone.getTime());
                                 
+                                DateTimeFormatter tf = DateTimeFormat.forPattern("HH:mm");
+                                String startTime = tf.print(newDT);
+                               
+                                System.out.println(sdt);
                                 
-                                   String partOne = useThisDateTime.substring(9, 10);
-                                   String partTwo = useThisDateTime.substring(6, 7);
-                                   String partThree = useThisDateTime.substring(0, 4);
-                                   String voltron = partOne + "/" + partTwo + "/" + partThree;
-                                    System.out.println(voltron);
+                                String path = (String) request.getAttribute("editContentPath");
+                                
+                                String[] split = Utils.SplitPath(path);
+                                
+                                StringBuilder sb = new StringBuilder();    
+                                for (int i = 1; i < split.length; i++)
+                                {
+                                    if (i == split.length-1)
+                                    {
+                                        sb.append(split[i]);
+                                    }
+                                    else
+                                    {
+                                        sb.append(split[i] + "/");
+                                    }
+                                }
+
+                                String truncPath = sb.toString();
                             %>
 
                             <label class="input"></label> <input type="text" hidden="true" value="${contentID}" name="contentID">
-                            <label class="input">News Content Title</label> <input type="text" name="editContentTitle" value="${editContentTitle}">
+                            <label class="input">News Title</label> <input type="text" name="editContentTitle" value="${editContentTitle}">
                             <p></p>
-                            <label class="input">News Content Path</label> <input type="text" name="editContentPath" value="${editContentPath}" >
+                            <label class="input">News Content Path</label> /News/<input type="text" name="editContentPath" value="<%=truncPath%>" >
                             <p></p>
                             <p></p>
                             <label class="input">News Image Path</label> <input type="text" name="editNewsImage" value="${editNewsImage}" >
@@ -69,7 +81,7 @@
                                 CKEDITOR.replace('editContent');
                             </script>
                             
-                             <input type="text" name="daterange" class="input" value="<%=voltron%>" />
+                             <input type="text" name="daterange" class="input" value="<%=sdt%>" />
 
                     <script type="text/javascript">
                         $(function () {
@@ -81,7 +93,7 @@
                             )
                         });
                     </script>
-                    <input type="text" class="timepicker" class="input" name="timepicker">
+                    <input type="text" class="timepicker" name="timepicker" value="<%=startTime%>">
                     <script type="text/javascript">
                         $(document).ready(function() {
                             $('input.timepicker').timepicker({});
