@@ -117,9 +117,9 @@ public class ViewEvent extends HttpServlet{
         EventStore es;
         try
         {
-             es = em.fetchEvent(path);
-             //attending = em.attending(ud.getUserID(),es.getEventID());
-              System.out.println(path);
+            es = em.fetchEvent(path);
+            attending = em.attending(ud.getUserID(),es.getEventID());
+            System.out.println(path);
         }
         catch (Exception e)
         {

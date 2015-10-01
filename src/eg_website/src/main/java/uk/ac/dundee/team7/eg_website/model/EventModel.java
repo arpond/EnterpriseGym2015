@@ -367,4 +367,29 @@ int tempEventPointTypeID = 1;
             conn.close();
             return usrStoreList;
     }
+
+    public Boolean attending(int userID, int eventID) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException{
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        DatabaseConnection dbc = new DatabaseConnection();
+        java.sql.Connection conn = dbc.connectToDB();
+        CallableStatement cs = null;
+        try {
+            cs = conn.prepareCall("SELECT * FROM eg_users_has_eg_events WHERE eg_users_userID = ? AND eg_events_eventID = ?");
+            cs.setInt(1, userID);
+            cs.setInt(2, eventID);
+            cs.execute();
+            ResultSet rs = cs.getResultSet();
+            
+            if (rs != null && rs.next())
+            {
+                conn.close();
+                return true;
+            }
+            conn.close();
+            return false;
+        } catch (SQLException se) {
+            conn.close();
+            return false;
+        }
+    }
 }

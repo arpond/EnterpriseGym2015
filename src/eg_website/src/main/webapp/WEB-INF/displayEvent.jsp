@@ -95,7 +95,7 @@
 
                                     <p>
                                     <form method="POST"  action="Event">
-                                        <input type="hidden" name="eventID" value="">
+                                        <input type="hidden" name="eventID" value="<%=eventID%>">
                                         <br> 
                                         <input type="submit" value="Sign up for the event" class="btn btn-default" style="display:block;margin: 0 auto;" id="signUpButton">
                                     </form>
