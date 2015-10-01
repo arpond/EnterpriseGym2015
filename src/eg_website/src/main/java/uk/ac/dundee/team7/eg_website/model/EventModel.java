@@ -59,16 +59,21 @@ public class EventModel {
             cs.execute();
             rs = cs.getResultSet();
             
-            rs.first();
+            //rs.first();
             
             int id=0;
             try
             {
-                String temp = rs.getString("contentID");
-                id =Integer.parseInt(temp);
+                if (rs.next())
+                {
+                    String temp = rs.getString("contentID");
+                    id =Integer.parseInt(temp);
+                }
             }
             catch (Exception e)
             {
+                String ex = e.toString();
+                System.out.println(ex);
             }
             
             conStore.setContent(rs.getString("content"));
@@ -100,7 +105,8 @@ public class EventModel {
             evStore.setEventID(rs.getInt("eventID"));
 
         } catch (SQLException se) {
-            System.out.println(se);
+            String e = se.toString();
+            System.out.println(e);
             conn.close();
             return evStore;
         }
@@ -270,6 +276,7 @@ int tempEventPointTypeID = 1;
             return true;
         } catch (SQLException se) {
             String e = se.toString();
+            System.out.println(e);
             conn.close();
             return false;
         }

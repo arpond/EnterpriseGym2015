@@ -25,11 +25,6 @@ import uk.ac.dundee.team7.eg_website.model.NewsModel;
 
 @WebServlet(name = "ManageEvent", urlPatterns = {"/Admin/markUsersAsAttended"})
 public class ManageEvent extends HttpServlet{
-
-	
-
-
-    
    /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -75,7 +70,7 @@ public class ManageEvent extends HttpServlet{
             Logger.getLogger(ManageEvent.class.getName()).log(Level.SEVERE, null, ex);
         }
                 
-        RequestDispatcher view = request.getRequestDispatcher("/eg_website/Admin");
+        RequestDispatcher view = request.getRequestDispatcher("/Admin");
         view.include(request, response);
     }
 

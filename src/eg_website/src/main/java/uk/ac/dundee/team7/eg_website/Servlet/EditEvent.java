@@ -53,7 +53,7 @@ public class EditEvent extends HttpServlet {
          EventStore cs = new EventStore();
         String tempstring = (String) request.getParameter("eventPath");
         ArrayList<String> tempPointTypeArray = new ArrayList();
-        tempstring = "/Event/" + tempstring;
+        //tempstring = "/Event/" + tempstring;
         System.out.println(tempstring);
         EventModel cm = new EventModel();
         try {
@@ -76,7 +76,7 @@ public class EditEvent extends HttpServlet {
         }
         else
         {
-            request.setAttribute("editContentTitle", cs.getContent().getContentTitle());
+        request.setAttribute("editContentTitle", cs.getContent().getContentTitle());
         request.setAttribute("editContentPath", cs.getContent().getContentPath());
         request.setAttribute("editContent", cs.getContent().getContent());
         request.setAttribute("editContentSummary", cs.getContent().getContentSummary());
@@ -169,7 +169,7 @@ public class EditEvent extends HttpServlet {
             Logger.getLogger(EditNews.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        RequestDispatcher view = request.getRequestDispatcher("/eg_website/Admin/EventOptions");
+        RequestDispatcher view = request.getRequestDispatcher("/Admin/EventOptions");
         view.include(request, response);
     }
 

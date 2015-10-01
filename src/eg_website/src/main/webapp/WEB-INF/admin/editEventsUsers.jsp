@@ -42,7 +42,7 @@
                     <label for="filter">Filter</label>
                     <input type="text" name="filter" value="" id="filter" />
                 </div>
-                    <form method= "POST"  action = "markUsersAsAttended" id ="markUsersAsAttended"> 
+                    <form method= "POST"  action = "/eg_website/Admin/EventOptions" id ="markUsersAsAttended"> 
                           <input hidden name="eventID" id="eventID" value="<%=eventID%>">
                 <input type="submit" value="Edit Attendence for selected users" class="action" id="markUsersAsAttended">
                   

@@ -78,7 +78,27 @@ public class AdminEventManegment extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    
+        EventModel nm = new EventModel();
+        ArrayList<EventStore> csAL = new ArrayList<EventStore>();
+        try {
+            csAL = nm.fetchEvents();
+        } catch (Exception e) {
+            Message.message("Database error. " + e.toString(), request, response);
+            return;
+        }
+        
+        HttpSession session = request.getSession();
+        UserDetails ud = (UserDetails) session.getAttribute("UserDetails");
+        if (ud == null || ud.getGroupID() != 3)
+        {
+            Message.message("You do not have access to the admin page.", request, response);
+        }
+        else
+        {
+            request.setAttribute("allEvensForEdit", csAL);
+            RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/editAllEvents.jsp");
+            view.include(request, response);
+        }
     }
 
     /**
