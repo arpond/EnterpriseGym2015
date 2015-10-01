@@ -143,43 +143,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="page-header">
-                    <h1>Charts</h1>
-                </div>
-                <div class="row">
-                    <!-- /.col-sm-4 -->
-                    <div class="col-sm-4">
-                        <div class="list-group">
-                            <a href="#" class="list-group-item active">
-                                <h4 class="list-group-item-heading">Groups</h4>
-                                <p class="list-group-item-text">Infomation. Information. Information.Infomation. Information. Information.</p>
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <h4 class="list-group-item-heading">Students</h4>
-                                <p class="list-group-item-text">Infomation. Information. Information.Infomation. Information. Information.</p>
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <h4 class="list-group-item-heading">Admin</h4>
-                                <p class="list-group-item-text">Infomation. Information. Information.Infomation. Information. Information.</p>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- /.col-sm-4 -->
-                    <!-- /.col-sm-4 -->
-                    <div class="col-sm-4">
-                        <div class="list-group">
-                            <a href="#" class="list-group-item active">Charts</a>
-                            <a href="#" class="list-group-item">View partipants by country</a>
-                            <a href="#" class="list-group-item">View partipants by subject</a>
-                            <a href="#" class="list-group-item">View partipants by college</a>
-                            <a href="#" class="list-group-item">View partipants by age</a>
-                        </div>
-                    </div>
-                    
-                </div>
-
-              
             </div>
 
         </div>

@@ -45,7 +45,7 @@ public class Admin extends HttpServlet {
         }
         else
         {
-            RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/Admin/adminIndex.jsp");
+            RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/admin/adminIndex.jsp");
             rd.forward(request,response); 
         }
     }
