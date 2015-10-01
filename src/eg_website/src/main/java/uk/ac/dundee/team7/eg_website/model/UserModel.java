@@ -57,7 +57,7 @@ public class UserModel {
         try
         {
             String encodedPassword = Utils.SHA256(UsrPassword + storedSalt);
-            if (encodedPassword != storedPass)
+            if (!encodedPassword.equals(storedPass))
             {
                 details.setUserID(0);
             }

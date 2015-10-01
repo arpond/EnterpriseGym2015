@@ -72,7 +72,7 @@ public class Register extends HttpServlet {
         }
         else
         {
-            request.setAttribute("message", "There was a problem with your registation - " + result );
+            request.setAttribute("message", "There was a problem with your registation");
             RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/message.jsp");
             view.forward(request, response);
         }
