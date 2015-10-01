@@ -21,7 +21,7 @@
                         <ul><table>
                                 <h2>Add news below</h2> <br>
                                 <p><h4>News Title <input type="text" name="newsTitle"> 
-                                    News Path</label> <input type="text" name="newsPath"> 
+                                    News Path</label> /News/<input type="text" name="newsPath"> 
                                     Image link</label> <input type="text" name="newsLink">
                                 </h4></p>
 
