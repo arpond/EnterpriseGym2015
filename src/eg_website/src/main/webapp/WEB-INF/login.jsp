@@ -36,7 +36,7 @@
 
         <div class="container" style="border:20px transparent; max-width:600px">
 
-            <form class="updateForm" method="POST"  action="/eg_website/Login" id="Login"> 
+            <form class="updateForm" method="POST"  action="/2015-indteam7/Login" id="Login"> 
                 <div class="form-group">
                     <ul>
                         <label for="input">User Name </label>

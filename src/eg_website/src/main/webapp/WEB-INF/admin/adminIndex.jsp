@@ -24,7 +24,7 @@
                         </h1>
                         <ol class="breadcrumb">
                             <li>
-                                <i class="fa fa-dashboard"></i>  <a href="/eg_website/Admin">Dashboard</a>
+                                <i class="fa fa-dashboard"></i>  <a href="/2015-indteam7/Admin">Dashboard</a>
                             </li>
                             <li class="active">
                                 <i class="fa fa-desktop"></i> Admin Home
@@ -38,7 +38,7 @@
                     <div class="col-sm-3">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><a href="/eg_website/Admin/addContent">Add new content</a></h3>
+                                <h3 class="panel-title"><a href="/2015-indteam7/Admin/addContent">Add new content</a></h3>
                             </div>
                             <div class="panel-body">
                                 Add new content page.
@@ -46,7 +46,7 @@
                         </div>
                         <div class="panel panel-primary">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><a href="/eg_website/Admin/ContentOptions">Manage existing content</a></h3>
+                                <h3 class="panel-title"><a href="/2015-indteam7/Admin/ContentOptions">Manage existing content</a></h3>
                             </div>
                             <div class="panel-body">
                                 Edit existing content
@@ -54,7 +54,7 @@
                         </div>
                         <div class="panel panel-green">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><a href="/eg_website/Admin/deleteContent">Delete Content</a></h3>
+                                <h3 class="panel-title"><a href="/2015-indteam7/Admin/deleteContent">Delete Content</a></h3>
                             </div>
                             <div class="panel-body">
                                 Remove content pages.
@@ -65,7 +65,7 @@
                     <div class="col-sm-3">
                         <div class="panel panel-success">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><a href="/eg_website/Admin/addNews">Add News</a></h3>
+                                <h3 class="panel-title"><a href="/2015-indteam7/Admin/addNews">Add News</a></h3>
                             </div>
                             <div class="panel-body">
                                 Add a new piece of news.
@@ -73,7 +73,7 @@
                         </div>
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><a href="/eg_website/Admin/NewsOptions">Manage News</a></h3>
+                                <h3 class="panel-title"><a href="/2015-indteam7/Admin/NewsOptions">Manage News</a></h3>
                             </div>
                             <div class="panel-body">
                                 Edit a piece of news
@@ -81,7 +81,7 @@
                         </div>
                         <div class="panel panel-yellow">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><a href="/eg_website/Admin/deleteNews">Delete News</a></h3>
+                                <h3 class="panel-title"><a href="/2015-indteam7/Admin/deleteNews">Delete News</a></h3>
                             </div>
                             <div class="panel-body">
                                 Delete a piece of News
@@ -92,7 +92,7 @@
                     <div class="col-sm-3">
                         <div class="panel panel-warning">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><a href="/eg_website/Admin/addEvent">Add event</a></h3>
+                                <h3 class="panel-title"><a href="/2015-indteam7/Admin/addEvent">Add event</a></h3>
                             </div>
                             <div class="panel-body">
                                 Add a new event
@@ -100,7 +100,7 @@
                         </div>
                         <div class="panel panel-danger">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><a href="/eg_website/Admin/EventOptions">Edit an event</a></h3>
+                                <h3 class="panel-title"><a href="/2015-indteam7/Admin/EventOptions">Edit an event</a></h3>
                             </div>
                             <div class="panel-body">
                                 Edit an existing event.
@@ -108,7 +108,7 @@
                         </div>
                         <div class="panel panel-red">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><a href="/eg_website/Admin/deleteEvent">Delete Event</a></h3>
+                                <h3 class="panel-title"><a href="/2015-indteam7/Admin/deleteEvent">Delete Event</a></h3>
                             </div>
                             <div class="panel-body">
                                 Delete an event.
@@ -119,7 +119,7 @@
                     <div class="col-sm-3">
                         <div class="panel panel-warning">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><a href="/eg_website/Admin/manageUsers">Manage Users</a></h3>
+                                <h3 class="panel-title"><a href="/2015-indteam7/Admin/manageUsers">Manage Users</a></h3>
                             </div>
                             <div class="panel-body">
                                 Add a new event
@@ -127,7 +127,7 @@
                         </div>
                         <div class="panel panel-danger">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><a href="/eg_website/Admin/manageUsers">Manage Users</a></h3>
+                                <h3 class="panel-title"><a href="/2015-indteam7/Admin/manageUsers">Manage Users</a></h3>
                             </div>
                             <div class="panel-body">
                                 Edit an existing event.
@@ -135,7 +135,7 @@
                         </div>
                         <div class="panel panel-red">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><a href="/eg_website/Admin/manageGroups">Manage Groups</a></h3>
+                                <h3 class="panel-title"><a href="/2015-indteam7/Admin/manageGroups">Manage Groups</a></h3>
                             </div>
                             <div class="panel-body">
                                 Delete an event.

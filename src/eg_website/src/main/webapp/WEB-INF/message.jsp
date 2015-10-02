@@ -11,7 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <!--Needs Changing-->    <meta http-equiv="refresh" content="5; url=http://localhost:8080/eg_website/" />
+        <!--Needs Changing-->    <meta http-equiv="refresh" content="5; url=http://silva.computing.dundee.ac.uk/2015-indteam7/" />
         <title>Message</title>
         <%@include file="/WEB-INF/includes/scripts.jsp" %>
     </head>
@@ -28,7 +28,7 @@
                     %>
                 </h3>
                 <br>
-                <h3>You will be redirected to the index in 5 seconds... or return to <a href="/eg_website/">Homepage</a></h3>
+                <h3>You will be redirected to the index in 5 seconds... or return to <a href="/2015-indteam7/">Homepage</a></h3>
             </article>
         </div>
         <%@include file="/WEB-INF/includes/normalFooter.jsp" %>

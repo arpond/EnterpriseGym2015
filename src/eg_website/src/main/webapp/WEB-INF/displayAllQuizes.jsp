@@ -82,7 +82,7 @@
                             if (current.getStatus() < 2)
                             {
                                             %>
-                                            <a href="/eg_website/Quiz/<%=current.getQuizId()%>"><%=current.getQuizName()%></a>
+                                            <a href="/2015-indteam7/Quiz/<%=current.getQuizId()%>"><%=current.getQuizName()%></a>
                                             <%
                             }
                             else
@@ -117,7 +117,7 @@
 
                         %>       
                         <div class="quizItem">
-                            <h4> <a href="/eg_website/Quiz/<%=current.getQuizId()%>"><%=current.getQuizName()%></a><h4>
+                            <h4> <a href="/2015-indteam7/Quiz/<%=current.getQuizId()%>"><%=current.getQuizName()%></a><h4>
                                     </div>
                                     <%
                                             }

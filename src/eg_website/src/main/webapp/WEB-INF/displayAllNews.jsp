@@ -65,13 +65,13 @@
             
             <div class="col-md-8">
             <p>
-                 <h4><a href="/eg_website/<%=ns.getContent().getContentPath()%>"><%=ns.getContent().getContentTitle()%></a></h4>
+                 <h4><a href="/2015-indteam7/<%=ns.getContent().getContentPath()%>"><%=ns.getContent().getContentTitle()%></a></h4>
                  <h5><%=dtfOut.print(ns.getPostedTime())%></h5>
             </p>
             <p><%=ns.getContent().getContentSummary()%></p>
             <%-- <p class="posted"><%=ns.getPostedTime().toString()%></p>
             <p class="category"><%=ns.getCategoryName()%></p> --%>
-            <a href="/eg_website/<%=ns.getContent().getContentPath()%>">Read More..</a>
+            <a href="/2015-indteam7/<%=ns.getContent().getContentPath()%>">Read More..</a>
             </div>
             
         </div>

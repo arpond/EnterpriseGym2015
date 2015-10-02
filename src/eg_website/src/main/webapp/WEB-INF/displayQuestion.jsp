@@ -44,7 +44,7 @@
                     <h2 class="page-header">Quiz </h2>
                     <ol class="breadcrumb">
                         <li><a href="/eg_website">Home</a>
-                        <li><a href="/eg_website/Quiz">Quiz</a>
+                        <li><a href="/2015-indteam7/Quiz">Quiz</a>
                         </li>
                         <li class="active"><%=question.getQuestionNumber()%></li>
                     </ol>
@@ -63,7 +63,7 @@
                 {
             %>
             <p>Choose one:</p>
-            <form method="POST" action="/eg_website/Quiz/<%=question.getQuestionNumber()+1%>" id="question">
+            <form method="POST" action="/2015-indteam7/Quiz/<%=question.getQuestionNumber()+1%>" id="question">
                 <ul>
             <%
                     ArrayList<AnswerStore> ans = question.getAnswerArray();

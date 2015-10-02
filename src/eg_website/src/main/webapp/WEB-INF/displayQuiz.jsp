@@ -44,7 +44,7 @@
                     <h2 class="page-header">Quiz </h2>
                     <ol class="breadcrumb">
                         <li><a href="/eg_website">Home</a>
-                        <li><a href="/eg_website/Quiz">Quiz</a>
+                        <li><a href="/2015-indteam7/Quiz">Quiz</a>
                         </li>
                         <li class="active"><%=quiz.getQuizName()%></li>
                     </ol>

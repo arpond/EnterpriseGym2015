@@ -22,7 +22,7 @@
         <title>All Content Edit</title>
 
         <%@include file="/WEB-INF/includes/adminScripts.jsp" %>
-        <script src="/eg_website/js/tables.js"></script>
+        <script src="/2015-indteam7/js/tables.js"></script>
     </head>
     <body>
         <%@include file="/WEB-INF/includes/adminNav.jsp" %>

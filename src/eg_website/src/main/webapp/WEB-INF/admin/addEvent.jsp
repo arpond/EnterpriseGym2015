@@ -20,11 +20,11 @@
         <title>Calendar</title>
         <%@include file="/WEB-INF/includes/adminScripts.jsp" %>
         <title>How to start</title>
-        <script src="/eg_website/js/dxhtmlxscheduler/dhtmlxscheduler.js" type="text/javascript"></script>
-        <script src="/eg_website/js/dxhtmlxscheduler/dhtmlxscheduler_container_autoresize.js" type="text/javascript"></script>
-        <link rel="stylesheet" href="/eg_website/css/dhtmlxscheduler.css" type="text/css">        
-        <script src="/eg_website/js/notify.min.js"></script>
-        <script src="/eg_website/js/verify.notify.js"></script>
+        <script src="/2015-indteam7/js/dxhtmlxscheduler/dhtmlxscheduler.js" type="text/javascript"></script>
+        <script src="/2015-indteam7/js/dxhtmlxscheduler/dhtmlxscheduler_container_autoresize.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="/2015-indteam7/css/dhtmlxscheduler.css" type="text/css">        
+        <script src="/2015-indteam7/js/notify.min.js"></script>
+        <script src="/2015-indteam7/js/verify.notify.js"></script>
     </head>
     <%
         HashMap types = (HashMap) request.getAttribute("pointTypes");

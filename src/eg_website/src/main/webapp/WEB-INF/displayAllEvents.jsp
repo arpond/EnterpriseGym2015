@@ -23,10 +23,10 @@
         <title>All Events</title>
 
         <%@include file="/WEB-INF/includes/scripts.jsp" %>
-        <script src="/eg_website/js/dxhtmlxscheduler/dhtmlxscheduler.js" type="text/javascript"></script>
-        <script src="/eg_website/js/dxhtmlxscheduler/dhtmlxschedule_minical.js" type="text/javascript"></script>
-        <script src="/eg_website/js/dxhtmlxscheduler/dhtmlxscheduler_container_autoresize.js" type="text/javascript"></script>
-        <link rel="stylesheet" href="/eg_website/css/dhtmlxscheduler.css" type="text/css">
+        <script src="/2015-indteam7/js/dxhtmlxscheduler/dhtmlxscheduler.js" type="text/javascript"></script>
+        <script src="/2015-indteam7/js/dxhtmlxscheduler/dhtmlxschedule_minical.js" type="text/javascript"></script>
+        <script src="/2015-indteam7/js/dxhtmlxscheduler/dhtmlxscheduler_container_autoresize.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="/2015-indteam7/css/dhtmlxscheduler.css" type="text/css">
 
     </head>
 

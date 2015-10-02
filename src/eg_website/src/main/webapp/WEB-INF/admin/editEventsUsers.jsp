@@ -25,8 +25,8 @@
         <title>Event Attendees</title>
 
         <%@include file="/WEB-INF/includes/adminScripts.jsp" %>
-         <script src="/eg_website/js/users.js"></script>
-        <script src="/eg_website/js/tables.js"></script>
+         <script src="/2015-indteam7/js/users.js"></script>
+        <script src="/2015-indteam7/js/tables.js"></script>
     </head>
     <body>
         <%@include file="/WEB-INF/includes/adminNav.jsp" %>
@@ -42,7 +42,7 @@
                     <label for="filter">Filter</label>
                     <input type="text" name="filter" value="" id="filter" />
                 </div>
-                    <form method= "POST"  action = "/eg_website/Admin/EventOptions" id ="markUsersAsAttended"> 
+                    <form method= "POST"  action = "/2015-indteam7/Admin/EventOptions" id ="markUsersAsAttended"> 
                           <input hidden name="eventID" id="eventID" value="<%=eventID%>">
                 <input type="submit" value="Edit Attendence for selected users" class="action" id="markUsersAsAttended">
                   

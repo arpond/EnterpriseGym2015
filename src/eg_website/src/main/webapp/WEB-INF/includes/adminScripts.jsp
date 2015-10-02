@@ -12,7 +12,7 @@
 
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<script src="/eg_website/js/bootstrap.min.js"></script>
+<script src="/2015-indteam7/js/bootstrap.min.js"></script>
 <script src="//cdn.ckeditor.com/4.5.3/full-all/ckeditor.js"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -30,10 +30,10 @@
 
 
 <!-- Bootstrap Core CSS -->
-<link href="/eg_website/css/bootstrap.min.css" rel="stylesheet">
+<link href="/2015-indteam7/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom CSS -->
-<link href="/eg_website/css/admin.css" rel="stylesheet">
+<link href="/2015-indteam7/css/admin.css" rel="stylesheet">
 
 <!-- Custom Fonts -->
 <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -45,5 +45,5 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 <!-- Include Verification -->
-<script src="/eg_website/js/notify.min.js"></script>
-<script src="/eg_website/js/verify.notify.js"></script>
+<script src="/2015-indteam7/js/notify.min.js"></script>
+<script src="/2015-indteam7/js/verify.notify.js"></script>

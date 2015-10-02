@@ -26,7 +26,7 @@
 
         <div class="container" style="border:20px transparent; max-width:600px">
 
-            <form class="registerForm" method="POST"  action="/eg_website/Register" >
+            <form class="registerForm" method="POST"  action="/2015-indteam7/Register" >
                 <div class="form-group">
                     <ul>
                         <label for="input">Username </label>

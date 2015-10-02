@@ -17,8 +17,8 @@
     %>
     <head>
         <%@include file="/WEB-INF/includes/adminScripts.jsp" %>
-        <script src="/eg_website/js/users.js"></script>
-        <script src="/eg_website/js/tables.js"></script>
+        <script src="/2015-indteam7/js/users.js"></script>
+        <script src="/2015-indteam7/js/tables.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Manage Users</title>
         <style>

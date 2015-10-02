@@ -176,7 +176,7 @@
                             }
                         %>
                     </div>
-                    <script src="/eg_website/js/profile.js"></script>
+                    <script src="/2015-indteam7/js/profile.js"></script>
             </form>
         </div>
 
